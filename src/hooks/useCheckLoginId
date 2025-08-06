@@ -1,0 +1,42 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const useCheckLoginId = (loginId, delay = 500) => {
+  const [isIdChecked, setIsIdChecked] = useState(false);
+  const [isIdAvailable, setIsIdAvailable] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!loginId) {
+      setIsIdChecked(false);
+      setIsIdAvailable(false);
+      setMessage("");
+      return;
+    }
+
+    const handler = setTimeout(async () => {
+      try {
+        const res = await axios.get(`/api/member/check-id?loginId=${loginId}`);
+        setIsIdChecked(true);
+        setIsIdAvailable(true);
+        setMessage("사용 가능한 아이디입니다.");
+      } catch (err) {
+        if (err.response?.status === 409) {
+          setIsIdChecked(true);
+          setIsIdAvailable(false);
+          setMessage("이미 사용 중인 아이디입니다.");
+        } else {
+          setIsIdChecked(false);
+          setIsIdAvailable(false);
+          setMessage("아이디 확인 중 오류 발생");
+        }
+      }
+    }, delay);
+
+    return () => clearTimeout(handler);
+  }, [loginId]);
+
+  return { isIdChecked, isIdAvailable, message };
+};
+
+export default useCheckLoginId;
