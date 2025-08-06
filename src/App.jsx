@@ -12,7 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Auth />} /> {/* ✅ 경로 대응 */}
-        <Route path="/oauth-redirect" element={<OAuthRedirectHandler />} />
+        <Route path="/oauth-success" element={<OAuthRedirectHandler />} />
         <Route path="/social-extra" element={<SocialExtra />} /> 
       </Routes>
     </Router>
