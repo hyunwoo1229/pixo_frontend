@@ -32,39 +32,38 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#f8f9fa]">
-  <div className="p-10 rounded-xl shadow-xl bg-white w-full max-w-md">
-    <RegisterLogo />
+    <div className="flex justify-center items-start pt-12 md:pt-24 lg:pt-36 min-h-screen bg-[#f8f9fa]">
+      <div className="p-10 rounded-xl shadow-xl bg-white w-full max-w-md">
+        <RegisterLogo />
 
-    <LoginInputGroup
-      loginId={loginId}
-      setLoginId={setLoginId}
-      password={password}
-      setPassword={setPassword}
-    />
+        <LoginInputGroup
+          loginId={loginId}
+          setLoginId={setLoginId}
+          password={password}
+          setPassword={setPassword}
+        />
 
-    {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
 
-    <div className="mt-6">
-      <SubmitLoginButton
-        disabled={!loginId || !password}
-        onClick={handleSubmit}
-      />
+        <div className="mt-6">
+          <SubmitLoginButton
+            disabled={!loginId || !password}
+            onClick={handleSubmit}
+          />
+        </div>
+
+        <div className="flex items-center my-6">
+          <div className="flex-grow h-px bg-gray-300" />
+          <span className="px-3 text-gray-400 text-sm">Or continue with</span>
+          <div className="flex-grow h-px bg-gray-300" />
+        </div>
+
+        <SocialLoginButtons />
+
+        <div className="mt-6">
+          <NoAccountLink />
+        </div>
+      </div>
     </div>
-
-    <div className="flex items-center my-6">
-      <div className="flex-grow h-px bg-gray-300" />
-      <span className="px-3 text-gray-400 text-sm">Or continue with</span>
-      <div className="flex-grow h-px bg-gray-300" />
-    </div>
-
-    <SocialLoginButtons />
-    <div className="mt-6">
-      <NoAccountLink />
-    </div>
-  </div>
-</div>
   );
-  
-  
 }
