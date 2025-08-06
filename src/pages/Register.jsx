@@ -6,6 +6,7 @@ import NamePhoneInputGroup from "../components/Register/NamePhoneInputGroup";
 import AgreementSection from "../components/Register/AgreementSection";
 import SubmitRegisterButton from "../components/Register/SubmitRegisterButton";
 import IdCheckMessage from "../components/Register/IdCheckMessage";
+import VerificationCodeInput from "../components/Register/VerificationCodeInput";
 import useCheckLoginId from "../hooks/useCheckLoginId";
 
 export default function Register() {
@@ -14,6 +15,7 @@ export default function Register() {
     password: "",
     name: "",
     phoneNumber: "",
+    code: "",
     agreements: {
       all: false,
       over14: false,
@@ -22,11 +24,13 @@ export default function Register() {
     },
   });
 
-  const [isExpanded, setIsExpanded] = useState(true); // ✅ UX 개선: 약관은 기본적으로 펼쳐짐
-
-  const toggleExpand = () => setIsExpanded((prev) => !prev);
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [isCodeVerified, setIsCodeVerified] = useState(false);
 
   const { isIdChecked, isIdAvailable, message } = useCheckLoginId(form.loginId);
+
+  const toggleExpand = () => setIsExpanded((prev) => !prev);
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
@@ -53,13 +57,42 @@ export default function Register() {
     }
   };
 
+  const handleSendCode = async () => {
+    if (!form.phoneNumber || form.phoneNumber.length !== 11) {
+      alert("전화번호를 정확히 입력해주세요.");
+      return;
+    }
+
+    try {
+      await axios.post("/api/member/send-code", null, {
+        params: { phoneNumber: form.phoneNumber },
+      });
+      setIsCodeSent(true);
+      alert("인증번호가 전송되었습니다.");
+    } catch (err) {
+      console.error("전송 오류:", err.response?.data || err.message);
+      alert("인증번호 전송 실패");
+    }
+  };
+
+  const handleVerifyCode = async () => {
+    try {
+      await axios.post("/api/member/register", { ...form, skipSave: true }); // 백엔드에서 분기 처리 필요
+      setIsCodeVerified(true);
+      alert("인증번호 확인 성공");
+    } catch (err) {
+      console.error(err);
+      alert("인증번호가 일치하지 않습니다.");
+    }
+  };
+
   const handleSubmit = async () => {
     try {
       await axios.post("/api/member/register", form);
-      alert("회원가입 요청 완료");
+      alert("회원가입 성공");
     } catch (err) {
       console.error(err);
-      alert("오류 발생");
+      alert("회원가입 실패");
     }
   };
 
@@ -68,7 +101,9 @@ export default function Register() {
       <div className="w-full max-w-md flex flex-col space-y-4">
         <RegisterLogo />
         <AuthInputGroup form={form} handleChange={handleChange} />
-        {isIdChecked && <IdCheckMessage message={message} isValid={isIdAvailable} />}
+        {isIdChecked && (
+          <IdCheckMessage message={message} isValid={isIdAvailable} />
+        )}
         <NamePhoneInputGroup form={form} handleChange={handleChange} />
         <AgreementSection
           form={form}
@@ -76,11 +111,23 @@ export default function Register() {
           isExpanded={isExpanded}
           toggleExpand={toggleExpand}
         />
+        {/* ✅ 인증번호 입력란을 가입 버튼 바로 위로 이동 */}
+        {isCodeSent && (
+          <VerificationCodeInput
+            value={form.code}
+            onChange={handleChange}
+            onVerify={handleVerifyCode}
+            isVerified={isCodeVerified}
+          />
+        )}
         <SubmitRegisterButton
-          onClick={handleSubmit}
+          onClick={isCodeSent ? handleSubmit : handleSendCode}
           phoneNumber={form.phoneNumber}
           isIdAvailable={isIdAvailable}
           isAgreementChecked={form.agreements.all}
+          isCodeVerified={isCodeVerified}
+          isCodeSent={isCodeSent}
+          code={form.code}
         />
       </div>
     </div>
