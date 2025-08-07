@@ -5,6 +5,26 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React</title>
+
+    <!-- ✅ 1. NanumBrush.ttf preload -->
+    <link
+      rel="preload"
+      href="/fonts/NanumBrush.ttf"
+      as="font"
+      type="font/ttf"
+      crossorigin="anonymous"
+    />
+
+    <!-- ✅ 2. Optional: 초기 스타일 숨김 (FOUC 방지용, 필요시) -->
+    <style>
+      @font-face {
+        font-family: "NanumBrush";
+        src: url("/fonts/NanumBrush.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block; /* FOUC 방지 핵심 설정 */
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

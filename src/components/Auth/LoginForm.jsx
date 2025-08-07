@@ -33,7 +33,7 @@ export default function LoginForm() {
 
   return (
     <div className="flex justify-center items-start pt-12 md:pt-24 lg:pt-36 min-h-screen bg-[#f8f9fa]">
-      <div className="p-10 rounded-xl shadow-xl bg-white w-full max-w-md">
+      <div className="p-10 rounded-xl shadow-xl bg-white w-full max-w-md overflow-visible">
         <RegisterLogo />
 
         <LoginInputGroup
@@ -43,7 +43,12 @@ export default function LoginForm() {
           setPassword={setPassword}
         />
 
-        {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
+{error && (
+  <p className="text-red-500 text-sm sm:text-base mt-3 break-words whitespace-pre-wrap min-h-[1.5rem] w-full">
+    {error}
+  </p>
+)}
+
 
         <div className="mt-6">
           <SubmitLoginButton
