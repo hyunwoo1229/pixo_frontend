@@ -1,5 +1,5 @@
+import axios from "../../api/axios"; 
 import React, { useState } from "react";
-import axios from "axios";
 import LoginInputGroup from "./LoginInputGroup";
 import SubmitLoginButton from "./SubmitLoginButton";
 import SocialLoginButtons from "./SocialLoginButtons";

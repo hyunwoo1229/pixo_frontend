@@ -1,0 +1,36 @@
+import React from "react";
+import axios from "../../api/axios";
+import { useNavigate } from "react-router-dom";
+
+export default function Logout({ className = "" }) {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) return;
+
+    try {
+      await axios.post("/api/auth/logout", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("name");
+
+      alert("로그아웃 되었습니다.");
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      alert("로그아웃 실패");
+    }
+  };
+
+  return (
+    <button onClick={handleLogout} className={`w-full text-left px-6 py-4 border-b ${className}`}>
+      로그아웃
+    </button>
+  );
+}
