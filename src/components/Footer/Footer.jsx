@@ -1,0 +1,56 @@
+import React from "react";
+
+export default function Footer() {
+  return (
+    // ✅ 모바일: 화면 끝까지 검은 배경(full-bleed)
+    // ✅ iOS 하단 제스처영역 안전패딩 적용
+    <footer
+      className="w-full bg-black text-white"
+      style={{ paddingBottom: "max(env(safe-area-inset-bottom), 2rem)" }}
+    >
+      {/* 모바일: 여백만, 데스크톱: 중앙 카드형으로 감싸기 */}
+      <div className="px-5 pt-10 md:pt-12 md:pb-10 md:px-8 md:max-w-screen-sm md:mx-auto md:bg-black md:rounded-2xl md:my-8">
+        {/* 로고 */}
+        <h1
+          className="text-6xl font-bold"
+          style={{ fontFamily: "var(--logo-font)" }}
+        >
+          PIXO
+        </h1>
+
+        {/* 본문 */}
+        <div className="mt-8 space-y-4 text-sm leading-6">
+          <p className="font-semibold">사업자 정보</p>
+
+          <p>
+            상호명: ~~~ <span className="opacity-40 mx-2">|</span> 대표자: xxx
+            <span className="opacity-40 mx-2">|</span> 사업자 등록 번호: xxxxxxx
+          </p>
+
+          <p>주소: ~~~</p>
+
+          <p>
+            Tel. 010‑xxxx‑xxxx <span className="opacity-40 mx-2">|</span> E‑Mail:
+            xxxxxxx@xxxxxx.com
+          </p>
+
+          <div className="pt-2">
+            <p className="font-semibold">이메일 무단 수집 거부</p>
+            <p className="text-gray-300">
+              본 사이트에 게시된 이메일 주소는 무단 수집을 금지합니다.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <a href="/terms" className="underline underline-offset-2 mr-3">
+              [이용약관]
+            </a>
+            <a href="/privacy" className="underline underline-offset-2">
+              [개인정보 처리방침]
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

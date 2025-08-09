@@ -21,7 +21,7 @@ export default function Logout({ className = "" }) {
       localStorage.removeItem("name");
 
       alert("로그아웃 되었습니다.");
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.error(err);
       alert("로그아웃 실패");

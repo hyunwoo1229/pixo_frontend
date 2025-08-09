@@ -7,10 +7,10 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 5173,
-    allowedHosts: ['f1f44d4d7507.ngrok-free.app'], //원래 localhost5173
+    allowedHosts: ['79d0370928f7.ngrok-free.app'], //원래 localhost5173
     proxy: {
       '/api': {
-        target: 'https://dc8d81a3cb7d.ngrok-free.app', //원래 localhost8080
+        target: 'https://94c75f131f02.ngrok-free.app', //원래 localhost8080
         changeOrigin: true,
         secure: false,
       },
