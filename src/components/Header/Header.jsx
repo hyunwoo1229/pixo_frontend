@@ -45,9 +45,9 @@ function Header() {
         {isOpen && (
           <div className="absolute top-full left-0 w-full bg-white text-black border-t shadow-md">
             <nav className="flex flex-col text-base font-medium">
-              <Link to="/" onClick={closeMenu} className="px-6 py-4 border-b">PIXO</Link>
+              <Link to="/introduce" onClick={closeMenu} className="px-6 py-4 border-b">PIXO</Link>
               <Link to="/price" onClick={closeMenu} className="px-6 py-4 border-b">가격</Link>
-              <Link to="/reserve" onClick={closeMenu} className="px-6 py-4 border-b">예약하기</Link>
+              <Link to="/reserve/type" onClick={closeMenu} className="px-6 py-4 border-b">예약하기</Link>
               <Link to="/inquiry" onClick={closeMenu} className="px-6 py-4 border-b">1:1 문의</Link>
 
               <hr />

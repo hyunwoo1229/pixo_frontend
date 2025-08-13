@@ -2,13 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@import "@fontsource/pretendard";
+@import "@fontsource/pretendard/variable.css";
 
 
 @font-face {
   font-family: 'NanumBrush';
-  src: url('/fonts/NanumBrush.ttf') format('truetype');
+  src:url('/fonts/NanumBrush.woff2') format('woff2'),
+      url('/fonts/NanumBrush.ttf') format('truetype');
   font-display: swap;
 }
 

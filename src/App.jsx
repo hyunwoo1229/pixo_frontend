@@ -11,7 +11,10 @@ import OAuthRedirectHandler from "./pages/OAuthRedirectHandler";
 import SocialExtra from "./pages/SocialExtra";
 import ChangePassword from "./pages/ChangePassword";
 import Withdraw from "./pages/Withdraw";
-// 예약 조회/가격/예약하기/문의 페이지가 있다면 import
+import Type from "./pages/Reservation/Type";
+import DatePick from "./pages/Reservation/Date";
+import Form from "./pages/Reservation/Form";
+import Complete from "./pages/Reservation/Complete";
 
 export default function App() {
   return (
@@ -26,6 +29,10 @@ export default function App() {
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/withdraw" element={<Withdraw />} />
           <Route path="/reservation-history" element={<div className="px-6 pt-4">예약 조회</div>} />
+          <Route path="/reserve/type" element={<Type />} />
+          <Route path="/reserve/date" element={<DatePick />} />
+          <Route path="/reserve/form" element={<Form />} />
+          <Route path="/reserve/complete" element={<Complete />} />
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}
