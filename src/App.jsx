@@ -15,6 +15,11 @@ import Type from "./pages/Reservation/Type";
 import DatePick from "./pages/Reservation/Date";
 import Form from "./pages/Reservation/Form";
 import Complete from "./pages/Reservation/Complete";
+import QuestionList from "./pages/Question/QuestionList";
+import QuestionFormPage from "./pages/Question/QuestionFormPage";
+
+// ✅ 관리자 페이지
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 export default function App() {
   return (
@@ -33,6 +38,12 @@ export default function App() {
           <Route path="/reserve/date" element={<DatePick />} />
           <Route path="/reserve/form" element={<Form />} />
           <Route path="/reserve/complete" element={<Complete />} />
+          <Route path="/question" element={<QuestionList />} />
+          <Route path="/question/new" element={<QuestionFormPage />} />
+          <Route path="/question/edit/:id" element={<QuestionFormPage />} />
+
+          {/* ✅ 관리자 전용 페이지 (헤더/푸터 포함) */}
+          <Route path="/admin" element={<AdminDashboard />} />
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}

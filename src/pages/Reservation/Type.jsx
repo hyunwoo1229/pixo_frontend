@@ -1,3 +1,4 @@
+// src/pages/Reservation/Type.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
@@ -7,19 +8,36 @@ import ReservationHeader from "../../components/Reservation/ReservationHeader.js
 import "../../styles/reservation.css";
 import { setReservation } from "../../hooks/useReservationSession";
 
-// 예약 enum + 커버 매핑
 const TYPES = [
   { code: "PROMOTION", label: "홍보용 촬영", cover: "PROMOTION_MAIN" },
   { code: "PORTRAIT",  label: "인물 촬영",   cover: "PORTRAIT_MAIN"  },
   { code: "OBJECT",    label: "사물 촬영",   cover: "OBJECT_MAIN"    },
 ];
 
-async function fetchCover(coverEnum) {
+// 서버 응답에서 이미지 필드 통일
+const toUrl = (row) => row?.imageUrl || row?.url || row?.image || row?.path || "";
+
+// ✅ 절대 URL로 변환 (axios 인스턴스 baseURL 사용)
+const ORIGIN = (axios.defaults?.baseURL || import.meta.env.VITE_API_BASE_URL || "").replace(/\/+$/,"");
+const withOrigin = (u) => {
+  if (!u) return "";
+  if (/^https?:\/\//i.test(u)) return u;           // 이미 절대주소면 그대로
+  return `${ORIGIN}${u.startsWith("/") ? u : `/${u}`}`;
+};
+
+// 대표 없으면 기본으로 폴백해서 커버 1장 가져오기
+async function fetchCoverImage(code, cover) {
   try {
-    const { data } = await axios.get("/api/photo/", { params: { category: coverEnum } });
-    const first = Array.isArray(data) && data.length > 0 ? data[0] : null;
-    return first?.imageUrl || first?.url || first?.image || null;
-  } catch { return null; }
+    const r1 = await axios.get("/api/photo", { params: { category: cover } });
+    let arr = Array.isArray(r1.data) ? r1.data : [];
+    if (!arr.length) {
+      const r2 = await axios.get("/api/photo", { params: { category: code } });
+      arr = Array.isArray(r2.data) ? r2.data : [];
+    }
+    return withOrigin(toUrl(arr[0]));   // ★ 절대주소로 바꿔서 반환
+  } catch {
+    return "";
+  }
 }
 
 export default function Type() {
@@ -30,14 +48,14 @@ export default function Type() {
   useEffect(() => {
     let alive = true;
     (async () => {
-      const withCovers = await Promise.all(
+      const items = await Promise.all(
         TYPES.map(async (t) => ({
           id: t.code,
           label: t.label,
-          image: await fetchCover(t.cover),
+          image: await fetchCoverImage(t.code, t.cover),
         }))
       );
-      if (alive) { setCats(withCovers); setLoading(false); }
+      if (alive) { setCats(items); setLoading(false); }
     })();
     return () => { alive = false; };
   }, []);

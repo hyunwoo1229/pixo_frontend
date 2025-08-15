@@ -19,6 +19,7 @@ export default function Logout({ className = "" }) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("name");
+      localStorage.removeItem("role");
 
       alert("로그아웃 되었습니다.");
       navigate("/");

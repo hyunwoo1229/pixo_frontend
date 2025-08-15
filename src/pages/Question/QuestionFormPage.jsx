@@ -1,0 +1,78 @@
+// src/pages/Question/QuestionFormPage.jsx
+import React, { useMemo, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import axios from "../../api/axios";
+import RegisterLogo from "../../components/Register/RegisterLogo";
+import QuestionForm from "../../components/Question/QuestionForm";
+import "../../styles/reservation.css";
+
+import BackButton from "../../components/Common/BackButton.jsx";
+
+export default function QuestionFormPage() {
+  const nav = useNavigate();
+  const { id } = useParams();
+  const { state } = useLocation();
+  const token = localStorage.getItem("accessToken");
+
+  const editing = useMemo(() => !!id, [id]);
+  const [submitting, setSubmitting] = useState(false);
+
+  const initial =
+    editing && state?.item
+      ? { title: state.item.title || "", content: state.item.content || "" }
+      : { title: "", content: "" };
+
+  async function handleSubmit(values) {
+    try {
+      if (!token) { alert("로그인이 필요합니다."); nav("/login"); return; }
+      setSubmitting(true);
+      if (editing) {
+        await axios.put(`/api/question/${id}`, values, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("문의가 수정되었습니다.");
+      } else {
+        await axios.post("/api/question", values, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        alert("문의가 등록되었습니다.");
+      }
+      nav("/question", { replace: true });
+    } catch (e) {
+      const msg = e?.response?.data?.message || e?.response?.data?.error || "처리에 실패했습니다.";
+      alert(msg);
+    } finally { setSubmitting(false); }
+  }
+
+  return (
+    <div className="reserve-page min-h-screen bg-white">
+    <div className="bg-white">
+      <div className="relative max-w-md mx-auto px-4 py-3">
+        <BackButton
+          onClick={() => nav(-1)}
+          className="absolute left-2 top-1/2 -translate-y-1/2"
+          size={26}           // 필요하면 24~28 조절
+          strokeWidth={2.5}
+        />
+        <h2 className="text-lg font-extrabold text-center">
+          1:1 문의 {editing ? "수정하기" : "작성하기"}
+        </h2>
+      </div>
+    </div>
+
+      {/* 본문 */}
+      <div className="px-6 pt-6 max-w-md mx-auto">
+        <RegisterLogo />
+        <div className="mt-6">
+          <QuestionForm
+            initialValues={initial}
+            submitting={submitting}
+            onSubmit={handleSubmit}
+            onCancel={() => nav("/question")}
+            ui={{ inputClass: "h-12", textareaClass: "min-h-[220px]" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}

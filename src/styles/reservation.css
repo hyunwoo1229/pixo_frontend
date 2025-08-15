@@ -190,6 +190,7 @@
     max-width: 380px; /* 원하는 만큼 조절 (예: 380~460px 사이) */
     margin: 12px auto 40px; /* auto로 가운데 배치 */
     padding-bottom: 20px;
+    
 }
 
 /* 바 길이 줄이기 */
@@ -225,19 +226,5 @@
     text-align: center !important; /* 부모 flex 영향 무시 */
   }
   
-/* Type 페이지에서도 동일하게 적용되도록 우선순위 높임 */
-.reserve-page.type-page .back-btn,
-.reserve-page .back-btn {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  height: 44px !important;
-  width: 44px !important;
-  font-size: 30px !important;
-  border: none !important;
-  background: transparent !important;
-  line-height: 1 !important;
-  font-weight: 600 !important;
-  padding: 0 !important;
-  cursor: pointer !important;
-}
+/* 헤더 안에서 스텝퍼 중앙 고정(다른 규칙보다 우선) */
+.reserve-page .reserve-header .stepper-wrap { display:flex; justify-content:center; }

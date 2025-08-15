@@ -49,8 +49,8 @@ export default function DatePick() {
 
   return (
     <div className="reserve-page">
-      <ReservationHeader title={`${cat.categoryLabel} 예약`} back onBack={() => nav(-1)} />
-      <Stepper current={2} />
+          <ReservationHeader title={`${cat.categoryLabel} 예약`} back onBack={() => nav(-1)} />
+          <Stepper current={2} />
 
       <section className="section">
         <div className="section-title-row">
