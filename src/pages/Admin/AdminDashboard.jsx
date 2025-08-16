@@ -17,17 +17,7 @@ const FILE_LIMIT_MB = 50;
 // 서버 DTO 키 정규화
 const toUrl = (row) => row?.imageUrl || row?.url || row?.image || "";
 
-// axios 인스턴스의 baseURL(=VITE_API_BASE_URL)을 이용해 절대 URL로 변환
-const ORIGIN =
-  (axios.defaults?.baseURL || import.meta.env.VITE_API_BASE_URL || "")
-    .toString()
-    .replace(/\/+$/, ""); // 끝 슬래시 제거
-
-const withOrigin = (u) => {
-  if (!u) return "";
-  if (/^https?:\/\//i.test(u)) return u;           // 이미 절대경로면 그대로
-  return `${ORIGIN}${u.startsWith("/") ? u : `/${u}`}`;
-};
+const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용합니다.
 
 export default function AdminDashboard() {
   const [category, setCategory] = useState(CATEGORIES[0].value);
@@ -54,6 +44,8 @@ export default function AdminDashboard() {
   const fetchList = async (cat) => {
     setLoading(true);
     try {
+      console.log("axios 인스턴스 설정:", axios.defaults);
+      console.log("요청 직전 cat:", cat);
       // 절대 경로 사용 (axios baseURL + "/api/photo")
       const { data } = await axios.get("/api/photo", { params: { category: cat } });
       setItems(Array.isArray(data) ? data : []);

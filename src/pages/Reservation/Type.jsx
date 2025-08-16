@@ -17,13 +17,8 @@ const TYPES = [
 // 서버 응답에서 이미지 필드 통일
 const toUrl = (row) => row?.imageUrl || row?.url || row?.image || row?.path || "";
 
-// ✅ 절대 URL로 변환 (axios 인스턴스 baseURL 사용)
-const ORIGIN = (axios.defaults?.baseURL || import.meta.env.VITE_API_BASE_URL || "").replace(/\/+$/,"");
-const withOrigin = (u) => {
-  if (!u) return "";
-  if (/^https?:\/\//i.test(u)) return u;           // 이미 절대주소면 그대로
-  return `${ORIGIN}${u.startsWith("/") ? u : `/${u}`}`;
-};
+const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용합니다.
+
 
 // 대표 없으면 기본으로 폴백해서 커버 1장 가져오기
 async function fetchCoverImage(code, cover) {
