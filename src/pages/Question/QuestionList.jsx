@@ -67,64 +67,57 @@ export default function QuestionList() {
     }
   }
 
-  // 작성하기 버튼 동작
-  function handleClickWrite() {
-    if (!isAuthed) {
-      alert("로그인이 필요합니다.");
-      nav("/login", { state: { from: "/question/new" } });
-      return;
-    }
-    nav("/question/new");
-  }
-
   const empty = useMemo(() => !loading && items.length === 0, [loading, items]);
 
   return (
-    <div className="px-6 pt-4 max-w-md mx-auto">
+    // ▼▼▼▼▼ 이 div에 pb-16 클래스를 추가하여 하단 여백을 확보합니다. ▼▼▼▼▼
+    <div className="px-6 pt-4 pb-16 max-w-md mx-auto">
       {/* 상단 타이틀 */}
       <h1 className="text-center text-xl font-extrabold mb-9">1:1 문의</h1>
-{/* 상단 행: (좌) 내 문의만 보기 / (우) 작성하기 — 둘 다 로그인 시에만 표시 */}
-<div className="flex items-center justify-between mb-3">
-  {isAuthed ? (
-    <>
-      {/* 내 문의만 보기 토글 */}
-      <div className="flex items-center gap-2 text-sm">
-        <span className="text-gray-600">내 문의만 보기</span>
-        <button
-          type="button"
-          onClick={() => setMineOnly((v) => !v)}
-          className={`w-12 h-6 rounded-full transition-colors relative ${
-            mineOnly ? "bg-black" : "bg-gray-300"
-          }`}
-          aria-label="내 문의만 보기"
-        >
-          <span
-            className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all ${
-              mineOnly ? "right-0.5" : "left-0.5"
-            }`}
-          />
-        </button>
-        <span className="text-xs text-gray-500">{mineOnly ? "ON" : "OFF"}</span>
-      </div>
+      
+      {/* 상단 행: (좌) 내 문의만 보기 / (우) 작성하기 */}
+      <div className="flex items-center justify-between mb-3">
+        {isAuthed ? (
+          <>
+            {/* 내 문의만 보기 토글 */}
+            <div className="flex items-center gap-2 text-sm">
+              <span className="text-gray-600">내 문의만 보기</span>
+              <button
+                type="button"
+                onClick={() => setMineOnly((v) => !v)}
+                className={`w-12 h-6 rounded-full transition-colors relative ${
+                  mineOnly ? "bg-black" : "bg-gray-300"
+                }`}
+                aria-label="내 문의만 보기"
+              >
+                <span
+                  className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all ${
+                    mineOnly ? "right-0.5" : "left-0.5"
+                  }`}
+                />
+              </button>
+              <span className="text-xs text-gray-500">{mineOnly ? "ON" : "OFF"}</span>
+            </div>
 
-      {/* 작성하기 버튼 */}
-      <button
-        type="button"
-        onClick={() => nav("/question/new")}
-        className="flex items-center gap-1 text-sm px-3 py-1.5 rounded bg-black text-white"
-      >
-        + 작성하기
-      </button>
-    </>
-  ) : (
-    <div /> // 비로그인 시에는 양쪽 모두 숨김
-  )}
-</div>
+            {/* 작성하기 버튼 */}
+            <button
+              type="button"
+              onClick={() => nav("/question/new")}
+              className="flex items-center gap-1 text-sm px-3 py-1.5 rounded bg-black text-white"
+            >
+              + 작성하기
+            </button>
+          </>
+        ) : (
+          <div /> // 비로그인 시에는 양쪽 모두 숨김
+        )}
+      </div>
+      
       {/* 4열 헤더 */}
       <div
         className="grid text-sm border-b border-t py-2"
         style={{
-          gridTemplateColumns: "85px 1fr 60px 60px", // 답변상태 | 제목 | 작성자 | 작성일
+          gridTemplateColumns: "85px 1fr 60px 60px",
           columnGap: "8px",
         }}
       >
@@ -152,7 +145,7 @@ export default function QuestionList() {
         </ul>
       )}
 
-      {/* 하단 검색 (드롭다운 + 입력·버튼 결합) */}
+      {/* 하단 검색 */}
       <div className="mt-4 border-t pt-3">
         <SearchBar
           mode={mode}

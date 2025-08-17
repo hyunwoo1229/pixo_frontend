@@ -1,15 +1,14 @@
-// src/layouts/MainLayout.jsx
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header"; // Header 경로 확인
+import Footer from "../components/Footer/Footer"; // Footer 경로 확인
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen">
       <Header />
-      {/* Header.jsx 안에 스페이서가 있으므로 여기선 상단 패딩 불필요 */}
-      <main className="pb-10">
+      <main className="flex-grow">
+        {/* 이 Outlet 부분에 App.jsx에서 정의한 자식 페이지들이 렌더링됩니다. */}
         <Outlet />
       </main>
       <Footer />

@@ -1,100 +1,27 @@
-/* ---- Reservation (scoped only to .reserve-page) ---- */
+/* ---- Reservation Pages: Common Styles ---- */
 
-/* 기본 좌측 정렬 + 메뉴/푸터가 내부에 렌더돼도 좌측 유지 */
-.reserve-page { text-align: left; }
-.reserve-page header,
-.reserve-page nav,
-.reserve-page footer,
-.reserve-page .drawer,
-.reserve-page .menu,
-.reserve-page [role="dialog"] { text-align: left !important; }
-
-/* 레이아웃 공통 */
-.reserve-page .reserve-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
-.reserve-page .back-btn { border:none; background:transparent; font-size:18px; padding:6px; cursor:pointer; }
-.reserve-page .reserve-title { font-size:20px; font-weight:700; margin:0 auto 0 0; }
-
-/* 스텝퍼 */
-.reserve-page .stepper { display:flex; align-items:center; gap:8px; margin:12px 0 16px; }
-.reserve-page .step { display:flex; align-items:center; gap:8px; }
-.reserve-page .dot { width:24px; height:24px; border-radius:12px; border:1px solid #aaa; display:flex; align-items:center; justify-content:center; font-size:12px; color:#777; }
-.reserve-page .dot-active { background:#000; color:#fff; border-color:#000; }
-.reserve-page .bar { width:40px; height:2px; background:#e5e5e5; margin:0 6px; }
-.reserve-page .bar-active { background:#000; }
-.reserve-page .step-label { font-size:12px; color:#9a9a9a; }
-.reserve-page .step-label.active { color:#000; }
-
-/* 섹션 */
-.reserve-page .section { margin-top:8px; }
-.reserve-page .section-title { font-size:16px; font-weight:700; margin:8px 0 12px; }
-.reserve-page .section-title-row { display:flex; align-items:center; gap:8px; }
-.reserve-page .emoji { font-size:18px; }
-
-/* 카테고리 그리드 */
-.reserve-page .cat-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
-.reserve-page .cat-card { display:flex; flex-direction:column; gap:8px; border:none; background:transparent; padding:0; text-align:left; cursor:pointer; }
-.reserve-page .cat-image { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px; background:#f0f0f0; }
-.reserve-page .cat-placeholder { background: repeating-linear-gradient(45deg,#eee,#eee 10px,#f8f8f8 10px,#f8f8f8 20px); }
-.reserve-page .cat-caption { font-size:13px; color:#333; text-align:center; }
-
-/* 캘린더 */
-.reserve-page .cal { border:1px solid #e6e6e6; border-radius:12px; padding:12px; }
-.reserve-page .cal-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
-.reserve-page .cal-title { font-weight:700; }
-.reserve-page .nav-btn { border:none; background:transparent; font-size:18px; padding:6px; cursor:pointer; }
-.reserve-page .cal-week { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
-.reserve-page .cal-weekday { text-align:center; font-size:10px; color:#999; padding:4px 0; }
-.reserve-page .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
-.reserve-page .cal-cell { height:40px; display:flex; align-items:center; justify-content:center; font-size:13px; }
-.reserve-page .cal-day { border:1px solid #eee; border-radius:8px; background:#fff; }
-.reserve-page .cal-day.selected { background:#000; color:#fff; border-color:#000; }
-
-/* 폼 */
-.reserve-page .date-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #e6e6e6; border-radius:999px; margin-bottom:12px; font-size:13px; }
-.reserve-page .form { display:flex; flex-direction:column; gap:8px; }
-.reserve-page .label { font-size:13px; color:#555; }
-.reserve-page .input { height:44px; padding:0 12px; border:1px solid #ddd; border-radius:10px; font-size:14px; }
-.reserve-page .helper { font-size:12px; color:#777; line-height:1.4; margin:6px 2px 2px; }
-
-/* 버튼 */
-.reserve-page .primary-btn { margin-top:12px; width:100%; height:48px; border:none; border-radius:12px; background:#000; color:#fff; font-weight:700; font-size:15px; cursor:pointer; }
-.reserve-page .primary-btn:disabled { opacity:.45; cursor:not-allowed; }
-
-/* 완료 카드 */
-.reserve-page .complete-card { text-align:center; padding:16px; border:1px solid #eee; border-radius:16px; }
-.reserve-page .logo-xl { font-family: var(--logo-font, "NanumBrush"), cursive; font-size:56px; line-height:1; margin:0 0 4px; }
-.reserve-page .complete-text { font-size:14px; margin:6px 0 4px; }
-.reserve-page .green { color:#19a24b; font-weight:700; }
-.reserve-page .code { font-size:12px; color:#555; margin-bottom:12px; }
-.reserve-page .receipt { text-align:left; margin:10px 0 12px; }
-.reserve-page .receipt dl { display:flex; gap:8px; margin:6px 0; }
-.reserve-page .receipt dt { width:94px; color:#666; font-size:13px; }
-.reserve-page .receipt dd { margin:0; font-size:13px; }
-.reserve-page .btn-row { display:flex; gap:12px; justify-content:center; align-items:center; }
-.reserve-page .reserve-link { font-size:13px; text-decoration:underline; color:#333; }
-
-/* skeleton */
-.reserve-page .skeleton { background:linear-gradient(90deg,#f1f1f1 25%, #f8f8f8 37%, #f1f1f1 63%); background-size:400% 100%; animation:shimmer 1.4s ease infinite; border-radius:8px; }
-.reserve-page .skeleton-text { height:14px; width:60%; margin:6px auto 0; }
-@keyframes shimmer { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
-
-/* ===== 최종 유지된 OVERRIDES ===== */
-
-/* 페이지 여백 */
+/* 기본 레이아웃 및 여백 */
 .reserve-page {
     max-width: 520px;
     padding: 16px 24px 56px;
     margin: 0 auto;
+    text-align: left;
 }
 
-/* 헤더 제목과 뒤로가기 버튼 간격 */
+.reserve-page .section {
+    margin-top: 8px;
+}
+
+/* 공용 헤더 */
 .reserve-page .reserve-header {
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* 제목을 가운데로 정렬 */
     margin-bottom: 30px;
+    width: 100%;
 }
+
 .reserve-page .reserve-title {
     margin: 0;
     text-align: center;
@@ -102,129 +29,133 @@
     font-weight: 700;
 }
 
-/* 뒤로가기 버튼 */
 .reserve-page .back-btn {
     position: absolute;
     left: -16px;
     top: 50%;
     transform: translateY(-50%);
-    border: none;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    width: 44px;
     font-size: 30px;
-    padding: 10px 4px;
-    line-height: 1.2;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* 스텝퍼 */
-.reserve-page .stepper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin: 12px 0 40px;
-    padding-bottom: 20px;
-}
-.reserve-page .stepper .step,
-.reserve-page .stepper.stepper-v .stepv {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    flex: 0 0 28px;
-    padding: 0;
-}
-.reserve-page .dot,
-.reserve-page .stepper .step-dot {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    border: 1.5px solid #aaa;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    color: #777;
-}
-.reserve-page .dot.dot-active,
-.reserve-page .stepper.stepper-v .stepv.active .step-dot,
-.reserve-page .stepper.stepper-v .stepv.done .step-dot {
-    background: #000;
-    border-color: #000;
-    color: #fff;
-}
-.reserve-page .bar {
-    flex: 1 1 auto;
-    height: 2px;
-    background: #e5e5e5;
-    align-self: center;
-    margin: 0 !important;
-    min-width: 50px;
-}
-.reserve-page .bar.bar-active {
-    background: #000;
-}
-.reserve-page .step-label,
-.reserve-page .stepper.stepper-v .step-label {
-    position: absolute;
-    top: 34px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: max-content;
-    text-align: center;
-    white-space: nowrap;
-    font-size: 12px;
-    color: #9a9a9a;
-}
-.reserve-page .step-label.active,
-.reserve-page .stepper.stepper-v .stepv.active .step-label,
-.reserve-page .stepper.stepper-v .stepv.done .step-label {
-    color: #000;
-}
-/* 스텝퍼 전체 폭 제한 + 가운데 정렬 */
-.reserve-page .stepper {
-    max-width: 380px; /* 원하는 만큼 조절 (예: 380~460px 사이) */
-    margin: 12px auto 40px; /* auto로 가운데 배치 */
-    padding-bottom: 20px;
-    
-}
-
-/* 바 길이 줄이기 */
-.reserve-page .stepper .bar {
-    min-width: 40px; /* 기존보다 짧게 */
-}
-/* 뒤로가기 버튼: 모바일에서도 일정한 세로 높이 */
-.reserve-page .back-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;           /* 고정 높이 */
-    width: 44px;            /* 터치 영역 확보 (정사각형) */
-    font-size: 30px;        /* 화살표 크기 */
     border: none;
     background: transparent;
-    line-height: 1;         /* 글자 높이 영향 제거 */
+    line-height: 1;
     font-weight: 600;
-    padding: 0;             /* 내부 여백 제거 */
+    padding: 0;
     cursor: pointer;
 }
-/* 캘린더 이전/다음 버튼 화살표 크기 */
-.reserve-page .nav-btn {
-    font-size: 35px;   /* 기존보다 크게 */
-    padding: 6px 10px; /* 클릭 영역 여유 */
-    line-height: 1;    /* 세로 가운데 정렬 안정화 */
-  }
-  
-  /* 모바일에서도 사진 아래 글씨 가운데 정렬 강제 */
-.reserve-page .cat-caption {
-    display: block;
-    width: 100%;
-    text-align: center !important; /* 부모 flex 영향 무시 */
-  }
-  
-/* 헤더 안에서 스텝퍼 중앙 고정(다른 규칙보다 우선) */
-.reserve-page .reserve-header .stepper-wrap { display:flex; justify-content:center; }
+
+/* ---- Component Styles ---- */
+
+/* 스텝퍼 (Stepper.jsx) */
+.reserve-page .stepper {
+    display: flex; align-items: center; justify-content: center; gap: 0;
+    max-width: 380px; width: 100%; margin: 0 auto 40px; padding-bottom: 20px;
+}
+.reserve-page .stepper .stepv {
+    position: relative; display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; flex: 0 0 28px;
+}
+.reserve-page .stepper .step-dot {
+    width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #aaa;
+    background: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #777; z-index: 1;
+}
+.reserve-page .stepper .stepv.active .step-dot,
+.reserve-page .stepper .stepv.done .step-dot {
+    background: #000; border-color: #000; color: #fff;
+}
+.reserve-page .stepper .bar { flex: 1 1 auto; height: 2px; background: #e5e5e5; min-width: 40px; }
+.reserve-page .stepper .bar-active { background: #000; }
+.reserve-page .stepper .step-label {
+    position: absolute; top: 34px; left: 50%; transform: translateX(-50%);
+    width: max-content; font-size: 12px; color: #9a9a9a;
+}
+.reserve-page .stepper .stepv.active .step-label,
+.reserve-page .stepper .stepv.done .step-label { color: #000; }
+
+/* 카테고리 (CategoryGrid.jsx) */
+.reserve-page .cat-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+.reserve-page .cat-card { display:flex; flex-direction:column; gap:8px; border:none; background:transparent; padding:0; text-align:left; cursor:pointer; }
+.reserve-page .cat-image { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px; background:#f0f0f0; }
+.reserve-page .cat-caption { display: block; width: 100%; text-align: center !important; font-size:13px; color:#333; }
+
+/* ▼▼▼▼▼ 달력 스타일 (Calendar.jsx) ▼▼▼▼▼ */
+.reserve-page .section-title-row { display:flex; align-items:center; gap:8px; }
+.reserve-page .cal { border:1px solid #e6e6e6; border-radius:12px; padding:12px; }
+.reserve-page .cal-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.reserve-page .cal-title { font-weight:700; }
+.reserve-page .nav-btn { font-size: 35px; padding: 6px 10px; line-height: 1; border:none; background:transparent; cursor:pointer; }
+.reserve-page .cal-week { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
+.reserve-page .cal-weekday { text-align:center; font-size:10px; color:#999; padding:4px 0; }
+.reserve-page .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; } /* gap을 늘려 간격 확보 */
+.reserve-page .cal-cell {
+    display:flex; align-items:center; justify-content:center;
+    font-size:13px; aspect-ratio: 1 / 1; /* 셀을 정사각형으로 만듭니다 */
+}
+.reserve-page .cal-day {
+    border:1px solid transparent; /* 기본 border는 투명하게 */
+    border-radius:8px; background:#f4f4f4;
+    width:100%; height:100%; /* 셀을 꽉 채웁니다 */
+    display: flex; align-items: center; justify-content: center; /* 숫자 중앙 정렬 */
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.reserve-page .cal-day:not(:disabled) {
+    cursor: pointer;
+}
+.reserve-page .cal-day:not(:disabled):hover {
+    border-color: #ccc;
+}
+.reserve-page .cal-day.selected { background:#000; color:#fff; border-color:#000; }
+.reserve-page .cal-day:disabled { color: #ccc; background-color: #f8f8f8; cursor: not-allowed; }
+/* ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ */
+
+/* 폼 입력 (Form.jsx) */
+.reserve-page .date-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #e6e6e6; border-radius:999px; margin-bottom:12px; font-size:13px; }
+.reserve-page .form { display:flex; flex-direction:column; gap:8px; }
+.reserve-page .label { font-size:13px; color:#555; }
+.reserve-page .input { height:44px; padding:0 12px; border:1px solid #ddd; border-radius:10px; font-size:14px; }
+.reserve-page .helper { font-size:12px; color:#777; line-height:1.4; margin:6px 2px 2px; }
+.reserve-page .primary-btn { margin-top:12px; width:100%; height:48px; border:none; border-radius:12px; background:#000; color:#fff; font-weight:700; font-size:15px; cursor:pointer; }
+.reserve-page .primary-btn:disabled { opacity:.45; cursor:not-allowed; }
+
+/* 예약 완료 카드 (SummaryCard.jsx) */
+.summary-card {
+  background-color: #ffffff; border-radius: 24px; padding: 0 24px 24px;
+  text-align: center; color: #333; width: 100%; max-width: 420px;
+  margin: 0 auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex; flex-direction: column; align-items: center;
+}
+.summary-logo { font-family: 'NanumBrush', cursive; font-size: 80px; font-weight: bold; margin: 0; color: #000; }
+.summary-main-text { font-size: 22px; font-weight: 500; line-height: 1.5; margin-bottom: 8px; color: #000; }
+.summary-date { color: #00c73c; font-weight: bold; }
+.summary-code { font-size: 16px; color: #555; margin-bottom: 8px; }
+.summary-lookup-text { font-size: 14px; color: #666; margin-bottom: 12px; }
+.summary-link { color: #333; font-weight: bold; text-decoration: underline; }
+.summary-details { width: 100%; text-align: left; font-size: 15px; margin-bottom: 12px; }
+.summary-details dl { display: flex; justify-content: space-between; margin-bottom: 12px; }
+.summary-details dt { color: #888; }
+.summary-details dd { color: #333; font-weight: 500; }
+.summary-home-btn {
+  background-color: #333; color: white; border: none; border-radius: 12px;
+  padding: 14px 0; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer;
+}
+
+/* 예약 조회 카드 (ReservationCard.jsx) */
+.rh-list { display: flex; flex-direction: column; gap: 16px; }
+.rh-card { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #f9f9f9; overflow: hidden; width: 100%; }
+.rh-card-header {
+  display: flex; justify-content: space-between; align-items: center; width: 100%;
+  padding: 16px 20px; background-color: transparent; border: none;
+  font-size: 16px; font-weight: 500; cursor: pointer; text-align: left;
+}
+.rh-card-body { padding: 0 20px 20px; font-size: 14px; color: #555; text-align: left; }
+.rh-card-body dl { display: flex; justify-content: space-between; margin-bottom: 10px; }
+.rh-card-body dt { color: #888; }
+.rh-card-body dd { font-weight: 500; color: #333; }
+.rh-dday { text-align: center; color: #e53e3e; font-weight: bold; margin: 20px 0; }
+.rh-dday.today { color: #00c73c; } /* 오늘 촬영일일 때 초록색으로 */
+.rh-contact { border-top: 1px solid #e0e0e0; padding-top: 16px; margin-top: 16px; font-size: 13px; line-height: 1.6; }

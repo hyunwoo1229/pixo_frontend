@@ -17,8 +17,7 @@ import Form from "./pages/Reservation/Form";
 import Complete from "./pages/Reservation/Complete";
 import QuestionList from "./pages/Question/QuestionList";
 import QuestionFormPage from "./pages/Question/QuestionFormPage";
-
-// ✅ 관리자 페이지
+import ReservationHistory from "./pages/ReservationHistory";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 export default function App() {
@@ -33,7 +32,10 @@ export default function App() {
           <Route path="/inquiry" element={<div className="px-6 pt-4">1:1 문의</div>} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/withdraw" element={<Withdraw />} />
-          <Route path="/reservation-history" element={<div className="px-6 pt-4">예약 조회</div>} />
+          
+          {/* ▼▼▼▼▼ 중복된 경로를 삭제하고 이 라인만 남깁니다. ▼▼▼▼▼ */}
+          <Route path="/reservation-history" element={<ReservationHistory />} />
+
           <Route path="/reserve/type" element={<Type />} />
           <Route path="/reserve/date" element={<DatePick />} />
           <Route path="/reserve/form" element={<Form />} />
