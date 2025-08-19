@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../api/axios"; 
+import axios from 'axios';
 import RegisterLogo from "../components/Register/RegisterLogo";
 import AuthInputGroup from "../components/Register/AuthInputGroup";
 import NamePhoneInputGroup from "../components/Register/NamePhoneInputGroup";

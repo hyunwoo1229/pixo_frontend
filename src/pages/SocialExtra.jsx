@@ -1,7 +1,7 @@
 // src/pages/SocialExtra.jsx
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "../api/axios"; 
+import axios from 'axios';
 
 import RegisterLogo from "../components/Register/RegisterLogo";
 import NamePhoneInputGroup from "../components/Register/NamePhoneInputGroup";

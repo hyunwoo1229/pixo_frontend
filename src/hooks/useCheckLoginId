@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "../api/axios"; 
+import axios from 'axios';
 
 const useCheckLoginId = (loginId, delay = 500) => {
   const [isIdChecked, setIsIdChecked] = useState(false);

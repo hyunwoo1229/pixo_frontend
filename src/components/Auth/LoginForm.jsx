@@ -1,5 +1,5 @@
 // src/components/Auth/LoginForm.jsx
-import axios from "../../api/axios";
+import axios from 'axios';
 import React, { useState } from "react";
 import LoginInputGroup from "./LoginInputGroup";
 import SubmitLoginButton from "./SubmitLoginButton";

@@ -1,4 +1,3 @@
-// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -19,6 +18,7 @@ import QuestionList from "./pages/Question/QuestionList";
 import QuestionFormPage from "./pages/Question/QuestionFormPage";
 import ReservationHistory from "./pages/ReservationHistory";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminMenu from "./pages/Admin/AdminMenu"; // 👈 추가
 
 export default function App() {
   return (
@@ -33,7 +33,6 @@ export default function App() {
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/withdraw" element={<Withdraw />} />
           
-          {/* ▼▼▼▼▼ 중복된 경로를 삭제하고 이 라인만 남깁니다. ▼▼▼▼▼ */}
           <Route path="/reservation-history" element={<ReservationHistory />} />
 
           <Route path="/reserve/type" element={<Type />} />
@@ -44,8 +43,11 @@ export default function App() {
           <Route path="/question/new" element={<QuestionFormPage />} />
           <Route path="/question/edit/:id" element={<QuestionFormPage />} />
 
-          {/* ✅ 관리자 전용 페이지 (헤더/푸터 포함) */}
-          <Route path="/admin" element={<AdminDashboard />} />
+          {/* ▼▼▼▼▼ 관리자 페이지 경로 수정 ▼▼▼▼▼ */}
+          <Route path="/admin" element={<AdminMenu />} />
+          <Route path="/admin/photos" element={<AdminDashboard />} />
+          <Route path="/admin/questions" element={<QuestionList />} />
+          {/* ▲▲▲▲▲ 관리자 페이지 경로 수정 ▲▲▲▲▲ */}
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}

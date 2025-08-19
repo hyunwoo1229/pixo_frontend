@@ -1,6 +1,6 @@
 // src/pages/Admin/AdminDashboard.jsx
 import React, { useEffect, useState } from "react";
-import axios from "../../api/axios"; // ← 너가 올린 인스턴스
+import axios from 'axios';
 
 const CATEGORIES = [
   { value: "PROMOTION", label: "홍보용 촬영" },

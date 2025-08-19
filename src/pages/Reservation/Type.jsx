@@ -1,7 +1,7 @@
 // src/pages/Reservation/Type.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import axios from 'axios';
 import Stepper from "../../components/Reservation/Stepper.jsx";
 import CategoryGrid from "../../components/Reservation/CategoryGrid.jsx";
 import ReservationHeader from "../../components/Reservation/ReservationHeader.jsx";

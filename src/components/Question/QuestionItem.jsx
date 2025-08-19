@@ -1,42 +1,95 @@
-// ...상단 import/유틸 동일
-export default function QuestionItem({ item, mineOnly, onChanged }) {
-    // ...내부 로직 동일
-    const COLS = "grid grid-cols-[88px,1fr,72px,78px] gap-x-2";
-  
-    return (
-      <li className="border-b">
-        {/* 4열 행 */}
-        <button
-          onClick={() => setOpen((v) => !v)}
-           className="grid text-sm border-b border-t py-2"
-          style={{
-            gridTemplateColumns: "85px 1fr 60px 60px", // 답변상태 | 제목 | 작성자 | 작성일
-            columnGap: "8px",
-          }}
-        >
-          <div className="text-sm">{status}</div>
-          <div className="text-sm line-clamp-1 pl-2">{item.title}</div>{/* 제목만 살짝 띄움 */}
-          <div className="text-sm text-center">{author}</div>
-          <div className="text-sm text-right">{date}</div>
-        </button>
-  
-        {open && (
-          <div className="px-1 pb-4 text-sm space-y-3">
-            {item?.content && <div className="whitespace-pre-wrap leading-6">{item.content}</div>}
-            {item?.answer && (
-              <div className="pl-4 border-l-2">
-                <div className="text-gray-600 mb-1">└ {item.answer}</div>
-                <div className="text-xs text-gray-400">PIXO · {formatYmd(item.answerCreatedAt)}</div>
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import AnswerForm from '../Admin/AnswerForm' 
+
+const maskName = (name) => {
+  if (!name || name.length < 2) return name
+  if (name.length === 2) return `${name[0]}*`
+  return `${name[0]}${'*'.repeat(name.length - 2)}${name[name.length - 1]}`
+}
+
+const formatDate = (dateString) => {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}.${month}.${day}`
+}
+
+export default function QuestionItem({ item, mineOnly, isAdmin, onChanged }) {
+  const nav = useNavigate()
+  const token = localStorage.getItem('accessToken')
+  const [isOpen, setIsOpen] = useState(false)
+
+  const handleDelete = async (e) => {
+    e.stopPropagation()
+    if (!window.confirm('정말로 이 문의를 삭제하시겠습니까?')) return
+    try {
+      await axios.delete(`/api/question/${item.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      alert('삭제되었습니다.')
+      onChanged?.()
+    } catch (err) {
+      console.error(err)
+      alert('삭제 중 오류가 발생했습니다.')
+    }
+  }
+
+  const handleEdit = (e) => {
+    e.stopPropagation()
+    nav(`/question/edit/${item.id}`, { state: { item } })
+  }
+
+  return (
+    <li className="question-item-container">
+      <div className="question-summary" onClick={() => setIsOpen(!isOpen)}>
+        <span className={`status ${item.answered ? 'answered' : ''}`}>
+          {item.answered ? '답변 완료' : '답변 대기'}
+        </span>
+        <span className="title">{item.title}</span>
+        <span className="author">{maskName(item.memberName)}</span>
+        <span className="date">{formatDate(item.createdAt)}</span>
+      </div>
+
+      {isOpen && (
+        <div className="question-detail">
+          <div className="content-wrapper">
+            <p className="question-content">{item.content}</p>
+
+            {item.answered && item.answer && (
+              <div className="mt-4 pt-4 border-t">
+                <div className="flex items-center gap-4 text-sm mb-2">
+                  <span className="font-bold">PIXO</span>
+                  <span className="text-gray-500">
+                    {formatDate(item.answer.createdAt)}
+                  </span>
+                </div>
+                <p className="whitespace-pre-wrap">{item.answer.content}</p>
               </div>
             )}
-            <div className="flex gap-2 justify-end pt-1">
-              <button className="px-3 py-1 text-xs border rounded"
-                onClick={() => nav(`/question/edit/${item.id}`, { state: { item } })}>수정</button>
-              <button className="px-3 py-1 text-xs border rounded" onClick={handleDelete}>삭제</button>
-            </div>
+
+            {isAdmin && (
+              <AnswerForm
+                questionId={item.id}
+                existingAnswer={item.answer}
+                onAnswered={onChanged}
+              />
+            )}
+
+            {mineOnly && !isAdmin && (
+              <div className="actions">
+                <button onClick={handleEdit}>수정</button>
+                <button onClick={handleDelete} className="delete">
+                  삭제
+                </button>
+              </div>
+            )}
           </div>
-        )}
-      </li>
-    );
-  }
-  
+        </div>
+      )}
+    </li>
+  )
+}

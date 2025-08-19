@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../api/axios";
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 export default function WithdrawConfirm() { // ✅ 반드시 export default로 시작

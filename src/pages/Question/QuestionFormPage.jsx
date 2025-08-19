@@ -1,11 +1,10 @@
 // src/pages/Question/QuestionFormPage.jsx
 import React, { useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import axios from "../../api/axios";
+import axios from 'axios';
 import RegisterLogo from "../../components/Register/RegisterLogo";
 import QuestionForm from "../../components/Question/QuestionForm";
 import "../../styles/reservation.css";
-
 import BackButton from "../../components/Common/BackButton.jsx";
 
 export default function QuestionFormPage() {

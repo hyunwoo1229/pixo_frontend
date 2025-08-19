@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HiOutlineMenu } from "react-icons/hi";
@@ -11,22 +10,22 @@ function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [adminOpen, setAdminOpen] = useState(false); // 👈 관리자 메뉴 상태 추가
   const location = useLocation();
 
   const applyAuthState = useCallback(() => {
     const token = localStorage.getItem("accessToken");
     const roleRaw = localStorage.getItem("role") || "";
-    const role = String(roleRaw).trim().toUpperCase(); // ✅ 공백/대소문자 정리
+    const role = String(roleRaw).trim().toUpperCase();
     setIsLoggedIn(!!token);
-    setIsAdmin(!!role && role.includes("ADMIN")); // ✅ ADMIN / ROLE_ADMIN 모두 허용
+    setIsAdmin(!!role && role.includes("ADMIN"));
   }, []);
 
   useEffect(() => {
-    applyAuthState(); // 최초 + 라우트 변경 시 재평가
+    applyAuthState();
   }, [applyAuthState, location]);
 
   useEffect(() => {
-    // 다른 탭/창에서 토큰/role 변경 시 반영
     const onStorage = (e) => {
       if (e.key === "accessToken" || e.key === "role") applyAuthState();
     };
@@ -37,9 +36,10 @@ function Header() {
   const toggleMenu = () => {
     const next = !isOpen;
     setIsOpen(next);
-    if (next) applyAuthState(); // 메뉴 열 때 최신 권한 확인
+    if (next) applyAuthState();
   };
   const toggleAccount = () => setAccountOpen((v) => !v);
+  const toggleAdmin = () => setAdminOpen((v) => !v); // 👈 관리자 메뉴 토글 함수
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -76,11 +76,30 @@ function Header() {
 
               {isLoggedIn ? (
                 <>
+                  {/* ▼▼▼▼▼ 관리자 메뉴 드롭다운으로 수정 ▼▼▼▼▼ */}
                   {isAdmin && (
-                    <Link to="/admin" onClick={closeMenu} className="px-6 py-4 border-b">
-                      관리자 페이지
-                    </Link>
+                    <>
+                      <button
+                        onClick={toggleAdmin}
+                        className="flex items-center justify-between px-6 py-4 border-b text-left"
+                        aria-expanded={adminOpen}
+                      >
+                        <span>관리자 페이지</span>
+                        {adminOpen ? <IoChevronUp size={20} /> : <IoChevronDown size={20} />}
+                      </button>
+                      {adminOpen && (
+                        <div className="flex flex-col">
+                          <Link to="/admin/photos" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
+                            사진 관리
+                          </Link>
+                          <Link to="/admin/questions" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
+                            1:1 문의 답변
+                          </Link>
+                        </div>
+                      )}
+                    </>
                   )}
+                  {/* ▲▲▲▲▲ 관리자 메뉴 드롭다운으로 수정 ▲▲▲▲▲ */}
 
                   <Logout className="" />
 
