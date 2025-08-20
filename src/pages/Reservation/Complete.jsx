@@ -18,7 +18,6 @@ export default function Complete() {
 
   return (
     <div className="reserve-page">
-      {/* ▼▼▼▼▼ ReservationHeader와 Stepper를 분리하여 레이아웃 충돌을 해결합니다. ▼▼▼▼▼ */}
       <ReservationHeader title={`${result.categoryLabel} 예약`} />
       <Stepper current={4} />
       

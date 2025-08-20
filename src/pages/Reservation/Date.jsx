@@ -21,7 +21,7 @@ export default function DatePick() {
   useEffect(() => {
     let r = getReservation();
 
-    // URL category → 세션 주입
+    // URL category 세션 주입
     const q = new URLSearchParams(loc.search);
     if (!r.categoryId) {
       const c = q.get("category");
@@ -29,7 +29,7 @@ export default function DatePick() {
     }
     if (!r.categoryId) { nav("/reserve/type"); return; }
 
-    // URL date → 선택 반영
+    // URL date 선택 반영
     const dParam = q.get("date");
     if (dParam) {
       const d = parseYmd(dParam);

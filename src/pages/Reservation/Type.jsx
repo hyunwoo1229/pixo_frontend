@@ -1,4 +1,3 @@
-// src/pages/Reservation/Type.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -17,7 +16,7 @@ const TYPES = [
 // 서버 응답에서 이미지 필드 통일
 const toUrl = (row) => row?.imageUrl || row?.url || row?.image || row?.path || "";
 
-const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용합니다.
+const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용
 
 
 // 대표 없으면 기본으로 폴백해서 커버 1장 가져오기
@@ -29,7 +28,7 @@ async function fetchCoverImage(code, cover) {
       const r2 = await axios.get("/api/photo", { params: { category: code } });
       arr = Array.isArray(r2.data) ? r2.data : [];
     }
-    return withOrigin(toUrl(arr[0]));   // ★ 절대주소로 바꿔서 반환
+    return withOrigin(toUrl(arr[0]));   // 절대주소로 바꿔서 반환
   } catch {
     return "";
   }

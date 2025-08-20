@@ -22,7 +22,6 @@ export default function SearchBar({
 
   return (
     <div className="flex items-center gap-2">
-      {/* 왼쪽: '제목' 드롭다운 (화살표 누르면 '내용' 선택 가능) */}
       <div ref={boxRef} className="relative">
         <button
           type="button"
@@ -58,7 +57,6 @@ export default function SearchBar({
         )}
       </div>
 
-      {/* 오른쪽: 입력 + 버튼을 하나의 그룹으로 결합 */}
       <div className="flex-1 flex">
         <input
           className="flex-1 border border-r-0 px-3 py-2 rounded-l md:rounded-l-md"

@@ -4,7 +4,6 @@ import axios from 'axios';
 import QuestionItem from "../../components/Question/QuestionItem";
 import SearchBar from "../../components/Question/SearchBar";
 
-// App.jsx로부터 isAdmin prop을 받도록 수정 (기본값 false)
 export default function QuestionList({ isAdmin = false }) {
   const nav = useNavigate();
   const location = useLocation();
@@ -110,9 +109,7 @@ export default function QuestionList({ isAdmin = false }) {
               <>
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-gray-600">내 문의만 보기</span>
-                  {/* ▼▼▼▼▼ [ ✨ 이 부분의 오타를 수정했습니다 ] ▼▼▼▼▼ */}
                   <button type="button" onClick={() => setMineOnly((v) => !v)} className={`w-12 h-6 rounded-full transition-colors relative ${mineOnly ? "bg-black" : "bg-gray-300"}`}>
-                  {/* ▲▲▲▲▲ [ ✨ 이 부분의 오타를 수정했습니다 ] ▲▲▲▲▲ */}
                     <span className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-all ${mineOnly ? "right-0.5" : "left-0.5"}`} />
                   </button>
                   <span className="text-xs text-gray-500">{mineOnly ? "ON" : "OFF"}</span>

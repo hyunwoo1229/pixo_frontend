@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import AdminReservationList from "../../components/Admin/AdminReservationList";
@@ -18,21 +17,26 @@ export default function AdminReservationManagement() {
     let url = "/api/admin/reservation";
     const params = {};
 
-    if (searchTerm) {
+    if (searchTerm.trim()) {
       if (searchType === "name") {
-        url = "/api/admin/reservation/search/name"; //
-        params.name = searchTerm;
+        url = "/api/admin/reservation/search/name";
+        params.name = searchTerm.trim();
       } else { // code
-        url = "/api/admin/reservation/search/code"; //
-        params.code = searchTerm;
+        url = "/api/admin/reservation/search/code";
+        params.code = searchTerm.trim();
       }
     }
 
     try {
       const { data } = await axios.get(url, { params });
-      // 최신순으로 정렬
-      const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
-      setReservations(sorted);
+
+      if (Array.isArray(data)) {
+        const sorted = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setReservations(sorted);
+      } else {
+        setReservations([]);
+      }
+
     } catch (err) {
       const msg = err.response?.data?.message || "예약 정보를 불러오는 데 실패했습니다.";
       setError(msg);
@@ -45,7 +49,7 @@ export default function AdminReservationManagement() {
   // 컴포넌트 첫 로드 시 전체 목록 조회
   useEffect(() => {
     fetchReservations();
-  }, []); // 의도적으로 빈 배열 사용
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();

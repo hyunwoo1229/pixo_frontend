@@ -1,5 +1,3 @@
-// src/pages/Admin/AdminMenu.jsx (새로운 파일)
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { IoChevronForward } from "react-icons/io5";

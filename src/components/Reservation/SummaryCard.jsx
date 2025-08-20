@@ -21,7 +21,6 @@ export default function SummaryCard({ result, onHome }) {
       </p>
       <p className="summary-code">예약 코드: {result.code}</p>
       <p className="summary-lookup-text">
-        {/* ▼▼▼▼▼ 링크 경로를 수정합니다. ▼▼▼▼▼ */}
         완료된 예약은 <Link to="/reservation-history" className="summary-link">예약 조회</Link>에서 확인할 수 있습니다.
       </p>
       <div className="summary-details">

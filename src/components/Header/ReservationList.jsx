@@ -13,10 +13,8 @@ export default function ReservationList() {
       try {
         const response = await axios.get(`/api/reservation/my`);
         
-        // ▼▼▼▼▼ 이 부분이 최신순으로 정렬하는 핵심 코드입니다. ▼▼▼▼▼
         const sortedData = response.data.sort((a, b) => {
-          // 날짜 문자열을 Date 객체로 변환하여 비교합니다.
-          // b.date가 a.date보다 나중 날짜이면 양수가 반환되어 b가 앞으로 옵니다.
+
           return new Date(b.date) - new Date(a.date);
         });
         

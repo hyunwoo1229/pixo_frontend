@@ -1,11 +1,5 @@
-// src/components/common/BackButton.jsx
 import React from "react";
 
-/**
- * 공통 뒤로가기 버튼 (SVG 기반)
- * - 기본 크기 24px 아이콘, .back-btn (reservation.css)과 함께 쓰면 44x44 터치영역
- * - 필요 시 className으로 추가 커스텀 가능
- */
 export default function BackButton({
   onClick,
   className = "",          // "absolute left-2 top-1/2 -translate-y-1/2" 등 위치 제어용

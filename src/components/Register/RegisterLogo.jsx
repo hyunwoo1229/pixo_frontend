@@ -1,4 +1,3 @@
-// src/components/RegisterLogo.jsx
 import React from "react";
 
 export default function RegisterLogo() {

@@ -10,7 +10,7 @@ function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
-  const [adminOpen, setAdminOpen] = useState(false); // 👈 관리자 메뉴 상태 추가
+  const [adminOpen, setAdminOpen] = useState(false); 
   const location = useLocation();
 
   const applyAuthState = useCallback(() => {
@@ -39,7 +39,7 @@ function Header() {
     if (next) applyAuthState();
   };
   const toggleAccount = () => setAccountOpen((v) => !v);
-  const toggleAdmin = () => setAdminOpen((v) => !v); // 👈 관리자 메뉴 토글 함수
+  const toggleAdmin = () => setAdminOpen((v) => !v); //
   const closeMenu = () => setIsOpen(false);
 
   return (
@@ -76,7 +76,6 @@ function Header() {
 
               {isLoggedIn ? (
                 <>
-                  {/* ▼▼▼▼▼ 관리자 메뉴 드롭다운으로 수정 ▼▼▼▼▼ */}
                   {isAdmin && (
                     <>
                       <button
@@ -105,7 +104,6 @@ function Header() {
                       )}
                     </>
                   )}
-                  {/* ▲▲▲▲▲ 관리자 메뉴 드롭다운으로 수정 ▲▲▲▲▲ */}
 
                   <Logout className="" />
 

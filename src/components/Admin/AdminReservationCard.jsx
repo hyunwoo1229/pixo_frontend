@@ -24,7 +24,7 @@ export default function AdminReservationCard({ reservation, isOpen, onToggle }) 
         className="w-full flex items-center justify-between px-4 py-3 text-left"
         onClick={onToggle}
       >
-        {/* ▼▼▼▼▼ 이 부분이 수정되었습니다 ▼▼▼▼▼ */}
+
         <div className="font-semibold flex items-center gap-2 flex-wrap">
           <span>{formatDate(reservation.date)}</span>
           <span className="opacity-60">|</span>
@@ -32,7 +32,6 @@ export default function AdminReservationCard({ reservation, isOpen, onToggle }) 
           <span className="opacity-60">|</span>
           <span className="font-normal text-gray-500">{reservation.reservationCode}</span>
         </div>
-        {/* ▲▲▲▲▲ 이 부분이 수정되었습니다 ▲▲▲▲▲ */}
 
         {isOpen ? <IoChevronUp size={22} /> : <IoChevronDown size={22} />}
       </button>

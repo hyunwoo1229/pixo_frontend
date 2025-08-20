@@ -1,4 +1,3 @@
-// src/components/Account/ChangePasswordForm.jsx
 import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -11,12 +10,12 @@ export default function ChangePasswordForm() {
     confirmPassword: "",
   });
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(""); // 🔸에러 문구 표시
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((p) => ({ ...p, [name]: value }));
-    setError(""); // 입력 바꾸면 에러 초기화
+    setError(""); 
   };
 
   const handleSubmit = async () => {
@@ -44,7 +43,7 @@ export default function ChangePasswordForm() {
       alert("비밀번호가 변경되었습니다.");
       navigate("/");
     } catch (err) {
-      // ✅ 서버 응답 기반으로 문구 분기
+      // 서버 응답 기반으로 문구 분기
       const status = err.response?.status;
       const serverMsg =
         err.response?.data?.message ||
@@ -52,8 +51,6 @@ export default function ChangePasswordForm() {
         err.response?.data;
 
       if (status === 400) {
-        // 보편적으로 '현재 비밀번호 불일치'는 400으로 내려줌
-        // 백엔드가 메시지를 주면 그대로, 없으면 기본 문구
         const msgText =
           typeof serverMsg === "string" ? serverMsg : "";
         if (

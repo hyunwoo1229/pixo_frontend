@@ -77,7 +77,7 @@ export default function Register() {
 
   const handleVerifyCode = async () => {
     try {
-      await axios.post("/api/member/register", { ...form, skipSave: true }); // 백엔드에서 분기 처리 필요
+      await axios.post("/api/member/register", { ...form, skipSave: true });
       setIsCodeVerified(true);
       alert("인증번호 확인 성공");
     } catch (err) {
@@ -111,7 +111,7 @@ export default function Register() {
           isExpanded={isExpanded}
           toggleExpand={toggleExpand}
         />
-        {/* ✅ 인증번호 입력란을 가입 버튼 바로 위로 이동 */}
+        {/* 인증번호 입력란을 가입 버튼 바로 위로 이동 */}
         {isCodeSent && (
           <VerificationCodeInput
             value={form.code}

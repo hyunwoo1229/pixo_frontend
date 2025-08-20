@@ -1,4 +1,3 @@
-// src/pages/Question/QuestionFormPage.jsx
 import React, { useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
@@ -50,7 +49,7 @@ export default function QuestionFormPage() {
         <BackButton
           onClick={() => nav(-1)}
           className="absolute left-2 top-1/2 -translate-y-1/2"
-          size={26}           // 필요하면 24~28 조절
+          size={26}          
           strokeWidth={2.5}
         />
         <h2 className="text-lg font-extrabold text-center">

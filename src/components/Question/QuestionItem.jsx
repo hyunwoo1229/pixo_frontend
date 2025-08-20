@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import AnswerForm from '../Admin/AnswerForm'; // AnswerForm을 import합니다.
+import AnswerForm from '../Admin/AnswerForm'; 
 
 const maskName = (name) => {
   if (!name || name.length < 2) return name;
@@ -18,7 +18,6 @@ const formatDate = (dateString) => {
   return `${year}.${month}.${day}`;
 };
 
-// QuestionList로부터 isAdmin prop을 받습니다.
 export default function QuestionItem({ item, isAdmin, onChanged }) {
   const nav = useNavigate();
   const token = localStorage.getItem("accessToken");
@@ -98,7 +97,6 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
                 />
               </>
             )}
-            {/* ▲▲▲▲▲ [ ✨ 이 부분이 핵심입니다 ] ▲▲▲▲▲ */}
           </div>
         </div>
       )}

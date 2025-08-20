@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
-export default function WithdrawConfirm() { // ✅ 반드시 export default로 시작
+export default function WithdrawConfirm() { 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");

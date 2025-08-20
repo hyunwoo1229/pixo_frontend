@@ -1,12 +1,11 @@
 import React from "react";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 
-// ▼▼▼▼▼ 촬영 종류를 한글로 변환하기 위한 객체(Map) ▼▼▼▼▼
 const shootTypeMap = {
   PROMOTION: "홍보용 촬영",
   PORTRAIT: "인물 촬영",
   OBJECT: "사물 촬영",
-  // 필요하다면 다른 종류도 추가할 수 있습니다.
+  // 필요하다면 다른 종류도 추가
 };
 
 // D-day 계산 함수
@@ -80,7 +79,6 @@ export default function ReservationCard({ reservation, isOpen, onToggle }) {
             <dd>{reservation.notes || "-"}</dd>
           </dl>
           
-          {/* ▼▼▼▼▼ 위에서 만든 함수를 호출하여 D-day 텍스트를 표시합니다. ▼▼▼▼▼ */}
           {renderDdayText()}
 
           <div className="rh-contact">

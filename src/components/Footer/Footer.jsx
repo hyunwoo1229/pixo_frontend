@@ -2,8 +2,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    // ✅ 모바일: 화면 끝까지 검은 배경(full-bleed)
-    // ✅ iOS 하단 제스처영역 안전패딩 적용
+
     <footer
       className="w-full bg-black text-white"
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 2rem)" }}

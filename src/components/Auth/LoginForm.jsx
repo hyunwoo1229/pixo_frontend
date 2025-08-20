@@ -1,4 +1,3 @@
-// src/components/Auth/LoginForm.jsx
 import axios from 'axios';
 import React, { useState } from "react";
 import LoginInputGroup from "./LoginInputGroup";
@@ -20,7 +19,6 @@ export default function LoginForm() {
       const accessToken = data.accessToken;
       const refreshToken = data.refreshToken;
       const name = data.name;
-      // ✅ 다양한 키 대응 (role / user.role / roles[0] / authorities[0].authority)
       const role =
         data.role ||
         data.user?.role ||
@@ -35,7 +33,7 @@ export default function LoginForm() {
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("refreshToken", refreshToken);
       if (name) localStorage.setItem("name", name);
-      if (role) localStorage.setItem("role", String(role).trim()); // ✅ 저장
+      if (role) localStorage.setItem("role", String(role).trim());
 
       alert(`${name || "회원"}님 환영합니다!`);
       window.location.href = "/";

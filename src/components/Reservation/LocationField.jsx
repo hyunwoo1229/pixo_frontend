@@ -1,4 +1,3 @@
-// src/components/Reservation/LocationField.jsx
 import React from "react";
 
 export default function LocationField({ value, onChange, disabled }) {

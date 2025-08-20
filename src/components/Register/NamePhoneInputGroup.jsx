@@ -1,4 +1,3 @@
-// src/components/Register/NamePhoneInput.jsx
 import React from "react";
 
 const NamePhoneInputGroup = ({ form, handleChange }) => {

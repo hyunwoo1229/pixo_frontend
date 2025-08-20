@@ -1,4 +1,3 @@
-// src/pages/Admin/AdminDashboard.jsx
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
@@ -17,7 +16,7 @@ const FILE_LIMIT_MB = 50;
 // 서버 DTO 키 정규화
 const toUrl = (row) => row?.imageUrl || row?.url || row?.image || "";
 
-const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용합니다.
+const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용
 
 export default function AdminDashboard() {
   const [category, setCategory] = useState(CATEGORIES[0].value);

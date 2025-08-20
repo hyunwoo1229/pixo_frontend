@@ -4,13 +4,13 @@ export default function SubmitRegisterButton({
   isIdAvailable,
   isAgreementChecked,
   isCodeSent,
-  code, // ✅ 새로 추가됨
+  code,
 }) {
   const isValid = isCodeSent
     ? phoneNumber.length === 11 &&
       isIdAvailable &&
       isAgreementChecked &&
-      code?.length === 6 // ✅ 인증번호 6자리 입력됐는지 확인
+      code?.length === 6
     : phoneNumber.length === 11 &&
       isIdAvailable &&
       isAgreementChecked;
