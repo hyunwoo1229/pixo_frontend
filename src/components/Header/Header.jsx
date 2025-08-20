@@ -95,6 +95,12 @@ function Header() {
                           <Link to="/admin/questions" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
                             1:1 문의 답변
                           </Link>
+                          <Link to="/admin/reservations" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
+                            전체 예약 관리
+                          </Link>
+                          <Link to="/admin/members" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
+                            전체 회원 관리
+                          </Link>
                         </div>
                       )}
                     </>

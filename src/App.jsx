@@ -18,7 +18,9 @@ import QuestionList from "./pages/Question/QuestionList";
 import QuestionFormPage from "./pages/Question/QuestionFormPage";
 import ReservationHistory from "./pages/ReservationHistory";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-import AdminMenu from "./pages/Admin/AdminMenu"; // 👈 추가
+import AdminMenu from "./pages/Admin/AdminMenu"; 
+import AdminReservationManagement from "./pages/Admin/AdminReservationManagement"; 
+import AdminMemberManagement from "./pages/Admin/AdminMemberManagement";
 
 export default function App() {
   return (
@@ -39,15 +41,21 @@ export default function App() {
           <Route path="/reserve/date" element={<DatePick />} />
           <Route path="/reserve/form" element={<Form />} />
           <Route path="/reserve/complete" element={<Complete />} />
+          
+          {/* ▼▼▼▼▼ [ ✨ 이 부분을 수정합니다 ] ▼▼▼▼▼ */}
+          {/* 1. 일반 사용자용 /question 경로 추가 */}
           <Route path="/question" element={<QuestionList />} />
           <Route path="/question/new" element={<QuestionFormPage />} />
           <Route path="/question/edit/:id" element={<QuestionFormPage />} />
 
-          {/* ▼▼▼▼▼ 관리자 페이지 경로 수정 ▼▼▼▼▼ */}
+          {/* 2. 관리자 페이지 경로 정리 (중복 제거) */}
           <Route path="/admin" element={<AdminMenu />} />
           <Route path="/admin/photos" element={<AdminDashboard />} />
-          <Route path="/admin/questions" element={<QuestionList />} />
-          {/* ▲▲▲▲▲ 관리자 페이지 경로 수정 ▲▲▲▲▲ */}
+          <Route path="/admin/reservations" element={<AdminReservationManagement />} />
+          <Route path="/admin/members" element={<AdminMemberManagement />} />
+          {/* 관리자용 1:1 문의 경로는 isAdmin={true} 속성을 전달합니다. */}
+          <Route path="/admin/questions" element={<QuestionList isAdmin={true} />} />
+          {/* ▲▲▲▲▲ [ ✨ 이 부분을 수정합니다 ] ▲▲▲▲▲ */}
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}
