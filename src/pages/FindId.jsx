@@ -142,7 +142,7 @@ export default function FindId() {
 
         {/* 로그인 페이지로 돌아가기 링크 추가 (옵션) */}
         <div className="mt-6 text-center">
-          <Link to="/login" className="text-sm text-gray-500 hover:text-gray-700 underline">
+          <Link to="/login" className="inline-block px-6 py-2 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
             로그인 화면으로 돌아가기
           </Link>
         </div>

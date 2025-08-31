@@ -22,6 +22,7 @@ import AdminMenu from "./pages/Admin/AdminMenu";
 import AdminReservationManagement from "./pages/Admin/AdminReservationManagement"; 
 import AdminMemberManagement from "./pages/Admin/AdminMemberManagement";
 import FindId from "./pages/FindId"; 
+import FindPassword from "./pages/FindPassword";
 
 export default function App() {
   return (
@@ -63,6 +64,7 @@ export default function App() {
         <Route path="/oauth-success" element={<OAuthRedirectHandler />} />
         <Route path="/social-extra" element={<SocialExtra />} />
         <Route path="/find-id" element={<FindId />} />
+        <Route path="/find-password" element={<FindPassword />} />
       </Routes>
     </Router>
   );
