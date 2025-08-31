@@ -27,6 +27,7 @@ export default function Register() {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [isCodeVerified, setIsCodeVerified] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const { isIdChecked, isIdAvailable, message } = useCheckLoginId(form.loginId);
 
@@ -34,6 +35,7 @@ export default function Register() {
 
   const handleChange = (e) => {
     const { name, value, checked } = e.target;
+    setSubmitError(""); 
 
     if (name === "all") {
       setForm((prev) => ({
@@ -69,9 +71,14 @@ export default function Register() {
       });
       setIsCodeSent(true);
       alert("인증번호가 전송되었습니다.");
+      setSubmitError("");
     } catch (err) {
-      console.error("전송 오류:", err.response?.data || err.message);
-      alert("인증번호 전송 실패");
+      // ▼▼▼▼▼ [ ✨ 최종 수정된 에러 처리 ] ▼▼▼▼▼
+      let errorMessage = "인증번호 전송에 실패했습니다.";
+      if (err.response && err.response.data && err.response.data.message) {
+        errorMessage = err.response.data.message;
+      }
+      setSubmitError(errorMessage);
     }
   };
 
@@ -80,9 +87,9 @@ export default function Register() {
       await axios.post("/api/member/register", { ...form, skipSave: true });
       setIsCodeVerified(true);
       alert("인증번호 확인 성공");
+      setSubmitError("");
     } catch (err) {
-      console.error(err);
-      alert("인증번호가 일치하지 않습니다.");
+      setSubmitError(err.response?.data?.message || "인증번호가 일치하지 않습니다.");
     }
   };
 
@@ -91,8 +98,7 @@ export default function Register() {
       await axios.post("/api/member/register", form);
       alert("회원가입 성공");
     } catch (err) {
-      console.error(err);
-      alert("회원가입 실패");
+      setSubmitError(err.response?.data?.message || "회원가입에 실패했습니다.");
     }
   };
 
@@ -111,7 +117,6 @@ export default function Register() {
           isExpanded={isExpanded}
           toggleExpand={toggleExpand}
         />
-        {/* 인증번호 입력란을 가입 버튼 바로 위로 이동 */}
         {isCodeSent && (
           <VerificationCodeInput
             value={form.code}
@@ -119,6 +124,9 @@ export default function Register() {
             onVerify={handleVerifyCode}
             isVerified={isCodeVerified}
           />
+        )}
+        {submitError && (
+          <p className="text-sm text-red-500 text-center">{submitError}</p>
         )}
         <SubmitRegisterButton
           onClick={isCodeSent ? handleSubmit : handleSendCode}

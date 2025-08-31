@@ -36,29 +36,35 @@ export default function QuestionFormPage() {
         alert("문의가 등록되었습니다.");
       }
       nav("/question", { replace: true });
-    } catch (e) {
-      const msg = e?.response?.data?.message || e?.response?.data?.error || "처리에 실패했습니다.";
-      alert(msg);
-    } finally { setSubmitting(false); }
+    } catch (err) {
+      let errorMessage = "요청 처리 중 오류가 발생했습니다.";
+
+      if (err.response && err.response.data && err.response.data.message) {
+        errorMessage = err.response.data.message;
+      }
+      alert(errorMessage);
+    } finally { 
+      setSubmitting(false); 
+    }
   }
 
   return (
     <div className="reserve-page min-h-screen bg-white">
-    <div className="bg-white">
-      <div className="relative max-w-md mx-auto px-4 py-3">
-        <BackButton
-          onClick={() => nav(-1)}
-          className="absolute left-2 top-1/2 -translate-y-1/2"
-          size={26}          
-          strokeWidth={2.5}
-        />
-        <h2 className="text-lg font-extrabold text-center">
-          1:1 문의 {editing ? "수정하기" : "작성하기"}
-        </h2>
+      <div className="bg-white">
+        <div className="relative max-w-md mx-auto px-4 py-3">
+          {/* ▼▼▼▼▼ [ ✨ 여기가 오류가 났던 부분입니다. 수정했습니다. ] ▼▼▼▼▼ */}
+          <BackButton
+            onClick={() => nav(-1)}
+            className="absolute left-2 top-1/2 -translate-y-1/2"
+            size={26}          
+            strokeWidth={2.5}
+          />
+          {/* ▲▲▲▲▲ [ ✨ 여기가 오류가 났던 부분입니다. 수정했습니다. ] ▲▲▲▲▲ */}
+          <h2 className="text-lg font-extrabold text-center">
+            1:1 문의 {editing ? "수정하기" : "작성하기"}
+          </h2>
+        </div>
       </div>
-    </div>
-
-      {/* 본문 */}
       <div className="px-6 pt-6 max-w-md mx-auto">
         <RegisterLogo />
         <div className="mt-6">

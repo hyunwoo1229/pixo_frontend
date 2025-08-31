@@ -55,12 +55,8 @@ export default function Form() {
         location: form.location.trim(),
         notes: form.note.trim(),
       };
-
       const config = { headers: { Authorization: `Bearer ${token}` } };
-      
-      // ▼▼▼▼▼ URL에서 memberId 부분을 제거하여 백엔드와 일치시킵니다. ▼▼▼▼▼
       const { data } = await axios.post(`/api/reservation`, payload, config);
-      
       const code = data.reservationCode || data.code || data.id || "UNKNOWN";
       
       setReservation({
@@ -75,14 +71,19 @@ export default function Form() {
       });
       nav("/reserve/complete");
     } catch (err) {
-      const msg = err.response?.status === 404 
-        ? "API 경로를 찾을 수 없습니다. (404 Not Found)"
-        : err?.response?.data?.message || err?.message || "예약 중 오류가 발생했습니다.";
-      alert(msg);
+      // ▼▼▼▼▼ [ ✨ 최종 수정된 에러 처리 ] ▼▼▼▼▼
+      let errorMessage = "예약 중 오류가 발생했습니다.";
+      if (err.response && err.response.data && err.response.data.message) {
+        errorMessage = err.response.data.message;
+      }
+      alert(errorMessage);
+
       if (err.response?.status === 401) {
         nav("/login", { replace: true });
       }
-    } finally { setLoading(false); }
+    } finally { 
+      setLoading(false); 
+    }
   }
 
   return (
