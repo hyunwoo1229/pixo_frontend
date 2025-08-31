@@ -21,6 +21,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminMenu from "./pages/Admin/AdminMenu"; 
 import AdminReservationManagement from "./pages/Admin/AdminReservationManagement"; 
 import AdminMemberManagement from "./pages/Admin/AdminMemberManagement";
+import FindId from "./pages/FindId"; 
 
 export default function App() {
   return (
@@ -42,7 +43,6 @@ export default function App() {
           <Route path="/reserve/form" element={<Form />} />
           <Route path="/reserve/complete" element={<Complete />} />
           
-          {/* ▼▼▼▼▼ [ ✨ 이 부분을 수정합니다 ] ▼▼▼▼▼ */}
           {/* 1. 일반 사용자용 /question 경로 추가 */}
           <Route path="/question" element={<QuestionList />} />
           <Route path="/question/new" element={<QuestionFormPage />} />
@@ -55,7 +55,6 @@ export default function App() {
           <Route path="/admin/members" element={<AdminMemberManagement />} />
           {/* 관리자용 1:1 문의 경로는 isAdmin={true} 속성을 전달합니다. */}
           <Route path="/admin/questions" element={<QuestionList isAdmin={true} />} />
-          {/* ▲▲▲▲▲ [ ✨ 이 부분을 수정합니다 ] ▲▲▲▲▲ */}
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}
@@ -63,6 +62,7 @@ export default function App() {
         <Route path="/login" element={<Auth />} />
         <Route path="/oauth-success" element={<OAuthRedirectHandler />} />
         <Route path="/social-extra" element={<SocialExtra />} />
+        <Route path="/find-id" element={<FindId />} />
       </Routes>
     </Router>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import RegisterLogo from "../components/Register/RegisterLogo";
-import WithdrawConfirm from "../components/Header/WithdrawConfirm"; // ✅ default import
+import WithdrawConfirm from "../components/Header/WithdrawConfirm"; 
 
 export default function Withdraw() {
   return (
