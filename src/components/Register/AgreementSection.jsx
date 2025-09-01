@@ -1,12 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom"; 
+
+const agreements = [
+  { name: "over14", label: "[필수] 14세 이상 확인 및 동의", link: "/over14" },
+  { name: "terms", label: "[필수] 이용 약관 동의", link: "/terms" },
+  { name: "privacy", label: "[필수] 개인정보 처리 방침 동의", link: "/privacy" },
+];
 
 const AgreementSection = ({ form, handleChange, isExpanded, toggleExpand }) => {
-  const agreements = [
-    { name: "over14", label: "[필수] 14세 이상 확인 및 동의" },
-    { name: "terms", label: "[필수] 이용 약관 동의" },
-    { name: "privacy", label: "[필수] 개인정보 처리 방침 동의" },
-  ];
-
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between px-1 py-3">
@@ -52,15 +53,18 @@ const AgreementSection = ({ form, handleChange, isExpanded, toggleExpand }) => {
                 />
                 <span>{item.label}</span>
               </label>
-              <svg
-                className="w-5 h-5 text-gray-500 ml-2"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path d="M9 5l7 7-7 7" />
-              </svg>
+
+              <Link to={item.link} target="_blank" rel="noopener noreferrer">
+                <svg
+                  className="w-5 h-5 text-gray-500 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           ))}
         </div>

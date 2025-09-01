@@ -71,7 +71,6 @@ export default function Form() {
       });
       nav("/reserve/complete");
     } catch (err) {
-      // ▼▼▼▼▼ [ ✨ 최종 수정된 에러 처리 ] ▼▼▼▼▼
       let errorMessage = "예약 중 오류가 발생했습니다.";
       if (err.response && err.response.data && err.response.data.message) {
         errorMessage = err.response.data.message;

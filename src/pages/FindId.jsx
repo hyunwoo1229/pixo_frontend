@@ -1,9 +1,7 @@
-// src/pages/FindId.jsx
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom'; // useNavigate 추가
-import RegisterLogo from '../components/Register/RegisterLogo'; // 기존 로고 컴포넌트 사용
+import { Link, useNavigate } from 'react-router-dom'; 
+import RegisterLogo from '../components/Register/RegisterLogo'; 
 
 export default function FindId() {
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -140,7 +138,6 @@ export default function FindId() {
           </p>
         )}
 
-        {/* 로그인 페이지로 돌아가기 링크 추가 (옵션) */}
         <div className="mt-6 text-center">
           <Link to="/login" className="inline-block px-6 py-2 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">
             로그인 화면으로 돌아가기

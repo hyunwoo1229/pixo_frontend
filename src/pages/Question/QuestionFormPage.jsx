@@ -52,14 +52,12 @@ export default function QuestionFormPage() {
     <div className="reserve-page min-h-screen bg-white">
       <div className="bg-white">
         <div className="relative max-w-md mx-auto px-4 py-3">
-          {/* ▼▼▼▼▼ [ ✨ 여기가 오류가 났던 부분입니다. 수정했습니다. ] ▼▼▼▼▼ */}
           <BackButton
             onClick={() => nav(-1)}
             className="absolute left-2 top-1/2 -translate-y-1/2"
             size={26}          
             strokeWidth={2.5}
           />
-          {/* ▲▲▲▲▲ [ ✨ 여기가 오류가 났던 부분입니다. 수정했습니다. ] ▲▲▲▲▲ */}
           <h2 className="text-lg font-extrabold text-center">
             1:1 문의 {editing ? "수정하기" : "작성하기"}
           </h2>

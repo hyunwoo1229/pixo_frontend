@@ -23,6 +23,10 @@ import AdminReservationManagement from "./pages/Admin/AdminReservationManagement
 import AdminMemberManagement from "./pages/Admin/AdminMemberManagement";
 import FindId from "./pages/FindId"; 
 import FindPassword from "./pages/FindPassword";
+import Over14 from "./pages/Over14";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import CategoryDetail from "./pages/CategoryDetail";
 
 export default function App() {
   return (
@@ -56,6 +60,8 @@ export default function App() {
           <Route path="/admin/members" element={<AdminMemberManagement />} />
           {/* 관리자용 1:1 문의 경로는 isAdmin={true} 속성을 전달합니다. */}
           <Route path="/admin/questions" element={<QuestionList isAdmin={true} />} />
+
+          <Route path="/category/:categoryId" element={<CategoryDetail />} />
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}
@@ -65,6 +71,9 @@ export default function App() {
         <Route path="/social-extra" element={<SocialExtra />} />
         <Route path="/find-id" element={<FindId />} />
         <Route path="/find-password" element={<FindPassword />} />
+        <Route path="/over14" element={<Over14 />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
       </Routes>
     </Router>
   );
