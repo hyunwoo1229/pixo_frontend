@@ -76,7 +76,6 @@ export default function LoginForm() {
         <div className="mt-6">
           <NoAccountLink />
           
-          {/* ▼▼▼▼▼ [ ✨ 이 부분이 추가되었습니다 ] ▼▼▼▼▼ */}
           <p className="text-center text-xs mt-2">
             아이디/비밀번호를 잊으셨나요?{" "}
             <a href="/find-id" className="underline font-medium">
@@ -87,7 +86,6 @@ export default function LoginForm() {
               비밀번호 찾기
             </a>
           </p>
-          {/* ▲▲▲▲▲ [ ✨ 이 부분이 추가되었습니다 ] ▲▲▲▲▲ */}
 
         </div>
       </div>

@@ -17,22 +17,50 @@ export default function Register() {
     name: "",
     phoneNumber: "",
     code: "",
-    agreements: {
-      all: false,
-      over14: false,
-      terms: false,
-      privacy: false,
-    },
+    agreements: { all: false, over14: false, terms: false, privacy: false },
   });
 
   const [isExpanded, setIsExpanded] = useState(true);
   const [isCodeSent, setIsCodeSent] = useState(false);
-  const [passwordError, setPasswordError] = useState(""); // 비밀번호 에러 메시지 state 추가
+  const [passwordError, setPasswordError] = useState("");
   const [submitError, setSubmitError] = useState("");
 
-  const { isIdChecked, isIdAvailable, message } = useCheckLoginId(form.loginId);
+  const { isIdChecked, isIdAvailable, message: idMessage } = useCheckLoginId(form.loginId);
 
-  // 비밀번호와 비밀번호 확인이 일치하는지 감시하는 로직
+  const [isPhoneChecked, setIsPhoneChecked] = useState(false);
+  const [isPhoneAvailable, setIsPhoneAvailable] = useState(false);
+  const [phoneMessage, setPhoneMessage] = useState("");
+  
+  useEffect(() => {
+    const phoneNumber = form.phoneNumber;
+    if (!phoneNumber || phoneNumber.length !== 11) {
+      setIsPhoneChecked(false);
+      setIsPhoneAvailable(false);
+      setPhoneMessage("");
+      return;
+    }
+
+    const handler = setTimeout(async () => {
+      try {
+        await axios.get(`/api/member/check-phone?phoneNumber=${phoneNumber}`);
+        setIsPhoneChecked(true);
+        setIsPhoneAvailable(true);
+        setPhoneMessage("사용 가능한 전화번호입니다.");
+      } catch (err) {
+        setIsPhoneChecked(true);
+        setIsPhoneAvailable(false);
+        if (err.response?.status === 409) {
+          setPhoneMessage("이미 가입된 전화번호입니다.");
+        } else {
+          setPhoneMessage("전화번호 확인 중 오류가 발생했습니다.");
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [form.phoneNumber]);
+
+
   useEffect(() => {
     if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
       setPasswordError("비밀번호가 일치하지 않습니다.");
@@ -41,18 +69,14 @@ export default function Register() {
     }
   }, [form.password, form.confirmPassword]);
 
-
   const toggleExpand = () => setIsExpanded((prev) => !prev);
-
+  
   const handleChange = (e) => {
     setSubmitError("");
     const { name, value, checked } = e.target;
 
     if (name === "all") {
-      setForm((prev) => ({
-        ...prev,
-        agreements: { all: checked, over14: checked, terms: checked, privacy: checked },
-      }));
+      setForm((prev) => ({ ...prev, agreements: { all: checked, over14: checked, terms: checked, privacy: checked } }));
     } else if (name in form.agreements) {
       const updated = { ...form.agreements, [name]: checked };
       updated.all = updated.over14 && updated.terms && updated.privacy;
@@ -61,12 +85,8 @@ export default function Register() {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
   };
-
+  
   const handleSendCode = async () => {
-    if (!form.phoneNumber || form.phoneNumber.length !== 11) {
-      alert("전화번호를 정확히 입력해주세요.");
-      return;
-    }
     try {
       await axios.post("/api/member/send-code", null, { params: { phoneNumber: form.phoneNumber } });
       setIsCodeSent(true);
@@ -74,9 +94,7 @@ export default function Register() {
       setSubmitError("");
     } catch (err) {
       let errorMessage = "인증번호 전송에 실패했습니다.";
-      if (err.response?.data?.message) {
-        errorMessage = err.response.data.message;
-      }
+      if (err.response?.data?.message) { errorMessage = err.response.data.message; }
       setSubmitError(errorMessage);
     }
   };
@@ -90,11 +108,10 @@ export default function Register() {
     }
   };
   
-  // 버튼 활성화/비활성화 로직
   const isButtonDisabled = () => {
-    if (!isCodeSent) { // 인증번호 받기 전
-      return !form.loginId || !form.password || !form.confirmPassword || !form.name || !form.phoneNumber || !!passwordError || !isIdAvailable || !form.agreements.all;
-    } else { // 인증번호 받은 후
+    if (!isCodeSent) {
+      return !form.loginId || !form.password || !form.confirmPassword || !form.name || !form.phoneNumber || !!passwordError || !isIdAvailable || !isPhoneAvailable || !form.agreements.all;
+    } else {
       return !form.code || !!passwordError;
     }
   };
@@ -104,34 +121,17 @@ export default function Register() {
       <div className="w-full max-w-md flex flex-col space-y-4">
         <RegisterLogo />
         <AuthInputGroup form={form} handleChange={handleChange} />
-        {/* 비밀번호 에러 메시지 표시 */}
         {passwordError && <IdCheckMessage message={passwordError} isValid={false} />}
-        
-        {isIdChecked && (
-          <IdCheckMessage message={message} isValid={isIdAvailable} />
-        )}
+        {isIdChecked && <IdCheckMessage message={idMessage} isValid={isIdAvailable} />}
+
         <NamePhoneInputGroup form={form} handleChange={handleChange} />
-        <AgreementSection
-          form={form}
-          handleChange={handleChange}
-          isExpanded={isExpanded}
-          toggleExpand={toggleExpand}
-        />
-        {isCodeSent && (
-          <VerificationCodeInput
-            value={form.code}
-            onChange={handleChange}
-          />
-        )}
-        {submitError && (
-          <p className="text-sm text-red-500 text-center">{submitError}</p>
-        )}
-        {/* SubmitRegisterButton에 disabled 상태 직접 전달 */}
-        <SubmitRegisterButton
-          onClick={isCodeSent ? handleSubmit : handleSendCode}
-          disabled={isButtonDisabled()}
-          isCodeSent={isCodeSent}
-        />
+        
+        {isPhoneChecked && !isPhoneAvailable && <IdCheckMessage message={phoneMessage} isValid={false} />}
+
+        <AgreementSection form={form} handleChange={handleChange} isExpanded={isExpanded} toggleExpand={toggleExpand} />
+        {isCodeSent && <VerificationCodeInput value={form.code} onChange={handleChange} />}
+        {submitError && <p className="text-sm text-red-500 text-center">{submitError}</p>}
+        <SubmitRegisterButton onClick={isCodeSent ? handleSubmit : handleSendCode} disabled={isButtonDisabled()} isCodeSent={isCodeSent} />
       </div>
     </div>
   );
