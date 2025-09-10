@@ -39,11 +39,12 @@ function Header() {
     if (next) applyAuthState();
   };
   const toggleAccount = () => setAccountOpen((v) => !v);
-  const toggleAdmin = () => setAdminOpen((v) => !v); //
+  const toggleAdmin = () => setAdminOpen((v) => !v);
   const closeMenu = () => setIsOpen(false);
 
   return (
     <>
+      {/* ▼▼▼▼▼ [ ✨ 메뉴(nav)를 다시 header 태그 안으로 이동시켰습니다 ] ▼▼▼▼▼ */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow">
         <div className="w-full flex items-center justify-between px-4 py-2">
           <button
@@ -99,6 +100,10 @@ function Header() {
                           </Link>
                           <Link to="/admin/members" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
                             전체 회원 관리
+                          </Link>
+                          {/* ▼▼▼▼▼ [ ✨ '일정 관리' 링크 추가 ] ▼▼▼▼▼ */}
+                          <Link to="/admin/schedule" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
+                            일정 관리
                           </Link>
                         </div>
                       )}

@@ -1,15 +1,14 @@
+// src/pages/Reservation/Form.jsx
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Stepper from "../../components/Reservation/Stepper";
 import ReservationHeader from "../../components/Reservation/ReservationHeader.jsx";
-import LocationField from "../../components/Reservation/LocationField.jsx";
-import NoteField from "../../components/Reservation/NoteField.jsx";
-import DesiredShootDateField from "../../components/Reservation/DesiredShootDateField.jsx";
 import "../../styles/reservation.css";
 import { getReservation, setReservation } from "../../hooks/useReservationSession";
 
-const TIME_SLOTS = ["09:00 - 10:00", "12:00 - 13:00", "15:00 - 16:00", "18:00 - 19:00", "21:00 - 22:00"];
+const TIME_SLOTS = ["09-10", "12-13", "15-16", "18-19", "21-22"];
 
 function formatDateLocal(d) {
   const y = d.getFullYear();
@@ -79,7 +78,7 @@ export default function Form() {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
       });
 
-      const dStr = `${date.getFullYear()}.${String(date.getMonth()+1).padStart(2,"0")}.${String(date.getDate()).padStart(2,"0")}`;
+      const dStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
       
       setReservation({
         result: {
@@ -107,7 +106,13 @@ export default function Form() {
     }
   }
 
-  const dStr = `${date.getFullYear()}.${String(date.getMonth()+1).padStart(2,"0")}.${String(date.getDate()).padStart(2,"0")}`;
+  const dStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
+
+  const now = new Date();
+  const isToday = date.getFullYear() === now.getFullYear() &&
+                  date.getMonth() === now.getMonth() &&
+                  date.getDate() === now.getDate();
+  const currentHour = now.getHours();
 
   return (
     <div className="reserve-page">
@@ -115,57 +120,86 @@ export default function Form() {
       <Stepper current={3} />
       <section className="section">
         <form className="form" onSubmit={handleSubmit}>
-          <div className="section-title-row">
-            <svg xmlns="http://www.w3.org/2000/svg" className="emoji" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-              <line x1="16" y1="2" x2="16" y2="6" />
-              <line x1="8" y1="2" x2="8" y2="6" />
-              <line x1="3" y1="10" x2="21" y2="10" />
-            </svg>
-            <div className="section-title">{dStr}</div>
-          </div>
-
-          {timeLoading ? (
-            <div className="text-center p-4">회의 시간 정보 로딩 중...</div>
-          ) : (
-            <div className="grid grid-cols-3 gap-2 mt-2">
-              {TIME_SLOTS.map((slot) => {
-                const slotValue = slot.substring(0, 5);
-                const isBooked = bookedTimes.includes(slotValue);
-                const isSelected = form.time === slotValue;
-                return (
-                  <button
-                    key={slot}
-                    type="button"
-                    disabled={isBooked}
-                    onClick={() => setForm(s => ({ ...s, time: slotValue }))}
-                    className={`py-2 border rounded-lg text-sm transition-colors ${isBooked ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''} ${isSelected ? 'bg-black text-white border-black' : 'hover:border-gray-400'}`}
-                  >
-                    {slot}
-                  </button>
-                );
-              })}
+          <div>
+            <div className="section-title-row">
+              <svg xmlns="http://www.w3.org/2000/svg" className="emoji" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
+              <div className="section-title">{dStr}</div>
             </div>
-          )}
+
+            {timeLoading ? (
+              <div className="text-center p-4">회의 시간 정보 로딩 중...</div>
+            ) : (
+              <div className="grid grid-cols-3 gap-2 mt-2">
+                {TIME_SLOTS.map((slot) => {
+                  const isBooked = bookedTimes.includes(slot);
+                  let isPast = false;
+                  if (isToday) {
+                    const slotStartHour = parseInt(slot.split('-')[0]);
+                    if (slotStartHour <= currentHour) {
+                      isPast = true;
+                    }
+                  }
+                  const isSelected = form.time === slot;
+                  
+                  return (
+                    <button
+                      key={slot}
+                      type="button"
+                      disabled={isBooked || isPast}
+                      onClick={() => setForm(s => ({ ...s, time: slot }))}
+                      className={`py-2 border rounded-lg text-sm transition-colors 
+                        ${(isBooked || isPast) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''} 
+                        ${isSelected ? 'bg-black text-white border-black' : 'hover:border-gray-400'}
+                      `}
+                    >
+                      {slot.replace('-', ':00 - ')}:00
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
           
-          {/* ▼▼▼▼▼ [ ✨ 이 부분에 빈 div를 추가하여 간격을 만듭니다 ] ▼▼▼▼▼ */}
-          <div className="h-2" /> 
-          
-          <DesiredShootDateField 
-            value={form.desiredShootDate} 
-            onChange={(e) => setForm(s => ({ ...s, desiredShootDate: e.target.value }))}
-            disabled={loading}
-          />
-          <LocationField 
-            value={form.location} 
-            onChange={(e) => setForm(s => ({ ...s, location: e.target.value }))}
-            disabled={loading}
-          />
-          <NoteField 
-            value={form.note} 
-            onChange={(e) => setForm(s => ({ ...s, note: e.target.value }))}
-            disabled={loading}
-          />
+          <div className="space-y-4 mt-6">
+            {/* ▼▼▼▼▼ [ ✨ label과 input에 스타일을 추가하여 레이아웃을 수정합니다 ] ▼▼▼▼▼ */}
+            <div>
+              <label className="label block mb-1">희망 촬영 날짜</label>
+              <input
+                className="input w-full"
+                placeholder="ex) 10월 15일 또는 11월 첫째 주"
+                value={form.desiredShootDate}
+                onChange={(e) => setForm(s => ({ ...s, desiredShootDate: e.target.value }))}
+                required
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="label block mb-1">희망 촬영 장소</label>
+              <input
+                className="input w-full"
+                placeholder="ex) 경기도 수원시, 추천 장소 받기"
+                value={form.location}
+                onChange={(e) => setForm(s => ({ ...s, location: e.target.value }))}
+                required
+                disabled={loading}
+              />
+            </div>
+            <div>
+              <label className="label block mb-1">기타</label>
+              <input
+                className="input w-full"
+                placeholder="ex) 인원, 하고싶은 말 등"
+                value={form.note}
+                onChange={(e) => setForm(s => ({ ...s, note: e.target.value }))}
+                disabled={loading}
+              />
+            </div>
+          </div>
 
           <div className="helper">예약 후 상세 협의를 위해 입력한 번호로 연락드립니다.</div>
           <button className="primary-btn" type="submit" disabled={loading}>

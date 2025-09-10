@@ -28,7 +28,7 @@ import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import CategoryDetail from "./pages/CategoryDetail";
 import ScrollToTop from "./components/ScrollToTop";
-
+import AdminScheduleManagement from "./pages/Admin/AdminScheduleManagement";
 export default function App() {
   return (
     <Router>
@@ -64,6 +64,7 @@ export default function App() {
           <Route path="/admin/questions" element={<QuestionList isAdmin={true} />} />
 
           <Route path="/category/:categoryId" element={<CategoryDetail />} />
+          <Route path="/admin/schedule" element={<AdminScheduleManagement />} /> 
         </Route>
 
         {/* ❌ 푸터 없이: 인증 플로우 */}
