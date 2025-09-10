@@ -1,11 +1,10 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 
-function formatDateKorean(dateString) {
-  if (!dateString) return "";
-  const parts = dateString.split(".");
-  if (parts.length !== 3) return dateString;
-  return `${parts[0]}년 ${parts[1]}월 ${parts[2]}일`;
+function formatTimeSlot(slot) {
+  if (!slot || !slot.includes('-')) return slot;
+  return slot.replace('-', ':00 - ') + ':00';
 }
 
 export default function SummaryCard({ result, onHome }) {
@@ -15,9 +14,7 @@ export default function SummaryCard({ result, onHome }) {
     <div className="summary-card">
       <div className="summary-logo">PIXO</div>
       <p className="summary-main-text">
-        <span className="summary-date">{formatDateKorean(result.date)}</span>
-        <br />
-        예약이 완료되었습니다!
+        회의 예약이 완료되었습니다!
       </p>
       <p className="summary-code">예약 코드: {result.code}</p>
       <p className="summary-lookup-text">
@@ -25,8 +22,10 @@ export default function SummaryCard({ result, onHome }) {
       </p>
       <div className="summary-details">
         <dl><dt>촬영 종류:</dt><dd>{result.categoryLabel}</dd></dl>
-        <dl><dt>촬영 시작 시간:</dt><dd>{result.time}</dd></dl>
-        <dl><dt>촬영 장소:</dt><dd>{result.location}</dd></dl>
+        <dl><dt>회의 날짜:</dt><dd>{result.date}</dd></dl>
+        <dl><dt>회의 시간:</dt><dd>{formatTimeSlot(result.time)}</dd></dl>
+        <dl><dt>희망 촬영 날짜:</dt><dd>{result.desiredShootDate}</dd></dl>
+        <dl><dt>희망 촬영 장소:</dt><dd>{result.location}</dd></dl>
         <dl><dt>기타:</dt><dd>{result.note || "-"}</dd></dl>
       </div>
       <button className="summary-home-btn" onClick={onHome}>홈으로</button>

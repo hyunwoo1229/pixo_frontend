@@ -8,9 +8,10 @@ import "../../styles/reservation.css";
 import { setReservation } from "../../hooks/useReservationSession";
 
 const TYPES = [
-  { code: "PROMOTION", label: "홍보용 촬영", cover: "PROMOTION_MAIN" },
-  { code: "PORTRAIT",  label: "인물 촬영",   cover: "PORTRAIT_MAIN"  },
-  { code: "OBJECT",    label: "사물 촬영",   cover: "OBJECT_MAIN"    },
+  { code: "LANDSCAPE", label: "Landscape", cover: "LANDSCAPE_MAIN" },
+  { code: "PRODUCT",  label: "Product",   cover: "PRODUCT_MAIN"  },
+  { code: "FOOD",    label: "Food",   cover: "FOOD_MAIN"    },
+  { code: "WEDDING",    label: "Wedding",   cover: "WEDDING_MAIN"    },
 ];
 
 // 서버 응답에서 이미지 필드 통일
@@ -64,7 +65,6 @@ export default function Type() {
       <ReservationHeader title="예약하기" />
       <Stepper current={1} />
       <section className="section">
-        <h2 className="section-title">촬영 종류 선택</h2>
         {loading ? (
           <div className="cat-grid">
             {[...Array(3)].map((_, i) => (

@@ -4,11 +4,11 @@ import axios from 'axios';
 import BackButton from '../components/Common/BackButton';
 import ImageSlider from '../components/ImageSlider';
 
-// 카테고리 ID를 한글명과 설명으로 변환하기 위한 정보
 const CATEGORY_INFO = {
-  PROMOTION: { label: '홍보용 촬영', description: '매출을 높이는 고품질 홍보용 사진으로 비즈니스를 한 단계 업그레이드하세요.' },
-  PORTRAIT: { label: '인물 촬영', description: '인생의 가장 아름다운 순간을 PIXO만의 감성으로 담아드립니다.' },
-  OBJECT: { label: '사물 촬영', description: '제품의 가치를 극대화하는 섬세한 사물 촬영으로 고객의 시선을 사로잡으세요.' },
+  LANDSCAPE: { label: 'Landscape', description: '풍경 촬영' },
+  PRODUCT: { label: 'Product', description: '제품 촬영' },
+  FOOD: { label: 'Food', description: '음식 촬영' },
+  WEDDING: { label: 'Wedding', description: '웨딩 촬영' },
 };
 
 export default function CategoryDetail() {

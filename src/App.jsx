@@ -27,10 +27,12 @@ import Over14 from "./pages/Over14";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import CategoryDetail from "./pages/CategoryDetail";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* ✅ 푸터/헤더 포함되는 화면들 */}
         <Route element={<MainLayout />}>

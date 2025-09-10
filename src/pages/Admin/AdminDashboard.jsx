@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 const CATEGORIES = [
-  { value: "PROMOTION", label: "홍보용 촬영" },
-  { value: "PORTRAIT", label: "인물 촬영" },
-  { value: "OBJECT", label: "사물 촬영" },
+  { value: "LANDSCAPE", label: "풍경 촬영" },
+  { value: "PRODUCT", label: "제품 촬영" },
+  { value: "FOOD", label: "음식 촬영" },
+  { value: "WEDDING", label: "웨딩 촬영" },
   { value: "REPRESENTATIVE", label: "전체 대표 사진" },
-  { value: "PROMOTION_MAIN", label: "홍보 대표 사진" },
-  { value: "PORTRAIT_MAIN", label: "인물 대표 사진" },
-  { value: "OBJECT_MAIN", label: "사물 대표 사진" },
+  { value: "LANDSCAPE_MAIN", label: "풍경 대표 사진" },
+  { value: "PRODUCT_MAIN", label: "제품 대표 사진" },
+  { value: "FOOD_MAIN", label: "음식 대표 사진" },
+  { value: "WEDDING_MAIN", label: "웨딩 대표 사진" },
 ];
 
 const FILE_LIMIT_MB = 50;
