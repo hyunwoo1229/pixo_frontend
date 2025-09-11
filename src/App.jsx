@@ -29,6 +29,9 @@ import Privacy from "./pages/Privacy";
 import CategoryDetail from "./pages/CategoryDetail";
 import ScrollToTop from "./components/ScrollToTop";
 import AdminScheduleManagement from "./pages/Admin/AdminScheduleManagement";
+import Introduce from "./pages/Introduce"; 
+import Price from "./pages/Price"; 
+
 export default function App() {
   return (
     <Router>
@@ -37,7 +40,8 @@ export default function App() {
         {/* ✅ 푸터/헤더 포함되는 화면들 */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/price" element={<div className="px-6 pt-4">가격</div>} />
+          <Route path="/introduce" element={<Introduce />} />
+          <Route path="/price" element={<Price />} />
           <Route path="/reserve" element={<div className="px-6 pt-4">예약하기</div>} />
           <Route path="/inquiry" element={<div className="px-6 pt-4">1:1 문의</div>} />
           <Route path="/change-password" element={<ChangePassword />} />
