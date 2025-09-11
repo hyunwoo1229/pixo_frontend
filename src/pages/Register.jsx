@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import RegisterLogo from "../components/Register/RegisterLogo";
 import AuthInputGroup from "../components/Register/AuthInputGroup";
@@ -24,9 +24,12 @@ export default function Register() {
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [passwordError, setPasswordError] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const [idLengthError, setIdLengthError] = useState("");
+  const [passwordLengthError, setPasswordLengthError] = useState("");
 
   const { isIdChecked, isIdAvailable, message: idMessage } = useCheckLoginId(form.loginId);
 
+  // 전화번호 중복 확인 로직 (훅 없이 직접 구현)
   const [isPhoneChecked, setIsPhoneChecked] = useState(false);
   const [isPhoneAvailable, setIsPhoneAvailable] = useState(false);
   const [phoneMessage, setPhoneMessage] = useState("");
@@ -39,13 +42,11 @@ export default function Register() {
       setPhoneMessage("");
       return;
     }
-
     const handler = setTimeout(async () => {
       try {
         await axios.get(`/api/member/check-phone?phoneNumber=${phoneNumber}`);
         setIsPhoneChecked(true);
         setIsPhoneAvailable(true);
-        setPhoneMessage("사용 가능한 전화번호입니다.");
       } catch (err) {
         setIsPhoneChecked(true);
         setIsPhoneAvailable(false);
@@ -56,11 +57,28 @@ export default function Register() {
         }
       }
     }, 500);
-
     return () => clearTimeout(handler);
   }, [form.phoneNumber]);
 
+  // 아이디 길이 검증
+  useEffect(() => {
+    if (form.loginId && (form.loginId.length < 4 || form.loginId.length > 20)) {
+      setIdLengthError("아이디는 4~20자 사이여야 합니다.");
+    } else {
+      setIdLengthError("");
+    }
+  }, [form.loginId]);
 
+  // 비밀번호 길이 검증
+  useEffect(() => {
+    if (form.password && (form.password.length < 8 || form.password.length > 16)) {
+      setPasswordLengthError("비밀번호는 8~16자 사이여야 합니다.");
+    } else {
+      setPasswordLengthError("");
+    }
+  }, [form.password]);
+
+  // 비밀번호 일치 확인
   useEffect(() => {
     if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
       setPasswordError("비밀번호가 일치하지 않습니다.");
@@ -74,7 +92,6 @@ export default function Register() {
   const handleChange = (e) => {
     setSubmitError("");
     const { name, value, checked } = e.target;
-
     if (name === "all") {
       setForm((prev) => ({ ...prev, agreements: { all: checked, over14: checked, terms: checked, privacy: checked } }));
     } else if (name in form.agreements) {
@@ -85,7 +102,7 @@ export default function Register() {
       setForm((prev) => ({ ...prev, [name]: value }));
     }
   };
-  
+
   const handleSendCode = async () => {
     try {
       await axios.post("/api/member/send-code", null, { params: { phoneNumber: form.phoneNumber } });
@@ -110,9 +127,11 @@ export default function Register() {
   
   const isButtonDisabled = () => {
     if (!isCodeSent) {
-      return !form.loginId || !form.password || !form.confirmPassword || !form.name || !form.phoneNumber || !!passwordError || !isIdAvailable || !isPhoneAvailable || !form.agreements.all;
+      return !form.loginId || !form.password || !form.confirmPassword || !form.name || !form.phoneNumber 
+             || !!idLengthError || !!passwordLengthError || !!passwordError 
+             || !isIdAvailable || !isPhoneAvailable || !form.agreements.all;
     } else {
-      return !form.code || !!passwordError;
+      return !form.code || !!passwordError || !!idLengthError || !!passwordLengthError;
     }
   };
 
@@ -121,11 +140,13 @@ export default function Register() {
       <div className="w-full max-w-md flex flex-col space-y-4">
         <RegisterLogo />
         <AuthInputGroup form={form} handleChange={handleChange} />
+        
+        {idLengthError && <IdCheckMessage message={idLengthError} isValid={false} />}
+        {passwordLengthError && <IdCheckMessage message={passwordLengthError} isValid={false} />}
         {passwordError && <IdCheckMessage message={passwordError} isValid={false} />}
-        {isIdChecked && <IdCheckMessage message={idMessage} isValid={isIdAvailable} />}
+        {isIdChecked && !idLengthError && <IdCheckMessage message={idMessage} isValid={isIdAvailable} />}
 
         <NamePhoneInputGroup form={form} handleChange={handleChange} />
-        
         {isPhoneChecked && !isPhoneAvailable && <IdCheckMessage message={phoneMessage} isValid={false} />}
 
         <AgreementSection form={form} handleChange={handleChange} isExpanded={isExpanded} toggleExpand={toggleExpand} />
@@ -136,3 +157,4 @@ export default function Register() {
     </div>
   );
 }
+

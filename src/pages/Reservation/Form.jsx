@@ -171,7 +171,7 @@ export default function Form() {
               <label className="label block mb-1">희망 촬영 날짜</label>
               <input
                 className="input w-full"
-                placeholder="ex) 10월 15일 또는 11월 첫째 주"
+                placeholder="ex) 10월 15일, 11월 첫째 주, 12월 초"
                 value={form.desiredShootDate}
                 onChange={(e) => setForm(s => ({ ...s, desiredShootDate: e.target.value }))}
                 required
@@ -182,7 +182,7 @@ export default function Form() {
               <label className="label block mb-1">희망 촬영 장소</label>
               <input
                 className="input w-full"
-                placeholder="ex) 경기도 수원시, 추천 장소 받기"
+                placeholder="ex) 서울, 경기도 수원, 미정"
                 value={form.location}
                 onChange={(e) => setForm(s => ({ ...s, location: e.target.value }))}
                 required
@@ -201,7 +201,7 @@ export default function Form() {
             </div>
           </div>
 
-          <div className="helper">예약 후 상세 협의를 위해 입력한 번호로 연락드립니다.</div>
+          <div className="helper">예약 후 회의를 위해 예약 날짜와 시간에 연락드립니다.</div>
           <button className="primary-btn" type="submit" disabled={loading}>
             {loading ? "처리 중..." : "예약 완료"}
           </button>
