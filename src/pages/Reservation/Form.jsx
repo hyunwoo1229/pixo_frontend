@@ -1,5 +1,3 @@
-// src/pages/Reservation/Form.jsx
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -35,6 +33,13 @@ export default function Form() {
     const r = getReservation();
     if (!r.categoryId || !r.date) { nav("/reserve/type"); return; }
 
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+      nav("/login");
+      return; 
+    }
+
     const meetingDate = new Date(r.date);
     setCat(r);
     setDate(meetingDate);
@@ -58,6 +63,13 @@ export default function Form() {
   async function handleSubmit(e) {
     e.preventDefault();
     if (loading) return;
+
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+      nav("/login");
+      return;
+    }
 
     if (!form.desiredShootDate) { alert("희망 촬영 날짜를 입력해 주세요."); return; }
     if (!form.time) { alert("회의 시간을 선택해 주세요."); return; }
@@ -166,7 +178,6 @@ export default function Form() {
           </div>
           
           <div className="space-y-4 mt-6">
-            {/* ▼▼▼▼▼ [ ✨ label과 input에 스타일을 추가하여 레이아웃을 수정합니다 ] ▼▼▼▼▼ */}
             <div>
               <label className="label block mb-1">희망 촬영 날짜</label>
               <input

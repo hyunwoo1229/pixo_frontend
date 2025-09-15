@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 export default function Terms() {
   const navigate = useNavigate();
 
-  // BackButton 컴포넌트를 내부에 직접 정의합니다.
   const BackButton = () => (
     <button
       onClick={() => navigate(-1)}
@@ -27,7 +26,7 @@ export default function Terms() {
 
         <div className="space-y-6 text-sm">
           <p className="text-xs text-gray-500 text-center">
-            최종 수정일: 2025년 9월 3일 | 시행일: 2025년 9월 3일
+            최종 수정일: 2025년 9월 11일 | 시행일: 2025년 9월 11일
           </p>
           
           <div>
@@ -75,20 +74,50 @@ export default function Terms() {
           <div>
             <strong className="block font-medium text-base mb-2">제5조 (서비스의 제공 등)</strong>
             <ul className="list-decimal list-inside pl-4 space-y-1">
-              <li>회사는 회원에게 아래와 같은 서비스를 제공합니다. (서비스 내용 기재)</li>
+              <li>회사는 회원에게 아래와 같은 서비스를 제공합니다.
+                <ul className="list-disc list-inside ml-4">
+                  <li>사진 촬영 예약 및 관련 상담 서비스</li>
+                  <li>1:1 문의 게시판 서비스</li>
+                  <li>포트폴리오(사진) 제공 서비스</li>
+                  <li>기타 회사가 추가 개발하거나 다른 회사와의 제휴계약 등을 통해 회원에게 제공하는 일체의 서비스</li>
+                </ul>
+              </li>
               <li>회사는 컴퓨터 등 정보통신설비의 보수점검, 교체 및 고장, 통신두절 또는 운영상 상당한 이유가 있는 경우 서비스의 제공을 일시적으로 중단할 수 있습니다.</li>
             </ul>
           </div>
           
           <div>
-            <strong className="block font-medium text-base mb-2">제6조 (계약해제, 해지 등)</strong>
+            <strong className="block font-medium text-base mb-2">제6조 (예약의 성립)</strong>
+            <p>
+              예약은 회원이 본 약관에 동의하고 회사가 정한 예약 절차를 완료한 시점에 성립됩니다. 예약 완료 시, 회사는 회원에게 예약 코드 등 예약 내용을 통지할 수 있습니다.
+            </p>
+          </div>
+
+          <div>
+            <strong className="block font-medium text-base mb-2">제7조 (예약의 취소 및 환불)</strong>
+            <ul className="list-decimal list-inside pl-4 space-y-1">
+              <li>회원은 회사의 예약 페이지를 통해 예약을 취소할 수 있습니다.</li>
+              <li>회원의 사정으로 예약을 취소하는 경우, 다음의 기준에 따라 환불 수수료가 부과될 수 있습니다.
+                <ul className="list-disc list-inside ml-4">
+                  <li>예약된 회의 날짜 기준 7일 전까지 취소: 전액 환불</li>
+                  <li>예약된 회의 날짜 기준 3일 전까지 취소: 총 결제 금액의 50% 환불</li>
+                  <li>예약된 회의 날짜 기준 1일 전 또는 당일 취소: 환불 불가</li>
+                </ul>
+              </li>
+              <li>회사의 귀책사유로 인해 예약이 취소되는 경우, 회사는 총 결제 금액을 전액 환불하며, 관련 법규에 따라 회원에게 발생한 손해를 배상할 수 있습니다.</li>
+              <li>환불은 회원의 결제 수단에 따라 영업일 기준 3~7일이 소요될 수 있습니다.</li>
+            </ul>
+          </div>
+
+          <div>
+            <strong className="block font-medium text-base mb-2">제8조 (계약해제, 해지 등)</strong>
             <p>
               회원은 언제든지 서비스 내 "회원탈퇴" 기능을 통하여 이용계약 해지를 신청할 수 있으며, 회사는 관련법 등이 정하는 바에 따라 이를 즉시 처리하여야 합니다.
             </p>
           </div>
           
           <div>
-            <strong className="block font-medium text-base mb-2">제7조 (책임제한)</strong>
+            <strong className="block font-medium text-base mb-2">제9조 (책임제한)</strong>
             <ul className="list-decimal list-inside pl-4 space-y-1">
               <li>회사는 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.</li>
               <li>회사는 회원의 귀책사유로 인한 서비스 이용의 장애에 대하여는 책임을 지지 않습니다.</li>
@@ -97,7 +126,7 @@ export default function Terms() {
           </div>
           
           <div>
-            <strong className="block font-medium text-base mb-2">제8조 (준거법 및 재판관할)</strong>
+            <strong className="block font-medium text-base mb-2">제10조 (준거법 및 재판관할)</strong>
             <ul className="list-decimal list-inside pl-4 space-y-1">
               <li>회사와 회원 간에 발생한 분쟁에 대하여는 대한민국법을 준거법으로 합니다.</li>
               <li>회사와 회원 간 발생한 분쟁에 관한 소송은 민사소송법 상의 관할법원에 제소합니다.</li>
