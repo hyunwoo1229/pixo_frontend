@@ -24,22 +24,13 @@ export default function CategoryDetail() {
       if (!categoryId) return;
       setLoading(true);
       try {
-        const mainPhotoCategory = `${categoryId}_MAIN`;
-        const mainPhotoRes = await axios.get('/api/photo', { params: { category: mainPhotoCategory } });
-        const mainPhotos = mainPhotoRes.data || [];
-
-        const generalPhotoRes = await axios.get('/api/photo', { params: { category: categoryId } });
-        const generalPhotos = generalPhotoRes.data || [];
-
-        const combinedPhotos = [
-          ...mainPhotos,
-          ...generalPhotos.filter(gp => !mainPhotos.some(mp => mp.id === gp.id))
-        ];
+        const { data } = await axios.get(`/api/photo/category-detail/${categoryId}`);
         
-        if (combinedPhotos.length === 0) {
-          setAllPhotos([{ imageUrl: '/images/default-category-detail.jpg', id: 'default' }]);
+        if (data && data.length > 0) {
+          setAllPhotos(data);
         } else {
-          setAllPhotos(combinedPhotos);
+          // 사진이 없을 경우 기본 이미지 표시
+          setAllPhotos([{ imageUrl: '/images/default-category-detail.jpg', id: 'default' }]);
         }
 
       } catch (error) {
@@ -53,8 +44,6 @@ export default function CategoryDetail() {
   }, [categoryId]);
 
   const handleReserveClick = () => {
-    // navigate(`/reserve/type`, { state: { selectedCategory: categoryId } });
-    // Type 페이지를 건너뛰고 바로 Date 페이지로 이동시키기
     navigate(`/reserve/date?category=${categoryId}`);
   };
 

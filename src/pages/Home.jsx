@@ -10,32 +10,20 @@ const CATEGORIES = [
 ];
 
 export default function Home() {
-  const [mainPhoto, setMainPhoto] = useState(null);
+  const [mainPhoto, setMainPhoto] = useState('');
   const [categoryPhotos, setCategoryPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHomePhotos = async () => {
       try {
-        const mainPhotoPromise = axios.get('/api/photo', { params: { category: 'REPRESENTATIVE' } });
-        const categoryPhotoPromises = CATEGORIES.map(cat =>
-          axios.get('/api/photo', { params: { category: cat.mainPhotoCategory } })
-        );
+        const { data } = await axios.get('/api/photo/home');
 
-        const [mainPhotoResponse, ...categoryPhotoResponses] = await Promise.all([
-          mainPhotoPromise,
-          ...categoryPhotoPromises
-        ]);
+        setMainPhoto(data.REPRESENTATIVE?.imageUrl || '');
 
-        if (mainPhotoResponse.data && mainPhotoResponse.data.length > 0) {
-          setMainPhoto(mainPhotoResponse.data[0].imageUrl);
-        } else {
-          setMainPhoto('');
-        }
-
-        const photos = categoryPhotoResponses.map((res, index) => ({
-          ...CATEGORIES[index],
-          imageUrl: (res.data && res.data.length > 0) ? res.data[0].imageUrl : '',
+        const photos = CATEGORIES.map(cat => ({
+          ...cat,
+          imageUrl: data[cat.mainPhotoCategory]?.imageUrl || '',
         }));
         setCategoryPhotos(photos);
 
