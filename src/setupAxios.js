@@ -1,7 +1,9 @@
 // src/setupAxios.js
+
 import axios from 'axios';
 
-
+// ⭐️ 환경 변수에서 백엔드 URL을 가져와 baseURL로 설정
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 // 백엔드와 쿠키를 주고받기 위해 필수적인 설정입니다.
 axios.defaults.withCredentials = true;
@@ -40,6 +42,7 @@ axios.interceptors.response.use(
         }
 
         // 백엔드로 새로운 Access Token을 요청합니다.
+        // ⭐️ baseURL이 설정되었기 때문에 상대 경로로 호출 가능합니다.
         const { data } = await axios.post('/api/auth/reissue', { refreshToken });
         
         // 새로 받은 토큰들을 Local Storage에 저장합니다.
