@@ -1,15 +1,17 @@
-import axios from 'axios';
+import axios from "axios";
 import React, { useState } from "react";
 import LoginInputGroup from "./LoginInputGroup";
 import SubmitLoginButton from "./SubmitLoginButton";
 import SocialLoginButtons from "./SocialLoginButtons";
 import NoAccountLink from "./NoAccountLink";
 import RegisterLogo from "../Register/RegisterLogo";
+import Toast from "./Toast";
 
 export default function LoginForm() {
   const [loginId, setLoginId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
 
   const handleSubmit = async () => {
     try {
@@ -23,7 +25,8 @@ export default function LoginForm() {
         data.role ||
         data.user?.role ||
         (Array.isArray(data.roles) && data.roles[0]) ||
-        (Array.isArray(data.authorities) && (data.authorities[0]?.authority || data.authorities[0])) ||
+        (Array.isArray(data.authorities) &&
+          (data.authorities[0]?.authority || data.authorities[0])) ||
         "";
 
       if (!accessToken || !refreshToken) {
@@ -35,8 +38,13 @@ export default function LoginForm() {
       if (name) localStorage.setItem("name", name);
       if (role) localStorage.setItem("role", String(role).trim());
 
-      alert(`${name || "회원"}님 환영합니다!`);
-      window.location.href = "/";
+      // ✅ alert 대신 Toast 사용
+      setToastMessage(`${name || "회원"}님 환영합니다!`);
+
+      // 토스트가 뜬 뒤 1.5초 후 메인으로 이동
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1500);
     } catch (err) {
       const msg = err.response?.data?.message || "로그인 실패";
       setError(msg);
@@ -62,7 +70,10 @@ export default function LoginForm() {
         )}
 
         <div className="mt-6">
-          <SubmitLoginButton disabled={!loginId || !password} onClick={handleSubmit} />
+          <SubmitLoginButton
+            disabled={!loginId || !password}
+            onClick={handleSubmit}
+          />
         </div>
 
         <div className="flex items-center my-6">
@@ -75,7 +86,7 @@ export default function LoginForm() {
 
         <div className="mt-6">
           <NoAccountLink />
-          
+
           <p className="text-center text-xs mt-2">
             아이디/비밀번호를 잊으셨나요?{" "}
             <a href="/find-id" className="underline font-medium">
@@ -86,9 +97,10 @@ export default function LoginForm() {
               비밀번호 찾기
             </a>
           </p>
-
         </div>
       </div>
+
+      <Toast message={toastMessage} onClose={() => setToastMessage("")} />
     </div>
   );
 }
