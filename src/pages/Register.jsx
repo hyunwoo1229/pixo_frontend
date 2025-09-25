@@ -120,6 +120,7 @@ export default function Register() {
     try {
       await axios.post("/api/member/register", form);
       alert("회원가입 성공");
+      navigate("/login");
     } catch (err) {
       setSubmitError(err.response?.data?.message || "회원가입에 실패했습니다.");
     }
