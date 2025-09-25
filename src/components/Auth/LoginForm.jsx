@@ -5,7 +5,7 @@ import SubmitLoginButton from "./SubmitLoginButton";
 import SocialLoginButtons from "./SocialLoginButtons";
 import NoAccountLink from "./NoAccountLink";
 import RegisterLogo from "../Register/RegisterLogo";
-import Toast from "../Toast";
+import Toast from '../../Toast';
 
 export default function LoginForm() {
   const [loginId, setLoginId] = useState("");
