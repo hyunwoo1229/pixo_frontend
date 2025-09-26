@@ -8,7 +8,7 @@ export default function SocialLoginButtons() {
     <div className="flex justify-center gap-16">
       {/* Google */}
       <button
-        onClick={() => window.location.href = '${API_BASE_URL}/oauth2/authorization/google'}
+        onClick={() => window.location.href = `${API_BASE_URL}/oauth2/authorization/google`}
         className="w-14 h-14 rounded flex items-center justify-center hover:scale-105 transition"
       >
         <img
