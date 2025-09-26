@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 export default function Privacy() {
   const navigate = useNavigate();
 
-  // BackButton 컴포넌트를 내부에 직접 정의합니다.
   const BackButton = () => (
     <button
       onClick={() => navigate(-1)}
@@ -87,7 +86,6 @@ export default function Privacy() {
             </ul>
           </div>
           
-          {/* ▼▼▼▼▼ 신설된 조항 ▼▼▼▼▼ */}
           <div>
             <strong className="block font-medium text-base mb-2">제4조 (개인정보의 제3자 제공에 관한 사항)</strong>
             <p className="mb-2">
@@ -130,7 +128,7 @@ export default function Privacy() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="p-2 border">[클라우드 서비스 제공업체명, 예: Amazon Web Services]</td>
+                    <td className="p-2 border">Google Cloud Platform</td>
                     <td className="p-2 border">클라우드 서버 운영 및 데이터 보관</td>
                   </tr>
                   <tr>
@@ -148,7 +146,6 @@ export default function Privacy() {
               회사는 위탁계약 체결 시 개인정보 보호법 제26조에 따라 위탁업무 수행목적 외 개인정보 처리금지, 기술적·관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리·감독, 손해배상 등 책임에 관한 사항을 계약서 등 문서에 명시하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.
             </p>
           </div>
-          {/* ▲▲▲▲▲ 신설된 조항 ▲▲▲▲▲ */}
             
           <div>
             <strong className="block font-medium text-base mb-2">제6조 (정보주체와 법정대리인의 권리·의무 및 그 행사방법)</strong>
