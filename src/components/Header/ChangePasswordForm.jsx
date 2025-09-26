@@ -30,45 +30,41 @@ export default function ChangePasswordForm() {
       return;
     }
 
+    // ▼▼▼▼▼ [수정] try...catch 블록 로직 개선 ▼▼▼▼▼
     try {
       setSubmitting(true);
       const token = localStorage.getItem("accessToken");
 
-      await axios.put(
+      const response = await axios.put(
         "/api/member/profile/password",
-        { oldPassword, newPassword }, // ✅ DTO 키 일치
+        { oldPassword, newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      alert("비밀번호가 변경되었습니다.");
+      // 성공 시, 백엔드가 보내주는 성공 메시지를 사용
+      alert(response.data.message || "비밀번호가 변경되었습니다.");
       navigate("/");
+
     } catch (err) {
-      // 서버 응답 기반으로 문구 분기
       const status = err.response?.status;
       const serverMsg =
         err.response?.data?.message ||
-        err.response?.data?.error ||
-        err.response?.data;
+        "알 수 없는 오류가 발생했습니다.";
 
-      if (status === 400) {
-        const msgText =
-          typeof serverMsg === "string" ? serverMsg : "";
-        if (
-          /old|current|비밀번호.*일치|mis|wrong/i.test(msgText)
-        ) {
-          setError(msgText);
-        } else {
-          setError("현재 비밀번호가 올바르지 않습니다.");
-        }
-      } else if (status === 401) {
+      // 오류 처리 로직 단순화
+      if (status === 400) { // 400 Bad Request (잘못된 요청)
+        setError(serverMsg); // 서버가 주는 메시지를 그대로 표시 (길이 오류, 불일치 오류 등)
+      } else if (status === 401) { // 401 Unauthorized (인증 실패)
         setError("로그인이 필요합니다. 다시 로그인 해주세요.");
-      } else {
-        setError(serverMsg || "비밀번호 변경에 실패했습니다.");
+      } else { // 기타 500 서버 에러 등
+        setError("비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.");
       }
       console.error("비밀번호 변경 실패:", status, serverMsg);
+      
     } finally {
       setSubmitting(false);
     }
+    // ▲▲▲▲▲ [수정] 완료 ▲▲▲▲▲
   };
 
   return (
