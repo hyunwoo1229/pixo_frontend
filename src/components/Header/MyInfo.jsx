@@ -60,7 +60,7 @@ export default function MyInfo() {
   return (
     <div className="w-full max-w-md space-y-6">
       <div className="border-b pb-4">
-        <p className="text-sm text-gray-500 font-medium mb-1">로그인 ID (이메일)</p>
+        <p className="text-sm text-gray-500 font-medium mb-1">로그인 ID</p>
         <p className="text-lg font-semibold">{memberInfo.loginId}</p>
       </div>
 
