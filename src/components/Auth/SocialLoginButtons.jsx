@@ -20,7 +20,7 @@ export default function SocialLoginButtons() {
 
       {/* Naver */}
       <button
-        onClick={() => window.location.href = '${API_BASE_URL}/oauth2/authorization/naver'}
+        onClick={() => window.location.href = `${API_BASE_URL}/oauth2/authorization/naver`}
         className="w-14 h-14 rounded flex items-center justify-center hover:scale-105 transition"
       >
         <img
@@ -32,7 +32,7 @@ export default function SocialLoginButtons() {
 
       {/* Kakao */}
       <button
-        onClick={() => window.location.href = '${API_BASE_URL}/oauth2/authorization/kakao'}
+        onClick={() => window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`}
         className="w-14 h-14 rounded flex items-center justify-center hover:scale-105 transition"
       >
         <img
