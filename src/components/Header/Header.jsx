@@ -44,7 +44,6 @@ function Header() {
 
   return (
     <>
-      {/* ▼▼▼▼▼ [ ✨ 메뉴(nav)를 다시 header 태그 안으로 이동시켰습니다 ] ▼▼▼▼▼ */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow">
         <div className="w-full flex items-center justify-between px-4 py-2">
           <button
@@ -127,6 +126,9 @@ function Header() {
 
                   {accountOpen && (
                     <div className="flex flex-col">
+                      <Link to="/my-info" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
+                        내 정보 보기
+                      </Link>
                       <Link to="/change-password" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200">
                         비밀번호 변경
                       </Link>

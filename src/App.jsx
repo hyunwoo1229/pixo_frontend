@@ -31,6 +31,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import AdminScheduleManagement from "./pages/Admin/AdminScheduleManagement";
 import Introduce from "./pages/Introduce"; 
 import Price from "./pages/Price"; 
+import MyInfoPage from "./pages/MyInfoPage"; 
 
 export default function App() {
   return (
@@ -53,6 +54,8 @@ export default function App() {
           <Route path="/reserve/date" element={<DatePick />} />
           <Route path="/reserve/form" element={<Form />} />
           <Route path="/reserve/complete" element={<Complete />} />
+
+          <Route path="/my-info" element={<MyInfoPage />} /> 
           
           {/* 1. 일반 사용자용 /question 경로 추가 */}
           <Route path="/question" element={<QuestionList />} />
