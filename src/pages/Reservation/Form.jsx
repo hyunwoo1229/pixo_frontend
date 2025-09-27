@@ -64,13 +64,7 @@ export default function Form() {
     e.preventDefault();
     if (loading) return;
 
-    const token = localStorage.getItem("accessToken");
-    if (!token) {
-      alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
-      nav("/login");
-      return;
-    }
-
+    // handleSubmit 내부의 유효성 검사는 그대로 유지하여 최종 확인
     if (!form.desiredShootDate) { alert("희망 촬영 날짜를 입력해 주세요."); return; }
     if (!form.time) { alert("회의 시간을 선택해 주세요."); return; }
     if (!form.location) { alert("촬영 장소를 입력해 주세요."); return; }
@@ -86,9 +80,7 @@ export default function Form() {
         notes: form.note,
       };
 
-      const { data } = await axios.post(`/api/reservation`, payload, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
-      });
+      const { data } = await axios.post(`/api/reservation`, payload);
 
       const dStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
       
@@ -126,9 +118,14 @@ export default function Form() {
                   date.getDate() === now.getDate();
   const currentHour = now.getHours();
 
+  // ▼▼▼▼▼ [추가] 폼 유효성 검사 변수 ▼▼▼▼▼
+  // 필수 필드 중 하나라도 비어있으면 true가 됩니다.
+  const isFormInvalid = !form.time || !form.desiredShootDate || !form.location;
+  // ▲▲▲▲▲ [추가] 완료 ▲▲▲▲▲
+
   return (
     <div className="reserve-page">
-      <ReservationHeader title={`${cat.categoryLabel} 촬영 예약`} back onBack={() => nav(-1)} />
+      <ReservationHeader title={`${cat.categoryLabel} 촬영 예약`} onBack={() => nav(-1)} />
       <Stepper current={3} />
       <section className="section">
         <form className="form" onSubmit={handleSubmit}>
@@ -213,7 +210,8 @@ export default function Form() {
           </div>
 
           <div className="helper">예약 후 회의를 위해 예약 날짜와 시간에 연락드립니다.</div>
-          <button className="primary-btn" type="submit" disabled={loading}>
+
+          <button className="primary-btn" type="submit" disabled={loading || isFormInvalid}>
             {loading ? "처리 중..." : "예약 완료"}
           </button>
         </form>
