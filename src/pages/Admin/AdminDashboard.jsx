@@ -13,19 +13,15 @@ const CATEGORIES = [
   { value: "WEDDING_MAIN", label: "웨딩 대표 사진" },
 ];
 
-const FILE_LIMIT_MB = 50;
-
 // 서버 DTO 키 정규화
 const toUrl = (row) => row?.imageUrl || row?.url || row?.image || "";
-
-const withOrigin = (u) => u || ""; // 상대 경로를 그대로 사용
+const withOrigin = (u) => u || ""; 
 
 export default function AdminDashboard() {
   const [category, setCategory] = useState(CATEGORIES[0].value);
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState("");
   const [submitting, setSubmitting] = useState(false);
-
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -45,9 +41,6 @@ export default function AdminDashboard() {
   const fetchList = async (cat) => {
     setLoading(true);
     try {
-      console.log("axios 인스턴스 설정:", axios.defaults);
-      console.log("요청 직전 cat:", cat);
-      // 절대 경로 사용 (axios baseURL + "/api/photo")
       const { data } = await axios.get("/api/photo", { params: { category: cat } });
       setItems(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -66,45 +59,42 @@ export default function AdminDashboard() {
     e.preventDefault();
     if (!file) return alert("파일을 선택해 주세요.");
 
-    if (file.size > FILE_LIMIT_MB * 1024 * 1024) {
-      return alert(`파일이 너무 큽니다. ${FILE_LIMIT_MB}MB 이하로 업로드해 주세요.`);
-    }
-
+    setSubmitting(true);
     try {
-      setSubmitting(true);
       const token = localStorage.getItem("accessToken");
       if (!token) {
         alert("로그인이 필요합니다.");
+        setSubmitting(false);
         return;
       }
 
-      const form = new FormData();
-      form.append("category", category); // @RequestPart("category")
-      form.append("imageFile", file);    // @RequestPart("imageFile")
+      // --- 백엔드에 Signed URL 요청 ---
+      const { data: presignedData } = await axios.post("/api/admin/photo/generate-signed-url", {
+        fileName: file.name,
+        contentType: file.type
+      }, { headers: { Authorization: `Bearer ${token}` } });
 
-      await axios.post("/api/admin/photo/upload", form, {
-        headers: { Authorization: `Bearer ${token}` },
+      // --- 발급받은 URL로 GCS에 직접 파일 업로드 ---
+      await axios.put(presignedData.signedUrl, file, {
+        headers: { 'Content-Type': file.type }
       });
+
+      // --- 업로드 완료 후, 파일 메타데이터를 백엔드 DB에 저장 요청 ---
+      await axios.post("/api/admin/photo/save-metadata", {
+        category: category,
+        originalFileName: file.name,
+        savedFileName: presignedData.savedFileName
+      }, { headers: { Authorization: `Bearer ${token}` } });
 
       alert("사진이 업로드 되었습니다.");
       setFile(null);
-      if (preview) URL.revokeObjectURL(preview);
       setPreview("");
-
       fetchList(category);
+
     } catch (err) {
-      const status = err?.response?.status;
-      const msg =
-        err?.response?.data?.message ||
-        err?.response?.data?.error ||
-        err?.message ||
-        "업로드 실패";
-
-      if (status === 403) alert("관리자 권한이 없습니다.");
-      else if (status === 413) alert("파일이 서버 제한 용량을 초과했습니다. 서버 업로드 한도를 늘리거나 파일 크기를 줄여주세요.");
-      else alert(msg);
-
-      console.error("업로드 실패:", status, err);
+      console.error("업로드 실패:", err);
+      const errorMsg = err.response?.data?.message || "업로드 중 오류가 발생했습니다.";
+      alert(errorMsg);
     } finally {
       setSubmitting(false);
     }
@@ -181,7 +171,7 @@ export default function AdminDashboard() {
         ) : (
           <ul className="grid grid-cols-2 gap-4">
             {items.map((it, idx) => {
-              const src = withOrigin(toUrl(it)); // ★ 절대 URL 변환
+              const src = withOrigin(toUrl(it));
               return (
                 <li key={it.id ?? it.savedFileName ?? idx} className="border rounded p-2">
                   <img
