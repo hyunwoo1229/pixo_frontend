@@ -68,23 +68,40 @@ export default function AdminDashboard() {
         return;
       }
 
-      // --- 백엔드에 Signed URL 요청 ---
-      const { data: presignedData } = await axios.post("/api/admin/photo/generate-signed-url", {
-        fileName: file.name,
-        contentType: file.type
-      }, { headers: { Authorization: `Bearer ${token}` } });
+      // 1) 백엔드에 Signed URL 요청 (인증 필요)
+      const { data: presignedData } = await axios.post(
+        "/api/admin/photo/generate-signed-url",
+        {
+          fileName: file.name,
+          contentType: file.type || "application/octet-stream",
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-      // --- 발급받은 URL로 GCS에 직접 파일 업로드 ---
-      await axios.put(presignedData.signedUrl, file, {
-        headers: { 'Content-Type': file.type }
+      // 2) 발급받은 URL로 GCS에 직접 파일 업로드 (인증/쿠키 금지 → fetch 사용)
+      const putRes = await fetch(presignedData.signedUrl, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type || "application/octet-stream", // 서버 서명과 동일해야 함
+        },
+        body: file, // credentials: 'omit' 기본값으로 쿠키/Authorization 안 붙음
       });
 
-      // --- 업로드 완료 후, 파일 메타데이터를 백엔드 DB에 저장 요청 ---
-      await axios.post("/api/admin/photo/save-metadata", {
-        category: category,
-        originalFileName: file.name,
-        savedFileName: presignedData.savedFileName
-      }, { headers: { Authorization: `Bearer ${token}` } });
+      if (!putRes.ok) {
+        const errText = await putRes.text().catch(() => "");
+        throw new Error(`GCS 업로드 실패: ${putRes.status} ${errText}`);
+      }
+
+      // 3) 업로드 완료 후, 파일 메타데이터를 백엔드 DB에 저장 (인증 필요)
+      await axios.post(
+        "/api/admin/photo/save-metadata",
+        {
+          category: category,
+          originalFileName: file.name,
+          savedFileName: presignedData.savedFileName,
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       alert("사진이 업로드 되었습니다.");
       setFile(null);
@@ -93,7 +110,10 @@ export default function AdminDashboard() {
 
     } catch (err) {
       console.error("업로드 실패:", err);
-      const errorMsg = err.response?.data?.message || "업로드 중 오류가 발생했습니다.";
+      const errorMsg =
+        err?.response?.data?.message ||
+        err?.message ||
+        "업로드 중 오류가 발생했습니다.";
       alert(errorMsg);
     } finally {
       setSubmitting(false);
