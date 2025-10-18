@@ -94,7 +94,6 @@ export default function FindPassword() {
             <input type="text" name="loginId" placeholder="아이디" value={form.loginId} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
             <input type="text" name="name" placeholder="이름" value={form.name} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
             <input type="text" name="phoneNumber" placeholder="휴대폰 번호 ('-' 없이 입력)" value={form.phoneNumber} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
-            {/* ▼▼▼▼▼ [ ✨ disabled 조건이 수정되었습니다 ] ▼▼▼▼▼ */}
             <button 
               onClick={handleSendCode} 
               disabled={loading || !form.loginId || !form.name || !form.phoneNumber} 
