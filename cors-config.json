@@ -1,12 +1,13 @@
 [
-    {
-      "origin": [
-        "http://localhost:5173",
-        "https://pixo-frontend-git-frontendtest-hynoo20011229-4982s-projects.vercel.app"
-      ],
-      "method": ["OPTIONS", "PUT", "GET"],
-      "responseHeader": ["Content-Type"],
-      "maxAgeSeconds": 3600
-    }
-  ]
-  
+  {
+    "origin": [
+      "http://localhost:5173",
+      "https://pixo-frontend-git-frontendtest-hynoo20011229-4982s-projects.vercel.app",
+      "https://pixo-frontend.vercel.app",
+      "https://www.pixostudio.shop"
+    ],
+    "method": ["OPTIONS", "PUT", "GET"],
+    "responseHeader": ["Content-Type"],
+    "maxAgeSeconds": 3600
+  }
+]

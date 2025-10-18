@@ -71,7 +71,6 @@ export default function SocialExtra() {
 
     return () => clearTimeout(handler);
   }, [form.phoneNumber]);
-  // ▲▲▲▲▲ [수정] 완료 ▲▲▲▲▲
 
   const toggleExpand = () => setIsExpanded((prev) => !prev);
 

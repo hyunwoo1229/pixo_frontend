@@ -11,7 +11,7 @@ export default function OAuthRedirectHandler() {
     const accessToken = searchParams.get('accessToken');
     const refreshToken = searchParams.get('refreshToken'); 
     const name = searchParams.get('name');
-    const role = searchParams.get('role'); // role 정보도 함께 받을 수 있습니다.
+    const role = searchParams.get('role'); 
 
     if (accessToken) {
       // 받아온 토큰과 정보를 localStorage에 저장.
