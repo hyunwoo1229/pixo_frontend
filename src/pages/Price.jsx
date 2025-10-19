@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const pricePackages = [
   {
     name: 'Landscape',
-    description: '자연의 광활함과 아름다움을 담아내는 풍경 촬영 패키지입니다.',
+    description: '자연의 아름다움을 담아내는 풍경 촬영 패키지입니다.',
     price: '500,000',
     features: ['2시간 촬영', '원본 사진 200컷 이상', '정밀 보정 10컷', '전용 앨범 1권'],
     link: '/reserve/date', 
@@ -14,7 +14,7 @@ const pricePackages = [
   {
     name: 'Product',
     description: '제품의 가치를 극대화하여 매출을 증대시키는 전문적인 제품 촬영입니다.',
-    price: '450,000',
+    price: '400,000',
     features: ['제품 10종 이하', '배경/소품 컨셉 협의', '정밀 보정 20컷', '온라인용/인쇄용 파일 제공'],
     link: '/reserve/date',
     category: 'PRODUCT',
@@ -22,14 +22,21 @@ const pricePackages = [
   {
     name: 'Food',
     description: '메뉴판, 광고 등 모든 상업적 목적에 부합하는 음식 촬영 패키지입니다.',
-    price: '600,000',
+    price: '400,000',
     features: ['메뉴 5종 촬영', '푸드 스타일링 포함', '정밀 보정 15컷', '촬영 컨셉 협의'],
     link: '/reserve/date',
     category: 'FOOD',
   },
+  {
+    name: 'Wedding',
+    description: '웨딩 촬영 패키지입니다.',
+    price: '600,000',
+    features: ['메뉴 5종 촬영', '푸드 스타일링 포함', '정밀 보정 15컷', '촬영 컨셉 협의'],
+    link: '/reserve/date',
+    category: 'WEDDING',
+  },
 ];
 
-// ▼▼▼▼▼ [ ✨ export default를 추가했습니다 ] ▼▼▼▼▼
 export default function Price() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
