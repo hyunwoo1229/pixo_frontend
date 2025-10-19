@@ -10,7 +10,7 @@ const CATEGORIES = [
 ];
 
 export default function Home() {
-  const [mainPhoto, setMainPhoto] = useState(''); // 사용하지 않지만 로직 유지를 위해 남겨둡니다.
+  const [mainPhoto, setMainPhoto] = useState(''); 
   const [categoryPhotos, setCategoryPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -43,35 +43,28 @@ export default function Home() {
     return <div className="text-center p-10">로딩 중...</div>;
   }
   
-  // 갤러리 섹션에 표시할 카테고리 (오디티모드처럼 3개 또는 4개 모두 표시)
-  // 여기서는 4개 모두 표시하고, 3열 레이아웃을 적용하여 1행 3개, 2행 1개로 보이게 합니다.
   const galleryItems = categoryPhotos.slice(0, 4); 
 
   return (
-    // 기존 max-w-4xl 대신 좀 더 넓은 레이아웃 (오디티모드 스타일)을 위해 max-w-6xl 사용 (선택 사항)
     <div className="max-w-6xl mx-auto px-4 py-8 md:px-8">
       
-      {/* 1. 메인 텍스트 및 구성 정보 (오디티모드 상단 텍스트 섹션 스타일) */}
       <div className="py-10 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           
-          {/* 왼쪽: 제목 및 설명 */}
           <div className="space-y-4">
             <h2 className="text-4xl font-extrabold text-gray-900">
-              Film The Real You
+              Pixels Awaken in Motion
             </h2>
             <p className="text-lg leading-relaxed text-gray-700">
               PIXO는 움직임 속에서 발견하는 당신의 진짜 모습을 담습니다. <br/>
               **풍경, 제품, 음식, 웨딩** 각 분야의 전문성을 바탕으로, <br/>
               당신의 가장 소중하고 생동감 넘치는 순간을 기록합니다.
             </p>
-            {/* 오디티모드처럼 슬로건 반복 */}
             <p className="font-serif italic text-gray-500 pt-4">
-              Film The Real You.
+              Pixles Awaken in Motion
             </p>
           </div>
 
-          {/* 오른쪽: 구성 및 디테일 정보 */}
           <div className="space-y-4 text-sm md:text-base">
             <h3 className="font-semibold border-b pb-2 mb-3">
               PIXO 촬영 기본 구성 (4가지 패키지 공통 기준)
@@ -85,19 +78,10 @@ export default function Home() {
               <li>- 고급 패키지 포장</li>
             </ul>
             
-            {/* 이벤트 섹션 (예시) */}
-            <div className="pt-4">
-              <h4 className="font-bold text-red-600">* 기간 한정 이벤트</h4>
-              <p className="text-sm text-red-500">
-                * 이달 예약 시, 추가 보정 5컷 무료 제공
-              </p>
-            </div>
           </div>
         </div>
       </div>
       
-      {/* 2. 갤러리 섹션 (오디티모드 하단 사진 3컷 스타일) */}
-      {/* max-w-6xl 컨테이너 전체 너비를 사용합니다. */}
       <div className="py-8 md:py-12">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {galleryItems.map((cat, index) => (
@@ -121,7 +105,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Instagram 링크 (기존 코드 유지) */}
       <div className="px-4 py-4 md:px-6 bg-white flex justify-end">
         <a
           href="https://www.instagram.com/studio.pixo?igsh=dTRsaGQ1cmw5b3ls"
