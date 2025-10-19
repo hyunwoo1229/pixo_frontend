@@ -57,8 +57,8 @@ export default function Home() {
 
       <div className="text-center px-6 py-12 md:py-20 bg-white border-b border-gray-200">
         <p className="text-lg md:text-xl leading-relaxed text-gray-700">
-        PIXO는 풍경, 제품, 음식, 웨딩 각 분야의 목적에 최적화된 결과물을 제공하는 전문 스튜디오입니다. <br />
-        예약 전, 각 패키지의 상세 구성을 확인하시고 궁금한 점을 문의해주세요. <br />
+        PIXO는 풍경, 제품, 음식, 웨딩 각 분야의 목적에 최적화된 결과물을 제공하는 전문 스튜디오입니다. <br /><br />
+        예약 전, 각 패키지의 상세 구성을 확인하시고 궁금한 점을 문의해주세요. <br /><br />
         예약 확정 후, 1:1 맞춤 컨설팅을 통해 촬영 컨셉과 목표를 명확히 협의합니다.
         </p>
       </div>
