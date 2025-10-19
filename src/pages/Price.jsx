@@ -31,7 +31,7 @@ const pricePackages = [
     name: 'Wedding',
     description: '웨딩 촬영 패키지입니다.',
     price: '600,000',
-    features: ['메뉴 5종 촬영', '푸드 스타일링 포함', '정밀 보정 15컷', '촬영 컨셉 협의'],
+    features: ['총 5시간 밀착 촬영', '고급 미니 앨범 (50p)', '감성 필터/색감 보정본 100컷', '작가 지정 하이라이트 영상 클립 제공'],
     link: '/reserve/date',
     category: 'WEDDING',
   },
@@ -42,7 +42,6 @@ export default function Price() {
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
       <div className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Price</h1>
-        <p className="text-lg text-gray-600">PIXO의 촬영 상품과 가격을 안내합니다.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
