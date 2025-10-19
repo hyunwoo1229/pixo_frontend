@@ -1,16 +1,14 @@
-// src/setupAxios.js
-
 import axios from 'axios';
 
-// ⭐️ 환경 변수에서 백엔드 URL을 가져와 baseURL로 설정
+//  환경 변수에서 백엔드 URL을 가져와 baseURL로 설정
 axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
-// 백엔드와 쿠키를 주고받기 위해 필수적인 설정입니다.
+// 백엔드와 쿠키를 주고받기 위해 필수적인 설정.
 axios.defaults.withCredentials = true;
 
-// 요청 인터셉터: API 요청을 보내기 전에 헤더에 Access Token을 추가합니다.
+// 요청 인터셉터: API 요청을 보내기 전에 헤더에 Access Token을 추가.
 axios.interceptors.request.use(config => {
-  // 토큰 재발급 요청일 경우 헤더에 토큰을 담지 않습니다.
+  // 토큰 재발급 요청일 경우 헤더에 토큰을 담지 않음.
   if (config.url === '/api/auth/reissue') {
     return config;
   }
@@ -25,15 +23,15 @@ axios.interceptors.request.use(config => {
 });
 
 
-// 응답 인터셉터: API 응답이 401(Unauthorized) 에러일 경우 토큰 재발급을 시도합니다.
+// 응답 인터셉터: API 응답이 401(Unauthorized) 에러일 경우 토큰 재발급을 시도.
 axios.interceptors.response.use(
   res => res,
   async err => {
     const orig = err.config;
 
-    // 401 에러이고, 재시도한 요청이 아니며, 재발급 요청 자체가 실패한게 아닐 경우에만 실행합니다.
+    // 401 에러이고, 재시도한 요청이 아니며, 재발급 요청 자체가 실패한게 아닐 경우에만 실행.
     if (err.response?.status === 401 && !orig._retry && orig.url !== '/api/auth/reissue') {
-      orig._retry = true; // 재시도 플래그를 true로 설정하여 무한 재발급 요청을 방지합니다.
+      orig._retry = true; // 재시도 플래그를 true로 설정하여 무한 재발급 요청을 방지.
       
       try {
         const refreshToken = localStorage.getItem('refreshToken');
@@ -41,21 +39,21 @@ axios.interceptors.response.use(
           throw new Error('No refresh token available');
         }
 
-        // 백엔드로 새로운 Access Token을 요청합니다.
-        // ⭐️ baseURL이 설정되었기 때문에 상대 경로로 호출 가능합니다.
+        // 백엔드로 새로운 Access Token을 요청.
+        // baseURL이 설정되었기 때문에 상대 경로로 호출 가능.
         const { data } = await axios.post('/api/auth/reissue', { refreshToken });
         
-        // 새로 받은 토큰들을 Local Storage에 저장합니다.
+        // 새로 받은 토큰들을 Local Storage에 저장.
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
 
-        // 실패했던 원래 요청의 헤더에 새로운 Access Token을 설정하여 재요청합니다.
+        // 실패했던 원래 요청의 헤더에 새로운 Access Token을 설정하여 재요청.
         orig.headers.Authorization = `Bearer ${data.accessToken}`;
         return axios(orig);
 
       } catch (error) {
         // Refresh Token이 유효하지 않아 재발급에 실패한 경우
-        // 모든 토큰과 사용자 정보를 삭제하고 로그인 페이지로 리디렉션합니다.
+        // 모든 토큰과 사용자 정보를 삭제하고 로그인 페이지로 리디렉션.
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         localStorage.removeItem('name');
@@ -71,7 +69,7 @@ axios.interceptors.response.use(
       }
     }
     
-    // 401 에러가 아닐 경우, 에러를 그대로 반환합니다.
+    // 401 에러가 아닐 경우, 에러를 그대로 반환.
     return Promise.reject(err);
   }
 );
