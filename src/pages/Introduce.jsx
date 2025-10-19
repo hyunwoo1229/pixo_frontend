@@ -1,30 +1,41 @@
-
 import React from 'react';
+import RegisterLogo from '../components/Register/RegisterLogo'; 
 
 export default function Introduce() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
+      
+      <div className="text-center mb-8">
+        <RegisterLogo />
+      </div>
+      
       <div className="text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4">About PIXO</h1>
-        <p className="text-lg text-gray-600">Find Another in Motion</p>
+        <p className="text-lg text-gray-600">Pixels Awaken in Motion</p>
       </div>
 
-      <div className="mt-12">
-        <div className="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500">스튜디오 소개 이미지가 들어갈 공간입니다.</p>
-        </div>
-        <div className="mt-8 prose prose-lg max-w-none">
-          <h2>우리의 이야기</h2>
-          <p>
-            PIXO는 움직임 속에서 또 다른 당신을 발견하는 것을 목표로 합니다.
-            우리는 정적인 사진을 넘어, 당신의 가장 자연스럽고 생동감 넘치는 순간을 포착합니다.
-          </p>
-          <h2>우리의 철학</h2>
-          <p>
-            최고의 장비와 전문적인 기술, 그리고 무엇보다 피사체와의 교감을 통해
-            단순한 기록이 아닌 하나의 작품을 만들어냅니다.
-          </p>
-        </div>
+      <div className="mt-12 prose prose-lg max-w-none">
+        
+        <h2>PIXO는</h2>
+        <p>
+          PIXO는 상업 및 개인 기록 촬영을 전문으로 하는 스튜디오입니다. 
+          저희의 핵심 분야는 **풍경, 제품, 음식, 웨딩** 촬영이며, 각 분야의 특성과 
+          고객의 목표에 맞춰 최적화된 결과물을 제공합니다.
+        </p>
+
+        <h2>전문성</h2>
+        <p>
+          저희는 단순히 '잘 찍는' 것을 넘어, 의뢰 목적에 맞는 결과물을 만드는 것을 최우선으로 합니다. 
+          제품 촬영은 매출 증대를 위해, 음식 촬영은 메뉴의 매력을 극대화하기 위해, 
+          웨딩 촬영은 그 순간의 감동을 오랫동안 보존하기 위해 기획됩니다. 
+          PIXO는 이를 위한 전문 장비와 분야별 노하우를 갖추고 있습니다.
+        </p>
+        
+        <h2>협업 및 과정</h2>
+        <p>
+            명확하고 효율적인 촬영 진행을 위해 고객과의 충분한 사전 협의를 중요하게 생각합니다. 
+            불필요한 과정을 최소화하고, 신뢰를 바탕으로 최상의 결과물을 약속드립니다.
+        </p>
       </div>
     </div>
   );
