@@ -1,5 +1,3 @@
-// src/pages/Admin/AdminMemberManagement.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import AdminMemberList from "../../components/Admin/AdminMemberList";
@@ -31,10 +29,9 @@ export default function AdminMemberManagement() {
 
   return (
     <div className="px-6 py-6 max-w-screen-sm mx-auto">
-      {/* ▼▼▼▼▼ [ ✨ 이 부분이 수정되었습니다 ] ▼▼▼▼▼ */}
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-2xl font-bold">전체 회원 조회</h1>
-        {/* 로딩이 끝나고 에러가 없을 때만 회원 수를 표시합니다. */}
+        {/* 로딩이 끝나고 에러가 없을 때만 회원 수를 표시. */}
         {!loading && !error && (
           <span className="text-lg font-semibold text-black-600">
             총 회원 수: {members.length}명

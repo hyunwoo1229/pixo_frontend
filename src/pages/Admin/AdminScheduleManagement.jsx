@@ -1,9 +1,7 @@
-// src/pages/Admin/AdminScheduleManagement.jsx
-
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Calendar from '../../components/Common/Calendar';
-import '../../styles/reservation.css'; // ✨ CSS 파일이 여전히 임포트되어 있는지 확인해주세요!
+import '../../styles/reservation.css';
 
 const TIME_SLOTS = ["09-10", "12-13", "15-16", "18-19", "21-22"];
 
@@ -87,7 +85,6 @@ export default function AdminScheduleManagement() {
                 <div className="section-title">날짜 선택</div>
             </div>
             <div className="mt-4"> 
-                {/* Calendar에 w-full 클래스를 전달하여 너비를 꽉 채웁니다. */}
                 <Calendar value={selectedDate} onChange={setSelectedDate} className="w-full" />
             </div>
         </div>

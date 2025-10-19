@@ -1,0 +1,21 @@
+[
+  {
+    "origin": [
+      "http://localhost:5173",
+      "https://pixo-frontend-git-frontendtest-hynoo20011229-4982s-projects.vercel.app",
+      "https://pixo-frontend.vercel.app",
+      "https://www.pixostudio.shop"
+    ],
+    "method": ["GET", "PUT"],
+    "responseHeader": [
+      "Content-Type",
+      "x-goog-acl",
+      "x-goog-content-length-range",
+      "x-upload-content-type",
+      "Authorization"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]
+
+
