@@ -55,7 +55,7 @@ export default function Home() {
           <h2 className="text-xl md:text-2xl font-extrabold text-gray-900">
               Pixels Awaken in Motion
             </h2>
-            <p className="text-lg leading-relaxed text-gray-700">
+            <p className="text-sm md:text-base leading-relaxed text-gray-700">
               PIXO는 움직임 속에서 발견하는 당신의 진짜 모습을 담습니다. <br/>
               **풍경, 제품, 음식, 웨딩** 각 분야의 전문성을 바탕으로, <br/>
               당신의 가장 소중하고 생동감 넘치는 순간을 기록합니다.
