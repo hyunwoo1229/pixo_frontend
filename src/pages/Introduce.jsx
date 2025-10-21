@@ -52,7 +52,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           
           <div className="space-y-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900">
               Pixels Awaken in Motion
             </h2>
             <p className="text-lg leading-relaxed text-gray-700">
