@@ -23,13 +23,16 @@ export default function Footer() {
 
           <p>
             상호명: 픽소(PIXO) <span className="opacity-40 mx-2">|</span> 대표자: 강성호
-            <span className="opacity-40 mx-2">|</span> 사업자 등록 번호: 408-50-00951
+          </p>
+
+          <p>
+            사업자 등록 번호: 408-50-00951
           </p>
 
           <p>주소: 경기도 성남시 중원구 광명로347번길 5, 3층 303호(금광동)</p>
 
           <p>
-            Tel. 010‑xxxx‑xxxx <span className="opacity-40 mx-2">|</span> E‑Mail:
+            Tel. 010‑4446‑5267 <span className="opacity-40 mx-2">|</span> E‑Mail:
             studio_pixo@naver.com
           </p>
 

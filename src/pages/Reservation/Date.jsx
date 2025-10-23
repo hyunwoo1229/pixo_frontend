@@ -29,13 +29,13 @@ export default function DatePick() {
     const categoryFromUrl = q.get("category");
     let currentSession = getReservation();
 
-    // 1. URL에 category가 있고, 이 값이 기존 세션과 다르다면 새로운 예약 시작으로 간주하고 세션을 초기화합니다.
+    // 1. URL에 category가 있고, 이 값이 기존 세션과 다르다면 새로운 예약 시작으로 간주하고 세션을 초기화.
     if (categoryFromUrl && categoryFromUrl !== currentSession.categoryId) {
       clearReservation();
       currentSession = {}; // 비워진 세션으로 변수 업데이트
     }
 
-    // 2. 세션이 비어있지만 URL에 유효한 카테고리 정보가 있다면, 세션을 새로 생성합니다.
+    // 2. 세션이 비어있지만 URL에 유효한 카테고리 정보가 있다면, 세션을 새로 생성.
     if (!currentSession.categoryId && categoryFromUrl && CATEGORY_LABELS[categoryFromUrl]) {
       const newSessionData = {
         categoryId: categoryFromUrl,
@@ -45,13 +45,13 @@ export default function DatePick() {
       currentSession = newSessionData;
     }
 
-    // 3. 최종적으로 세션에 카테고리 정보가 없으면 첫 단계로 보냅니다.
+    // 3. 최종적으로 세션에 카테고리 정보가 없으면 첫 단계로 보냄.
     if (!currentSession.categoryId) {
       nav("/reserve/type");
       return;
     }
 
-    // 4. 유효한 세션 정보를 state에 저장합니다.
+    // 4. 유효한 세션 정보를 state에 저장.
     setCat(currentSession);
     if (currentSession.date) {
       setSelected(new Date(currentSession.date));

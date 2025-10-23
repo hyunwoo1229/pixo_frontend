@@ -118,10 +118,8 @@ export default function Form() {
                   date.getDate() === now.getDate();
   const currentHour = now.getHours();
 
-  // ▼▼▼▼▼ [추가] 폼 유효성 검사 변수 ▼▼▼▼▼
   // 필수 필드 중 하나라도 비어있으면 true가 됩니다.
   const isFormInvalid = !form.time || !form.desiredShootDate || !form.location;
-  // ▲▲▲▲▲ [추가] 완료 ▲▲▲▲▲
 
   return (
     <div className="reserve-page">
