@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Over14() {
   const navigate = useNavigate();
 
-  // BackButton 컴포넌트 경로 문제를 해결하기 위해 컴포넌트를 내부에 직접 정의합니다.
+  // BackButton 컴포넌트 경로 문제를 해결하기 위해 컴포넌트를 내부에 직접 정의.
   const BackButton = () => (
     <button
       onClick={() => navigate(-1)}
