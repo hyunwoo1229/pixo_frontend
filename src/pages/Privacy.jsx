@@ -155,17 +155,7 @@ export default function Privacy() {
           </div>
 
           <div>
-            <strong className="block font-medium text-base mb-2">제7조 (개인정보 보호책임자)</strong>
-             <ul className="list-disc list-inside space-y-1 pl-4">
-              <li><strong>개인정보 보호책임자:</strong> [담당자 성명]</li>
-              <li><strong>소속 부서:</strong> [소속 부서명 / 직위]</li>
-              <li><strong>전화번호:</strong> [연락처]</li>
-              <li><strong>이메일:</strong> [이메일 주소]</li>
-            </ul>
-          </div>
-
-          <div>
-            <strong className="block font-medium text-base mb-2">제8조 (개인정보 처리방침 변경)</strong>
+            <strong className="block font-medium text-base mb-2">제조 (개인정보 처리방침 변경)</strong>
             <p>
               현 개인정보 처리방침 내용 추가, 삭제 및 수정이 있을 시에는 개정 최소 7일 전부터 홈페이지의 '공지사항'을 통해 고지할 것입니다.
             </p>
