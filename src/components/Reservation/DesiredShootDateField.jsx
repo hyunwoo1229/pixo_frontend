@@ -1,5 +1,3 @@
-// src/components/Reservation/DesiredShootDateField.jsx
-
 import React from "react";
 
 export default function DesiredShootDateField({ value, onChange, disabled }) {

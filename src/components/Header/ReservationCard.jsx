@@ -78,8 +78,8 @@ export default function ReservationCard({ reservation, isOpen, onToggle }) {
           {renderDdayText()}
 
           <div className="rh-contact">
-            <p>문의: 010-XXXX-XXXX</p>
-            <p>XXXX@XXXX.com</p>
+            <p>문의: 010-4446-5267</p>
+            <p>pixo_studio@naver.com</p>
           </div>
         </div>
       )}
