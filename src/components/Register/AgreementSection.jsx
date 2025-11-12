@@ -14,7 +14,9 @@ const AgreementSection = ({ form, handleChange, isExpanded, toggleExpand }) => {
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
-            className="accent-black dark:accent-white w-5 h-5 rounded"
+            className="w-5 h-5 rounded 
+                       border border-gray-400 dark:border-zinc-500 bg-white dark:bg-zinc-700
+                       checked:bg-black checked:text-white dark:checked:bg-white dark:checked:text-black"
             name="all"
             checked={form.agreements.all}
             onChange={handleChange}
@@ -47,7 +49,9 @@ const AgreementSection = ({ form, handleChange, isExpanded, toggleExpand }) => {
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
-                  className="accent-black dark:accent-white w-5 h-5 rounded"
+                  className="w-5 h-5 rounded 
+                             border border-gray-400 dark:border-zinc-500 bg-white dark:bg-zinc-700
+                             checked:bg-black checked:text-white dark:checked:bg-white dark:checked:text-black"
                   name={item.name}
                   checked={form.agreements[item.name]}
                   onChange={handleChange}
