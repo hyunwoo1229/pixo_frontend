@@ -9,7 +9,10 @@ export default function SocialLoginButtons() {
       {/* Google */}
       <button
         onClick={() => window.location.href = `${API_BASE_URL}/oauth2/authorization/google`}
-        className="w-14 h-14 rounded flex items-center justify-center hover:scale-105 transition"
+        className="w-14 h-14 rounded flex items-center justify-center 
+                   hover:scale-105 transition 
+                   bg-gray-50 dark:bg-zinc-700 
+                   hover:bg-gray-100 dark:hover:bg-zinc-600"
       >
         <img
           src={googleIcon}
@@ -21,7 +24,10 @@ export default function SocialLoginButtons() {
       {/* Naver */}
       <button
         onClick={() => window.location.href = `${API_BASE_URL}/oauth2/authorization/naver`}
-        className="w-14 h-14 rounded flex items-center justify-center hover:scale-105 transition"
+        className="w-14 h-14 rounded flex items-center justify-center 
+                   hover:scale-105 transition 
+                   bg-gray-50 dark:bg-zinc-700 
+                   hover:bg-gray-100 dark:hover:bg-zinc-600"
       >
         <img
           src={naverIcon}
@@ -33,7 +39,10 @@ export default function SocialLoginButtons() {
       {/* Kakao */}
       <button
         onClick={() => window.location.href = `${API_BASE_URL}/oauth2/authorization/kakao`}
-        className="w-14 h-14 rounded flex items-center justify-center hover:scale-105 transition"
+        className="w-14 h-14 rounded flex items-center justify-center 
+                   hover:scale-105 transition 
+                   bg-gray-50 dark:bg-zinc-700 
+                   hover:bg-gray-100 dark:hover:bg-zinc-600"
       >
         <img
           src={kakaoIcon}

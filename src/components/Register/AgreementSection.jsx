@@ -14,14 +14,14 @@ const AgreementSection = ({ form, handleChange, isExpanded, toggleExpand }) => {
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
-            className="accent-black w-5 h-5 rounded"
+            className="accent-black dark:accent-white w-5 h-5 rounded"
             name="all"
             checked={form.agreements.all}
             onChange={handleChange}
           />
-          <span className="font-bold text-base">필수 약관 전체 동의</span>
+          <span className="font-bold text-base dark:text-zinc-100">필수 약관 전체 동의</span>
         </label>
-        <button onClick={toggleExpand} className="focus:outline-none">
+        <button onClick={toggleExpand} className="focus:outline-none dark:text-zinc-300">
           <svg
             className={`w-5 h-5 ml-2 transition-transform duration-200 ${
               isExpanded ? "rotate-180" : ""
@@ -41,22 +41,23 @@ const AgreementSection = ({ form, handleChange, isExpanded, toggleExpand }) => {
           {agreements.map((item) => (
             <div
               key={item.name}
-              className="flex items-center justify-between border rounded px-4 py-3"
+              className="flex items-center justify-between border border-gray-200 dark:border-zinc-700 
+                         rounded px-4 py-3 bg-white dark:bg-zinc-800"
             >
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
-                  className="accent-black w-5 h-5 rounded"
+                  className="accent-black dark:accent-white w-5 h-5 rounded"
                   name={item.name}
                   checked={form.agreements[item.name]}
                   onChange={handleChange}
                 />
-                <span>{item.label}</span>
+                <span className="dark:text-zinc-200">{item.label}</span>
               </label>
 
               <Link to={item.link} target="_blank" rel="noopener noreferrer">
                 <svg
-                  className="w-5 h-5 text-gray-500 ml-2"
+                  className="w-5 h-5 text-gray-500 dark:text-zinc-400 ml-2"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={2}

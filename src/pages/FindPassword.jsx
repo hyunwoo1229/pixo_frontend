@@ -84,20 +84,31 @@ export default function FindPassword() {
   };
 
   return (
-    <div className="flex justify-center items-start pt-12 md:pt-24 lg:pt-36 min-h-screen bg-[#f8f9fa]">
-      <div className="p-10 rounded-xl shadow-xl bg-white w-full max-w-md">
+    <div className="flex justify-center items-start pt-12 md:pt-24 lg:pt-36 min-h-screen 
+                   bg-gray-100 dark:bg-zinc-900">
+      <div className="p-10 rounded-xl shadow-xl bg-white dark:bg-zinc-800 w-full max-w-md">
         <RegisterLogo />
-        <h2 className="text-2xl font-bold text-center mb-6">비밀번호 찾기</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 dark:text-zinc-100">비밀번호 찾기</h2>
 
         {step === 1 && (
           <div className="space-y-3">
-            <input type="text" name="loginId" placeholder="아이디" value={form.loginId} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
-            <input type="text" name="name" placeholder="이름" value={form.name} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
-            <input type="text" name="phoneNumber" placeholder="휴대폰 번호 ('-' 없이 입력)" value={form.phoneNumber} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
+            <input type="text" name="loginId" placeholder="아이디" value={form.loginId} onChange={handleChange} 
+                   className="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg
+                              bg-white dark:bg-zinc-700 
+                              focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="text" name="name" placeholder="이름" value={form.name} onChange={handleChange} 
+                   className="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg
+                              bg-white dark:bg-zinc-700 
+                              focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input type="text" name="phoneNumber" placeholder="휴대폰 번호 ('-' 없이 입력)" value={form.phoneNumber} onChange={handleChange} 
+                   className="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg
+                              bg-white dark:bg-zinc-700 
+                              focus:outline-none focus:ring-2 focus:ring-blue-500" />
             <button 
               onClick={handleSendCode} 
               disabled={loading || !form.loginId || !form.name || !form.phoneNumber} 
-              className="w-full py-3 mt-1 rounded-lg bg-black text-white font-semibold disabled:opacity-60"
+              className="w-full py-3 mt-1 rounded-lg bg-black text-white font-semibold disabled:opacity-60
+                         dark:bg-white dark:text-black dark:hover:bg-gray-200"
             >
               {loading ? '전송 중...' : '인증번호 받기'}
             </button>
@@ -106,11 +117,16 @@ export default function FindPassword() {
 
         {step === 2 && (
           <div className="space-y-4">
-            <p className="text-sm text-center text-gray-600">
+            <p className="text-sm text-center text-gray-600 dark:text-zinc-300">
               <span className="font-semibold">{form.phoneNumber}</span> (으)로 전송된 인증번호를 입력해주세요.
             </p>
-            <input type="text" name="code" placeholder="인증번호 6자리" value={form.code} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg" />
-            <button onClick={handleVerifyCode} disabled={loading} className="w-full py-3 rounded-lg bg-black text-white font-semibold disabled:opacity-60">
+            <input type="text" name="code" placeholder="인증번호 6자리" value={form.code} onChange={handleChange} 
+                   className="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg
+                              bg-white dark:bg-zinc-700 
+                              focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <button onClick={handleVerifyCode} disabled={loading} 
+                    className="w-full py-3 rounded-lg bg-black text-white font-semibold disabled:opacity-60
+                               dark:bg-white dark:text-black dark:hover:bg-gray-200">
               {loading ? '확인 중...' : '인증번호 확인'}
             </button>
           </div>
@@ -118,26 +134,36 @@ export default function FindPassword() {
         
         {step === 3 && (
             <div className="space-y-3">
-                <p className="text-sm text-center text-gray-600">새로운 비밀번호를 입력해주세요.</p>
-                <input type="password" name="newPassword" placeholder="새 비밀번호" value={form.newPassword} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg"/>
-                <input type="password" name="confirmPassword" placeholder="새 비밀번호 확인" value={form.confirmPassword} onChange={handleChange} className="w-full px-4 py-3 border rounded-lg"/>
-                <button onClick={handleResetPassword} disabled={loading} className="w-full py-3 mt-1 rounded-lg bg-black text-white font-semibold disabled:opacity-60">
+                <p className="text-sm text-center text-gray-600 dark:text-zinc-300">새로운 비밀번호를 입력해주세요.</p>
+                <input type="password" name="newPassword" placeholder="새 비밀번호" value={form.newPassword} onChange={handleChange} 
+                       className="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg
+                                  bg-white dark:bg-zinc-700 
+                                  focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                <input type="password" name="confirmPassword" placeholder="새 비밀번호 확인" value={form.confirmPassword} onChange={handleChange} 
+                       className="w-full px-4 py-3 border border-gray-300 dark:border-zinc-600 rounded-lg
+                                  bg-white dark:bg-zinc-700 
+                                  focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                <button onClick={handleResetPassword} disabled={loading} 
+                        className="w-full py-3 mt-1 rounded-lg bg-black text-white font-semibold disabled:opacity-60
+                                   dark:bg-white dark:text-black dark:hover:bg-gray-200">
                     {loading ? '변경 중...' : '비밀번호 변경'}
                 </button>
             </div>
         )}
 
         {step === 4 && (
-            <div className="text-center p-6 border rounded-lg bg-gray-50">
-                <p className="text-lg font-semibold text-gray-800 mb-4">비밀번호가 성공적으로 변경되었습니다.</p>
-                <Link to="/login" className="inline-block px-6 py-2 bg-black text-white rounded-lg font-semibold hover:bg-gray-800 transition-colors">로그인하러 가기</Link>
+            <div className="text-center p-6 border border-gray-200 dark:border-zinc-700 rounded-lg bg-gray-50 dark:bg-zinc-700">
+                <p className="text-lg font-semibold text-gray-800 dark:text-zinc-100 mb-4">비밀번호가 성공적으로 변경되었습니다.</p>
+                <Link to="/login" className="inline-block px-6 py-2 bg-black text-white rounded-lg font-semibold 
+                                           hover:bg-gray-800 transition-colors
+                                           dark:bg-white dark:text-black dark:hover:bg-gray-200">로그인하러 가기</Link>
             </div>
         )}
 
-        {error && <p className="text-red-500 text-sm text-center mt-4 break-words">{error}</p>}
+        {error && <p className="text-red-500 dark:text-red-400 text-sm text-center mt-4 break-words">{error}</p>}
 
         <div className="mt-6 text-center">
-            <Link to="/login" className="text-sm text-gray-500 hover:text-gray-700 underline">
+            <Link to="/login" className="text-sm text-gray-500 dark:text-zinc-400 hover:text-gray-700 dark:hover:text-zinc-200 underline">
                 로그인 화면으로 돌아가기
             </Link>
         </div>

@@ -30,7 +30,11 @@ export default function Logout({ className = "" }) {
   };
 
   return (
-    <button onClick={handleLogout} className={`w-full text-left px-6 py-4 border-b ${className}`}>
+    <button 
+      onClick={handleLogout} 
+      className={`w-full text-left px-6 py-4 border-b border-gray-200 dark:border-zinc-700 
+                  hover:bg-gray-100 dark:hover:bg-zinc-800 ${className}`}
+    >
       로그아웃
     </button>
   );

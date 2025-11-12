@@ -5,7 +5,7 @@ import WithdrawConfirm from "../components/Header/WithdrawConfirm";
 
 export default function Withdraw() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       <div className="px-6 pt-4 flex flex-col items-center">
         <RegisterLogo />

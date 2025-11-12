@@ -60,32 +60,32 @@ export default function CategoryDetail() {
   return (
     <div className="max-w-md mx-auto min-h-screen flex flex-col">
       {/* 1. 헤더 */}
-      <div className="relative flex items-center justify-center p-4 border-b">
+      <div className="relative flex items-center justify-center p-4 border-b border-gray-200 dark:border-zinc-700">
         <BackButton onClick={() => navigate(-1)} className="absolute left-4" />
-        <h1 className="text-xl font-bold">{categoryInfo.label}</h1>
+        <h1 className="text-xl font-bold dark:text-zinc-100">{categoryInfo.label}</h1>
       </div>
 
       {/* 2. 컨텐츠 영역 */}
       <div className="flex-grow flex flex-col">
         {/* 상단 설명 */}
-        <p className="text-lg text-center text-gray-700 p-4 leading-relaxed">
+        <p className="text-lg text-center text-gray-700 dark:text-zinc-300 p-4 leading-relaxed">
           {categoryInfo.description}
         </p>
 
         {loading ? (
           // 로딩 중 스켈레톤
           <div className="p-4 space-y-4">
-            <div className="w-full aspect-square bg-gray-300 rounded-lg animate-pulse"></div>
+            <div className="w-full aspect-square bg-gray-300 dark:bg-zinc-800 rounded-lg animate-pulse"></div>
             <div className="grid grid-cols-3 gap-1">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="aspect-[4/5] bg-gray-300 animate-pulse" /> // 로딩도 4:5로
+                <div key={i} className="aspect-[4/5] bg-gray-300 dark:bg-zinc-800 animate-pulse" />
               ))}
             </div>
           </div>
         ) : hasNoPhotos ? (
           // 사진이 아예 없을 때
-          <div className="flex-grow flex items-center justify-center min-h-[300px] bg-gray-100">
-            <p className="text-gray-500">등록된 사진이 없습니다.</p>
+          <div className="flex-grow flex items-center justify-center min-h-[300px] bg-gray-100 dark:bg-zinc-800">
+            <p className="text-gray-500 dark:text-zinc-400">등록된 사진이 없습니다.</p>
           </div>
         ) : (
           // 사진이 있을 때
@@ -107,7 +107,9 @@ export default function CategoryDetail() {
             <div className="p-4 pt-0">
               <button
                 onClick={handleReserveClick}
-                className="w-full py-3 bg-black text-white rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
+                className="w-full py-3 bg-black text-white rounded-lg text-lg font-semibold 
+                           hover:bg-gray-800 transition
+                           dark:bg-white dark:text-black dark:hover:bg-gray-200"
               >
                 예약하기
               </button>
@@ -117,7 +119,7 @@ export default function CategoryDetail() {
             {generalPhotos.length > 0 && (
               <div className="grid grid-cols-3 gap-1 flex-grow mb-4">
                 {generalPhotos.map((photo) => (
-                  <div key={photo.id} className="aspect-[4/5] bg-gray-200">
+                  <div key={photo.id} className="aspect-[4/5] bg-gray-200 dark:bg-zinc-800">
                     <img
                       src={photo.imageUrl}
                       alt={`photo-${photo.id}`}

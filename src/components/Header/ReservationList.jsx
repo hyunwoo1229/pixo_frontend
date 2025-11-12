@@ -40,19 +40,20 @@ export default function ReservationList() {
   };
 
   if (loading) {
-    return <div className="text-center p-8">예약 정보를 불러오는 중...</div>;
+    return <div className="text-center p-8 dark:text-zinc-400">예약 정보를 불러오는 중...</div>;
   }
 
   if (error) {
-    return <div className="text-center p-8 text-red-500">{error}</div>;
+    return <div className="text-center p-8 text-red-500 dark:text-red-400">{error}</div>;
   }
 
   if (reservations.length === 0) {
-    return <div className="text-center p-8">예약 내역이 없습니다.</div>;
+    return <div className="text-center p-8 dark:text-zinc-400">예약 내역이 없습니다.</div>;
   }
 
   return (
-    <div className="rh-list">
+
+    <div className="rh-list space-y-4">
       {reservations.map((res) => (
         <ReservationCard
           key={res.id}

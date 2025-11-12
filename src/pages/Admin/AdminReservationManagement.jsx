@@ -58,15 +58,17 @@ export default function AdminReservationManagement() {
 
   return (
     <div className="px-6 py-6 max-w-screen-sm mx-auto">
-      <h1 className="text-2xl font-bold mb-2">전체 예약 조회</h1>
-      <p className="text-sm text-gray-600 mb-6">전체 회원의 예약 내역을 조회하고 검색합니다.</p>
+      <h1 className="text-2xl font-bold mb-2 dark:text-zinc-100">전체 예약 조회</h1>
+      <p className="text-sm text-gray-600 dark:text-zinc-400 mb-6">전체 회원의 예약 내역을 조회하고 검색합니다.</p>
 
       {/* 검색 폼 */}
       <form onSubmit={handleSearch} className="flex gap-2 mb-6">
         <select
           value={searchType}
           onChange={(e) => setSearchType(e.target.value)}
-          className="border rounded px-3 py-2"
+          className="border border-gray-300 dark:border-zinc-600 rounded px-3 py-2
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none"
         >
           <option value="name">이름</option>
           <option value="code">예약번호</option>
@@ -76,11 +78,14 @@ export default function AdminReservationManagement() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder={searchType === 'name' ? '예약자 이름으로 검색' : '예약번호로 검색'}
-          className="flex-1 border rounded px-3 py-2"
+          className="flex-1 border border-gray-300 dark:border-zinc-600 rounded px-3 py-2
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none"
         />
         <button
           type="submit"
-          className="bg-black text-white px-4 py-2 rounded disabled:opacity-60"
+          className="bg-black text-white px-4 py-2 rounded disabled:opacity-60
+                     dark:bg-white dark:text-black dark:hover:bg-gray-200"
           disabled={loading}
         >
           {loading ? "조회중" : "검색"}

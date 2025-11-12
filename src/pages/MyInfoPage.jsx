@@ -5,12 +5,12 @@ import MyInfo from "../components/Header/MyInfo";
 
 export default function MyInfoPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
 
       <div className="px-6 pt-4 flex flex-col items-center">
         <RegisterLogo />
-        <h2 className="text-xl font-bold mb-6">내 정보 보기</h2>
+        <h2 className="text-xl font-bold mb-6 dark:text-zinc-100">내 정보 보기</h2>
         <MyInfo /> 
       </div>
     </div>

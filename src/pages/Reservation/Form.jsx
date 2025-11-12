@@ -139,7 +139,7 @@ export default function Form() {
             </div>
 
             {timeLoading ? (
-              <div className="text-center p-4">회의 시간 정보 로딩 중...</div>
+              <div className="text-center p-4 dark:text-zinc-400">회의 시간 정보 로딩 중...</div>
             ) : (
               <div className="grid grid-cols-3 gap-2 mt-2">
                 {TIME_SLOTS.map((slot) => {
@@ -160,8 +160,12 @@ export default function Form() {
                       disabled={isBooked || isPast}
                       onClick={() => setForm(s => ({ ...s, time: slot }))}
                       className={`py-2 border rounded-lg text-sm transition-colors 
-                        ${(isBooked || isPast) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : ''} 
-                        ${isSelected ? 'bg-black text-white border-black' : 'hover:border-gray-400'}
+                        ${(isBooked || isPast) 
+                          ? 'bg-gray-200 text-gray-400 cursor-not-allowed dark:bg-zinc-700 dark:text-zinc-500' 
+                          : ''} 
+                        ${isSelected 
+                          ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white' 
+                          : 'bg-white dark:bg-zinc-800 border-gray-300 dark:border-zinc-600 hover:border-gray-400 dark:hover:border-zinc-500'}
                       `}
                     >
                       {slot.replace('-', ':00 - ')}:00
@@ -174,9 +178,11 @@ export default function Form() {
           
           <div className="space-y-4 mt-6">
             <div>
-              <label className="label block mb-1">희망 촬영 날짜</label>
+              <label className="label block mb-1 text-sm text-gray-700 dark:text-zinc-400">희망 촬영 날짜</label>
               <input
-                className="input w-full"
+                className="input w-full h-11 px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm
+                           bg-white dark:bg-zinc-800 
+                           focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="ex) 10월 15일, 11월 첫째 주, 12월 초"
                 value={form.desiredShootDate}
                 onChange={(e) => setForm(s => ({ ...s, desiredShootDate: e.target.value }))}
@@ -185,9 +191,11 @@ export default function Form() {
               />
             </div>
             <div>
-              <label className="label block mb-1">희망 촬영 장소</label>
+              <label className="label block mb-1 text-sm text-gray-700 dark:text-zinc-400">희망 촬영 장소</label>
               <input
-                className="input w-full"
+                className="input w-full h-11 px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm
+                           bg-white dark:bg-zinc-800 
+                           focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="ex) 서울, 경기도 수원, 미정"
                 value={form.location}
                 onChange={(e) => setForm(s => ({ ...s, location: e.target.value }))}
@@ -196,9 +204,11 @@ export default function Form() {
               />
             </div>
             <div>
-              <label className="label block mb-1">기타</label>
+              <label className="label block mb-1 text-sm text-gray-700 dark:text-zinc-400">기타</label>
               <input
-                className="input w-full"
+                className="input w-full h-11 px-3 py-2 border border-gray-300 dark:border-zinc-600 rounded-lg text-sm
+                           bg-white dark:bg-zinc-800 
+                           focus:ring-2 focus:ring-blue-500 outline-none"
                 placeholder="ex) 인원, 하고싶은 말 등"
                 value={form.note}
                 onChange={(e) => setForm(s => ({ ...s, note: e.target.value }))}

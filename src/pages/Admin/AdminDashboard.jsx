@@ -147,15 +147,17 @@ export default function AdminDashboard() {
 
   return (
     <div className="px-6 py-6 max-w-screen-sm mx-auto">
-      <h1 className="text-2xl font-bold mb-2">관리자 페이지</h1>
-      <p className="text-sm text-gray-600 mb-6">사진 업로드 및 관리</p>
+      <h1 className="text-2xl font-bold mb-2 dark:text-zinc-100">관리자 페이지</h1>
+      <p className="text-sm text-gray-600 dark:text-zinc-400 mb-6">사진 업로드 및 관리</p>
 
       {/* 업로드 폼 */}
       <form onSubmit={handleUpload} className="space-y-4 mb-10">
         <div>
-          <label className="block text-sm font-medium mb-1">카테고리</label>
+          <label className="block text-sm font-medium mb-1 dark:text-zinc-200">카테고리</label>
           <select
-            className="w-full border rounded px-3 py-2"
+            className="w-full border border-gray-300 dark:border-zinc-600 rounded px-3 py-2 
+                       bg-white dark:bg-zinc-800 
+                       focus:ring-2 focus:ring-blue-500 outline-none"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -168,8 +170,13 @@ export default function AdminDashboard() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">이미지 파일</label>
-          <input type="file" accept="image/*" onChange={onFileChange} />
+          <label className="block text-sm font-medium mb-1 dark:text-zinc-200">이미지 파일</label>
+          <input 
+            type="file" 
+            accept="image/*" 
+            onChange={onFileChange} 
+            className="dark:text-zinc-300"
+          />
         </div>
 
         {preview && (
@@ -180,7 +187,8 @@ export default function AdminDashboard() {
 
         <button
           type="submit"
-          className="w-full bg-black text-white py-3 rounded disabled:opacity-60"
+          className="w-full bg-black text-white py-3 rounded disabled:opacity-60
+                     dark:bg-white dark:text-black dark:hover:bg-gray-200"
           disabled={submitting}
         >
           {submitting ? "업로드 중..." : "업로드"}
@@ -189,21 +197,22 @@ export default function AdminDashboard() {
 
       {/* 목록/삭제 */}
       <section>
-        <h2 className="text-lg font-bold mb-3">등록된 사진</h2>
+        <h2 className="text-lg font-bold mb-3 dark:text-zinc-100">등록된 사진</h2>
         {loading ? (
-          <p className="text-sm text-gray-500">불러오는 중...</p>
+          <p className="text-sm text-gray-500 dark:text-zinc-400">불러오는 중...</p>
         ) : items.length === 0 ? (
-          <p className="text-sm text-gray-500">이미지가 없습니다.</p>
+          <p className="text-sm text-gray-500 dark:text-zinc-400">이미지가 없습니다.</p>
         ) : (
           <ul className="grid grid-cols-2 gap-4">
             {items.map((it, idx) => {
               const src = withOrigin(toUrl(it));
               return (
-                <li key={it.id ?? it.savedFileName ?? idx} className="border rounded p-2">
+                <li key={it.id ?? it.savedFileName ?? idx} 
+                    className="border border-gray-200 dark:border-zinc-700 rounded p-2">
                   <img
                     src={src}
                     alt={`photo-${it.id ?? idx}`}
-                    className="w-full aspect-square object-cover rounded mb-2"
+                    className="w-full aspect-square object-cover rounded mb-2 bg-gray-100 dark:bg-zinc-800"
                     onError={(e) => {
                       console.error("[IMG err]", src);
                       e.currentTarget.style.opacity = 0.3;
@@ -211,7 +220,8 @@ export default function AdminDashboard() {
                   />
                   <button
                     onClick={() => handleDelete(it.id)}
-                    className="w-full border border-black py-2 text-sm rounded"
+                    className="w-full border border-black dark:border-zinc-500 py-2 text-sm rounded
+                               hover:bg-gray-100 dark:hover:bg-zinc-800 disabled:opacity-50"
                     disabled={!it.id}
                   >
                     삭제

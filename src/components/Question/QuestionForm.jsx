@@ -38,7 +38,9 @@ export default function QuestionForm({
           placeholder="제목을 입력하세요"
           disabled={submitting}
           maxLength={200}
-          className={`w-full border rounded px-3 py-2 ${inputClass}`}
+          className={`w-full border border-gray-300 dark:border-zinc-600 rounded px-3 py-2 
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none ${inputClass}`}
         />
       </div>
 
@@ -49,24 +51,28 @@ export default function QuestionForm({
           onChange={change}
           placeholder="문의하실 내용을 입력하세요"
           disabled={submitting}
-          className={`w-full border rounded px-3 py-2 ${textareaClass}`}
+          className={`w-full border border-gray-300 dark:border-zinc-600 rounded px-3 py-2 
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none ${textareaClass}`}
         />
       </div>
 
-      {err && <p className="text-red-500 text-sm">{err}</p>}
+      {err && <p className="text-red-500 dark:text-red-400 text-sm">{err}</p>}
 
       <div className="flex gap-4 pt-2">
         <button
           type="button"
           onClick={onCancel}
-          className={`flex-1 border border-black py-3 rounded disabled:opacity-60`}
+          className={`flex-1 border border-black dark:border-zinc-500 py-3 rounded disabled:opacity-60
+                     hover:bg-gray-100 dark:hover:bg-zinc-800`}
           disabled={submitting}
         >
           취소
         </button>
         <button
           type="submit"
-          className="flex-1 bg-black text-white py-3 rounded disabled:opacity-60"
+          className="flex-1 bg-black text-white py-3 rounded disabled:opacity-60
+                     dark:bg-white dark:text-black dark:hover:bg-gray-200"
           disabled={submitting}
         >
           {submitting ? "처리 중..." : "등록"}

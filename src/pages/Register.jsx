@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import RegisterLogo from "../components/Register/RegisterLogo";
 import AuthInputGroup from "../components/Register/AuthInputGroup";
 import NamePhoneInputGroup from "../components/Register/NamePhoneInputGroup";
@@ -10,6 +11,7 @@ import VerificationCodeInput from "../components/Register/VerificationCodeInput"
 import useCheckLoginId from "../hooks/useCheckLoginId";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     loginId: "",
     password: "",
@@ -137,7 +139,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white px-4">
+    <div className="min-h-screen flex justify-center items-center px-4">
       <div className="w-full max-w-md flex flex-col space-y-4">
         <RegisterLogo />
         <AuthInputGroup form={form} handleChange={handleChange} />
@@ -152,10 +154,9 @@ export default function Register() {
 
         <AgreementSection form={form} handleChange={handleChange} isExpanded={isExpanded} toggleExpand={toggleExpand} />
         {isCodeSent && <VerificationCodeInput value={form.code} onChange={handleChange} />}
-        {submitError && <p className="text-sm text-red-500 text-center">{submitError}</p>}
+        {submitError && <p className="text-sm text-red-500 dark:text-red-400 text-center">{submitError}</p>}
         <SubmitRegisterButton onClick={isCodeSent ? handleSubmit : handleSendCode} disabled={isButtonDisabled()} isCodeSent={isCodeSent} />
       </div>
     </div>
   );
 }
-
