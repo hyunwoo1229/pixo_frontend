@@ -4,8 +4,8 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import Logout from "./Logout";
-import { useTheme } from '../../context/ThemeContext'; // useTheme 훅 임포트
-import { MdDarkMode, MdLightMode } from 'react-icons/md'; // 아이콘 임포트
+import { useTheme } from '../../context/ThemeContext'; 
+import { MdDarkMode, MdLightMode } from 'react-icons/md'; 
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,7 +14,7 @@ function Header() {
   const [accountOpen, setAccountOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false); 
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme(); // useTheme 훅 사용
+  const { theme, toggleTheme } = useTheme(); 
 
   const applyAuthState = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -45,6 +45,22 @@ function Header() {
   const toggleAdmin = () => setAdminOpen((v) => !v);
   const closeMenu = () => setIsOpen(false);
 
+  // 스위치 핸들 크기 및 배경 너비
+  const switchWidth = "w-14"; 
+  const switchHeight = "h-7";
+  const handleSize = "w-6 h-6";
+  
+  // 1. 위치 로직 반전:
+  // dark (달) -> translate-x-0
+  // light (해) -> translate-x-6 (24px)로 수정하여 중앙 정렬 시도
+  const handleTranslateX = theme === 'dark' ? 'translate-x-0' : 'translate-x-6'; 
+
+  // 2. 핸들 색상 로직
+  // dark -> bg-gray-200 (밝게)
+  // light -> bg-zinc-600 (어둡게)
+  const handleColor = theme === 'dark' ? 'bg-gray-200' : 'bg-zinc-600';
+
+
   return (
     <>
       <header 
@@ -53,34 +69,47 @@ function Header() {
       >
         <div className="w-full flex items-center justify-between px-4 py-2">
           
-          <div className="flex items-center gap-2"> 
+          <div className="flex items-center space-x-2"> 
             <button
               onClick={toggleMenu}
-              className="text-3xl focus:outline-none"
+              className="text-3xl focus:outline-none text-gray-800 dark:text-white"
               aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
             >
               {isOpen ? <RxCross2 /> : <HiOutlineMenu />}
             </button>
             
-            <button
+            {/* 다크 모드 스위치 버튼 스타일 적용 */}
+            <div 
+              className={`relative ${switchWidth} ${switchHeight} flex items-center justify-between rounded-full p-1 cursor-pointer 
+                          ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'} transition-colors duration-300`} 
               onClick={toggleTheme}
-              className="p-2 rounded-full text-gray-700 dark:text-white bg-gray-100 dark:bg-zinc-800
-                         hover:bg-gray-200 dark:hover:bg-zinc-700 transition-colors duration-300"
               aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
             >
-              {theme === 'dark' ? (
-                <MdLightMode size={20} />
-              ) : (
-                <MdDarkMode size={20} />
-              )}
-            </button>
+              {/* 스위치 핸들 (translate-x-6으로 수정) */}
+              <div 
+                className={`absolute ${handleSize} rounded-full shadow-md transform transition-transform duration-300 
+                            ${handleTranslateX} ${handleColor}`} 
+              ></div>
+
+              {/* 다크 모드 아이콘 (달) */}
+              <MdDarkMode 
+                className={`z-10 ${handleSize} p-1 transition-colors duration-300
+                            ${theme === 'dark' ? 'text-zinc-900' : 'text-gray-500'}`} 
+              />
+              {/* 라이트 모드 아이콘 (해) */}
+              <MdLightMode 
+                className={`z-10 ${handleSize} p-1 transition-colors duration-300
+                            ${theme === 'dark' ? 'text-gray-200' : 'text-zinc-900'}`} 
+              />
+            </div>
+            {/* ------------------------------------- */}
           </div>
           
 
           <Link
             to="/"
             onClick={closeMenu}
-            className="font-bold leading-none"
+            className="font-bold leading-none text-gray-800 dark:text-white"
             style={{ fontFamily: "var(--logo-font)", fontSize: "3.6rem" }}
           >
             PIXO
@@ -93,10 +122,10 @@ function Header() {
                        dark:bg-zinc-900 dark:text-white dark:border-t dark:border-zinc-700"
           >
             <nav className="flex flex-col text-base font-medium">
-              <Link to="/introduce" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">PIXO</Link>
-              <Link to="/price" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">가격</Link>
-              <Link to="/reserve/type" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">예약하기</Link>
-              <Link to="/question" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">1:1 문의</Link>
+              <Link to="/introduce" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">PIXO</Link>
+              <Link to="/price" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">가격</Link>
+              <Link to="/reserve/type" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">예약하기</Link>
+              <Link to="/question" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">1:1 문의</Link>
 
               <hr className="border-gray-200 dark:border-zinc-700" />
 
@@ -106,7 +135,7 @@ function Header() {
                     <>
                       <button
                         onClick={toggleAdmin}
-                        className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-zinc-700 text-left"
+                        className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-zinc-700 text-left w-full hover:bg-gray-50 dark:hover:bg-zinc-800"
                         aria-expanded={adminOpen}
                       >
                         <span>관리자 페이지</span>
@@ -114,19 +143,19 @@ function Header() {
                       </button>
                       {adminOpen && (
                         <div className="flex flex-col">
-                          <Link to="/admin/photos" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                          <Link to="/admin/photos" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                             사진 관리
                           </Link>
-                          <Link to="/admin/questions" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                          <Link to="/admin/questions" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                             1:1 문의 답변
                           </Link>
-                          <Link to="/admin/reservations" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                          <Link to="/admin/reservations" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                             전체 예약 관리
                           </Link>
-                          <Link to="/admin/members" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                          <Link to="/admin/members" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                             전체 회원 관리
                           </Link>
-                          <Link to="/admin/schedule" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                          <Link to="/admin/schedule" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                             일정 관리
                           </Link>
                         </div>
@@ -134,15 +163,15 @@ function Header() {
                     </>
                   )}
 
-                  <Logout className="" />
+                  <Logout className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 w-full text-left" /> 
 
-                  <Link to="/reservation-history" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">
+                  <Link to="/reservation-history" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">
                     예약 조회
                   </Link>
 
                   <button
                     onClick={toggleAccount}
-                    className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-zinc-700 text-left"
+                    className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-zinc-700 text-left w-full hover:bg-gray-50 dark:hover:bg-zinc-800"
                     aria-expanded={accountOpen}
                   >
                     <span>계정 관리</span>
@@ -151,20 +180,20 @@ function Header() {
 
                   {accountOpen && (
                     <div className="flex flex-col">
-                      <Link to="/my-info" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                      <Link to="/my-info" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                         내 정보 보기
                       </Link>
-                      <Link to="/change-password" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                      <Link to="/change-password" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                         비밀번호 변경
                       </Link>
-                      <Link to="/withdraw" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700">
+                      <Link to="/withdraw" onClick={closeMenu} className="h-12 flex items-center px-6 border-t border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 pl-10">
                         회원 탈퇴
                       </Link>
                     </div>
                   )}
                 </>
               ) : (
-                <Link to="/login" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700">로그인</Link>
+                <Link to="/login" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">로그인</Link>
               )}
             </nav>
           </div>
