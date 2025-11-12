@@ -20,6 +20,9 @@ export default function CategoryDetail() {
   const [generalPhotos, setGeneralPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
   
+  // --- 1. 클릭된 이미지 URL을 저장할 state 추가 ---
+  const [selectedImage, setSelectedImage] = useState(null);
+  
   const categoryInfo = CATEGORY_INFO[categoryId] || { label: '카테고리', description: '카테고리 설명' };
 
   useEffect(() => {
@@ -96,7 +99,9 @@ export default function CategoryDetail() {
                 <img
                   src={representativePhoto.imageUrl}
                   alt={`${categoryInfo.label} 대표 사진`}
-                  className="w-full h-full object-cover rounded-lg"
+                  // --- 2. 클릭 이벤트와 커서 스타일 추가 ---
+                  className="w-full h-full object-cover rounded-lg cursor-pointer"
+                  onClick={() => setSelectedImage(representativePhoto.imageUrl)}
                 />
               </div>
             )}
@@ -119,8 +124,10 @@ export default function CategoryDetail() {
                     <img
                       src={photo.imageUrl}
                       alt={`photo-${photo.id}`}
-                      className="w-full h-full object-cover"
+                      // --- 2. 클릭 이벤트와 커서 스타일 추가 ---
+                      className="w-full h-full object-cover cursor-pointer"
                       loading="lazy"
+                      onClick={() => setSelectedImage(photo.imageUrl)}
                     />
                   </div>
                 ))}
@@ -129,6 +136,24 @@ export default function CategoryDetail() {
           </div>
         )}
       </div>
+
+      {/* --- 3. 이미지 모달 --- */}
+      {/* selectedImage에 값이 있을 때만 이 div가 렌더링. */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4"
+          // 배경을 클릭하면 모달이 닫힘.
+          onClick={() => setSelectedImage(null)} 
+        >
+          <img
+            src={selectedImage}
+            alt="Enlarged"
+            className="max-w-full max-h-full object-contain"
+            // 이미지를 클릭해도 닫히지 않게 하려면
+            onClick={(e) => e.stopPropagation()} 
+          />
+        </div>
+      )}
     </div>
   );
 }
