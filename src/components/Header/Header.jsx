@@ -4,7 +4,8 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import Logout from "./Logout";
-import { useTheme } from '../../context/ThemeContext'; // useTheme 훅 임포트
+import { useTheme } from '../../context/ThemeContext'; 
+import { MdDarkMode, MdLightMode } from 'react-icons/md'; // MdDarkMode, MdLightMode 아이콘 임포트
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ function Header() {
   const [accountOpen, setAccountOpen] = useState(false);
   const [adminOpen, setAdminOpen] = useState(false); 
   const location = useLocation();
-  const { theme, toggleTheme } = useTheme(); // useTheme 훅 사용
+  const { theme, toggleTheme } = useTheme(); 
 
   const applyAuthState = useCallback(() => {
     const token = localStorage.getItem("accessToken");
@@ -52,30 +53,32 @@ function Header() {
       >
         <div className="w-full flex items-center justify-between px-4 py-2">
           
-          <div className="flex items-center space-x-2"> {/* 햄버거 버튼과 다크 모드 토글 간격 조정 */}
+          <div className="flex items-center space-x-2"> 
             <button
               onClick={toggleMenu}
-              className="text-3xl focus:outline-none text-gray-800 dark:text-white" // 아이콘 색상 추가
+              className="text-3xl focus:outline-none text-gray-800 dark:text-white"
               aria-label={isOpen ? "메뉴 닫기" : "메뉴 열기"}
             >
               {isOpen ? <RxCross2 /> : <HiOutlineMenu />}
             </button>
             
-            {/* 다크 모드 스위치 버튼 스타일 적용 */}
+            {/* 다크 모드 스위치 버튼 스타일 적용 및 아이콘 복구 */}
             <div 
               className={`relative w-12 h-6 flex items-center rounded-full p-1 cursor-pointer 
-                          ${theme === 'dark' ? 'bg-zinc-600' : 'bg-gray-300'}`} // 배경색 조정
+                          ${theme === 'dark' ? 'bg-zinc-600' : 'bg-gray-300'}`} 
               onClick={toggleTheme}
               aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
             >
               <div 
-                className={`absolute w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 
-                            ${theme === 'dark' ? 'translate-x-6 bg-white' : 'translate-x-0 bg-white'}`} // 스위치 동그라미
+                // 스위치 동그라미 크기를 키우고 (w-6 h-6), translate-x 값을 조정했습니다. (w-12 - w-6 - p-1*2 = 48 - 24 - 4 = 20px)
+                className={`absolute w-6 h-6 rounded-full shadow-md transform transition-all duration-300 flex items-center justify-center
+                            ${theme === 'dark' ? 'translate-x-5 bg-white' : 'translate-x-0 bg-white'}`} 
               >
+                 {/* 아이콘 크기 조정 (약 1.8배인 w-5 h-5 (20px)로 설정) */}
                  {theme === 'dark' ? (
-                   <span className="flex items-center justify-center w-full h-full text-zinc-600 text-xs">🌙</span>
+                   <MdLightMode className="w-5 h-5 text-gray-800" />
                  ) : (
-                   <span className="flex items-center justify-center w-full h-full text-gray-400 text-xs">☀️</span>
+                   <MdDarkMode className="w-5 h-5 text-gray-600" />
                  )}
               </div>
             </div>
@@ -86,7 +89,7 @@ function Header() {
           <Link
             to="/"
             onClick={closeMenu}
-            className="font-bold leading-none text-gray-800 dark:text-white" // 텍스트 색상 추가
+            className="font-bold leading-none text-gray-800 dark:text-white"
             style={{ fontFamily: "var(--logo-font)", fontSize: "3.6rem" }}
           >
             PIXO
@@ -140,7 +143,6 @@ function Header() {
                     </>
                   )}
 
-                  {/* Logout 컴포넌트에 hover 스타일 추가 */}
                   <Logout className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800 w-full text-left" /> 
 
                   <Link to="/reservation-history" onClick={closeMenu} className="px-6 py-4 border-b border-gray-200 dark:border-zinc-700 hover:bg-gray-50 dark:hover:bg-zinc-800">
