@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BackButton from '../components/Common/BackButton';
-import ImageSlider from '../components/ImageSlider';
 
 const CATEGORY_INFO = {
   LANDSCAPE: { label: 'Landscape', description: '풍경 촬영' },
   PRODUCT: { label: 'Product', description: '제품 촬영' },
   FOOD: { label: 'Food', description: '음식 촬영' },
   WEDDING: { label: 'Wedding', description: '웨딩 촬영' },
+  FASHION: { label: 'Fashion', description: '패션 화보' },
+  CAR: { label: 'Car', description: '차량 촬영' },
+  DRONE_LANDSCAPE: { label: 'Drone', description: '드론 풍경' },
 };
 
 export default function CategoryDetail() {
@@ -26,16 +28,18 @@ export default function CategoryDetail() {
       try {
         const { data } = await axios.get(`/api/photo/category-detail/${categoryId}`);
         
-        if (data && data.length > 0) {
+        // 데이터가 배열이고, 0개 이상일 경우(빈 배열 포함)를 정상 처리
+        if (Array.isArray(data)) {
           setAllPhotos(data);
         } else {
-          // 사진이 없을 경우 기본 이미지 표시
-          setAllPhotos([{ imageUrl: '/images/default-category-detail.jpg', id: 'default' }]);
+          // 예기치 않은 응답일 경우 빈 배열로 처리
+          setAllPhotos([]);
         }
 
       } catch (error) {
         console.error(`${categoryId} 카테고리 사진을 불러오는 데 실패했습니다.`, error);
-        setAllPhotos([{ imageUrl: '/images/default-category-detail.jpg', id: 'default' }]);
+        // 에러 발생 시에도 빈 배열로 설정
+        setAllPhotos([]);
       } finally {
         setLoading(false);
       }
@@ -54,23 +58,53 @@ export default function CategoryDetail() {
         <h1 className="text-xl font-bold">{categoryInfo.label}</h1>
       </div>
 
-      <div className="flex-grow p-4 flex flex-col">
-        <p className="text-lg text-center text-gray-700 mb-4 leading-relaxed">{categoryInfo.description}</p>
+      <div className="flex-grow flex flex-col">
+        
+        {/* 1. 상단 설명 */}
+        <p className="text-lg text-center text-gray-700 p-4 leading-relaxed">
+          {categoryInfo.description}
+        </p>
 
-        <div className="flex-grow w-full aspect-square mb-6">
+        {/* 2. 사진 그리드 (이 영역이 남은 공간을 모두 차지) */}
+        <div className="flex-grow">
           {loading ? (
-            <div className="w-full h-full bg-gray-300 rounded-lg animate-pulse"></div>
+            // 로딩 중: 스켈레톤 그리드
+            <div className="grid grid-cols-3 gap-1">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="aspect-square bg-gray-300 animate-pulse" />
+              ))}
+            </div>
+          ) : allPhotos.length > 0 ? (
+            // 사진 있음: 포토 그리드
+            <div className="grid grid-cols-3 gap-1">
+              {allPhotos.map((photo) => (
+                <div key={photo.id} className="aspect-square bg-gray-200">
+                  <img
+                    src={photo.imageUrl}
+                    alt={`photo-${photo.id}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
           ) : (
-            <ImageSlider images={allPhotos} />
+            // 사진 없음: 안내 메시지
+            <div className="flex items-center justify-center h-full min-h-[300px] bg-gray-100">
+              <p className="text-gray-500">등록된 사진이 없습니다.</p>
+            </div>
           )}
         </div>
 
-        <button
-          onClick={handleReserveClick}
-          className="w-full py-3 bg-black text-white rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
-        >
-          예약하기
-        </button>
+        {/* 3. 하단 예약하기 버튼  */}
+        <div className="p-4 mt-auto">
+          <button
+            onClick={handleReserveClick}
+            className="w-full py-3 bg-black text-white rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
+          >
+            예약하기
+          </button>
+        </div>
       </div>
     </div>
   );

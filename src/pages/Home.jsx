@@ -7,6 +7,9 @@ const CATEGORIES = [
   { id: 'PRODUCT', label: 'Product', mainPhotoCategory: 'PRODUCT_MAIN' },
   { id: 'FOOD', label: 'Food', mainPhotoCategory: 'FOOD_MAIN' },
   { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
+  { id: 'FASHION', label: 'Fashion', mainPhotoCategory: 'FASHION_MAIN' },
+  { id: 'CAR', label: 'Car', mainPhotoCategory: 'CAR_MAIN' },
+  { id: 'DRONE_LANDSCAPE', label: 'Drone', mainPhotoCategory: 'DRONE_LANDSCAPE_MAIN' },
 ];
 
 export default function Home() {
@@ -64,6 +67,8 @@ export default function Home() {
       </div>
 
       <div className="px-4 py-4 md:px-6 md:py-10 bg-white">
+        {/* --- 수정된 부분 --- */}
+        {/* 2열 그리드를 유지하되, 모든 카테고리가 표시됩니다. */}
         <div className="grid grid-cols-2 gap-4">
           {categoryPhotos.map((cat) => (
             <Link to={`/category/${cat.id}`} key={cat.id} className="group block">

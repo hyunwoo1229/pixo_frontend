@@ -39,6 +39,33 @@ const pricePackagesData = [
     category: 'WEDDING',
     mainPhotoCategory: 'WEDDING_MAIN',
   },
+  {
+    name: 'Fashion',
+    description: '트렌디하고 감각적인 패션 화보 촬영 패키지입니다.',
+    price: '500,000',
+    features: ['2시간 촬영', '의상 3벌', '정밀 보정 15컷', '컨셉 협의'],
+    link: '/reserve/date',
+    category: 'FASHION',
+    mainPhotoCategory: 'FASHION_MAIN',
+  },
+  {
+    name: 'Car',
+    description: '차량의 역동성과 디자인을 담아내는 전문 촬영입니다.',
+    price: '700,000',
+    features: ['3시간 촬영', '이동/주행샷 포함', '정밀 보정 15컷', '전문 장비 사용'],
+    link: '/reserve/date',
+    category: 'CAR',
+    mainPhotoCategory: 'CAR_MAIN',
+  },
+  {
+    name: 'Drone Landscape',
+    description: '하늘에서 바라보는 웅장한 드론 풍경 촬영입니다.',
+    price: '800,000',
+    features: ['2시간 비행', '4K 영상 클립 포함', '정밀 보정 10컷', '항공 촬영 허가 대행'],
+    link: '/reserve/date',
+    category: 'DRONE_LANDSCAPE',
+    mainPhotoCategory: 'DRONE_LANDSCAPE_MAIN',
+  },
 ];
 
 export default function Price() {

@@ -10,7 +10,10 @@ const CATEGORY_LABELS = {
   LANDSCAPE: "Landscape",
   PRODUCT: "Product",
   FOOD: "Food",
-  WEDDING: "Wedding" 
+  WEDDING: "Wedding",
+  FASHION: "Fashion",
+  CAR: "Car",
+  DRONE_LANDSCAPE: "Drone" 
 };
 
 function parseYmd(s) {

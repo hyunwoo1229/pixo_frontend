@@ -12,6 +12,9 @@ const TYPES = [
   { code: "PRODUCT",  label: "Product",   cover: "PRODUCT_MAIN"  },
   { code: "FOOD",    label: "Food",   cover: "FOOD_MAIN"    },
   { code: "WEDDING",    label: "Wedding",   cover: "WEDDING_MAIN"    },
+  { code: "FASHION", label: "Fashion", cover: "FASHION_MAIN" },
+  { code: "CAR", label: "Car", cover: "CAR_MAIN" },
+  { code: "DRONE_LANDSCAPE", label: "Drone", cover: "DRONE_LANDSCAPE_MAIN" },
 ];
 
 // 서버 응답에서 이미지 필드 통일

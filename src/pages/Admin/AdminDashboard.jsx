@@ -11,6 +11,12 @@ const CATEGORIES = [
   { value: "PRODUCT_MAIN", label: "제품 대표 사진" },
   { value: "FOOD_MAIN", label: "음식 대표 사진" },
   { value: "WEDDING_MAIN", label: "웨딩 대표 사진" },
+  { value: "FASHION", label: "패션 사진" },
+  { value: "CAR", label: "차 사진" },
+  { value: "DRONE_LANDSCAPE", label: "드론 풍경 사진" },
+  { value: "FASHION_MAIN", label: "패션 대표 사진" },
+  { value: "CAR_MAIN", label: "차 대표 사진" },
+  { value: "DRONE_LANDSCAPE_MAIN", label: "드론 풍경 대표 사진" },
 ];
 
 // 서버 DTO 키 정규화
