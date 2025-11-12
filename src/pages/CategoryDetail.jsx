@@ -8,9 +8,9 @@ const CATEGORY_INFO = {
   PRODUCT: { label: 'Product', description: '제품 촬영' },
   FOOD: { label: 'Food', description: '음식 촬영' },
   WEDDING: { label: 'Wedding', description: '웨딩 촬영' },
-  FASHION: { label: 'Fashion', description: '패션 화보 촬영' },
+  FASHION: { label: 'Fashion', description: '패션 화보' },
   CAR: { label: 'Car', description: '차량 촬영' },
-  DRONE_LANDSCAPE: { label: 'Drone Landscape', description: '드론 풍경 촬영' },
+  DRONE_LANDSCAPE: { label: 'Drone Landscape', description: '드론 풍경' },
 };
 
 export default function CategoryDetail() {
@@ -19,8 +19,6 @@ export default function CategoryDetail() {
   const [mainPhotos, setMainPhotos] = useState([]);
   const [generalPhotos, setGeneralPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // --- 1. 클릭된 이미지 URL을 저장할 state 추가 ---
   const [selectedImage, setSelectedImage] = useState(null);
   
   const categoryInfo = CATEGORY_INFO[categoryId] || { label: '카테고리', description: '카테고리 설명' };
@@ -99,7 +97,6 @@ export default function CategoryDetail() {
                 <img
                   src={representativePhoto.imageUrl}
                   alt={`${categoryInfo.label} 대표 사진`}
-                  // --- 2. 클릭 이벤트와 커서 스타일 추가 ---
                   className="w-full h-full object-cover rounded-lg cursor-pointer"
                   onClick={() => setSelectedImage(representativePhoto.imageUrl)}
                 />
@@ -120,12 +117,13 @@ export default function CategoryDetail() {
             {generalPhotos.length > 0 && (
               <div className="grid grid-cols-3 gap-1 flex-grow mb-4">
                 {generalPhotos.map((photo) => (
-                  <div key={photo.id} className="aspect-square bg-gray-200">
+
+                  <div key={photo.id} className="bg-gray-200">
                     <img
                       src={photo.imageUrl}
                       alt={`photo-${photo.id}`}
-                      // --- 2. 클릭 이벤트와 커서 스타일 추가 ---
-                      className="w-full h-full object-cover cursor-pointer"
+
+                      className="w-full cursor-pointer"
                       loading="lazy"
                       onClick={() => setSelectedImage(photo.imageUrl)}
                     />
@@ -137,19 +135,16 @@ export default function CategoryDetail() {
         )}
       </div>
 
-      {/* --- 3. 이미지 모달 --- */}
-      {/* selectedImage에 값이 있을 때만 이 div가 렌더링. */}
+      {/* 3. 이미지 모달 */}
       {selectedImage && (
         <div
           className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4"
-          // 배경을 클릭하면 모달이 닫힘.
           onClick={() => setSelectedImage(null)} 
         >
           <img
             src={selectedImage}
             alt="Enlarged"
             className="max-w-full max-h-full object-contain"
-            // 이미지를 클릭해도 닫히지 않게 하려면
             onClick={(e) => e.stopPropagation()} 
           />
         </div>
