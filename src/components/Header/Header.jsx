@@ -45,18 +45,12 @@ function Header() {
   const toggleAdmin = () => setAdminOpen((v) => !v);
   const closeMenu = () => setIsOpen(false);
 
-  // 스위치 핸들 크기 및 배경 너비 계산 (예: 스위치 폭 56px, 높이 28px, 핸들 폭 24px)
-  const switchWidth = "w-14"; // 56px
-  const switchHeight = "h-7"; // 28px
-  const handleSize = "w-6 h-6"; // 24px
-  const handleTranslateX = theme === 'dark' ? 'translate-x-7' : 'translate-x-0'; // 56 - 24 = 32px (절반 16 + 1px 패딩 = 17px, 대략 28px for translate-x-7)
-                                                                               // (w-14 = 56px, w-6 = 24px, padding 4px (p-1) 포함 -> 56 - 24 = 32. 
-                                                                               // 실제로는 아이콘이 중앙에 오도록 조정 필요)
-                                                                               // 스위치 폭 (56) - 핸들 폭 (24) = 32
-                                                                               // 32 / 2 = 16px (각 아이콘이 차지하는 공간의 절반)
-                                                                               // 16px는 tailwind translate-x-4에 해당 (16px) 
-                                                                               // 아이콘 위치를 고려하여 translate-x-7 (28px)로 조정
-                                                                               // 또는, flex justify-between으로 아이콘 위치를 잡고, 핸들만 이동
+  const switchWidth = "w-14"; 
+  const switchHeight = "h-7";
+  const handleSize = "w-6 h-6";
+  const handleTranslateX = theme === 'dark' ? 'translate-x-0' : 'translate-x-7'; 
+  const handleColor = theme === 'dark' ? 'bg-gray-200' : 'bg-zinc-600';
+
 
   return (
     <>
@@ -75,29 +69,26 @@ function Header() {
               {isOpen ? <RxCross2 /> : <HiOutlineMenu />}
             </button>
             
-            {/* 다크 모드 스위치 버튼 스타일 적용 - 두 아이콘 항상 표시 */}
             <div 
               className={`relative ${switchWidth} ${switchHeight} flex items-center justify-between rounded-full p-1 cursor-pointer 
-                          ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'} transition-colors duration-300`} // 배경색 및 전환 효과
+                          ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'} transition-colors duration-300`} 
               onClick={toggleTheme}
               aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
             >
-              {/* 스위치 핸들 */}
               <div 
                 className={`absolute ${handleSize} rounded-full shadow-md transform transition-transform duration-300 
-                            ${theme === 'dark' ? 'translate-x-7 bg-white' : 'translate-x-0 bg-white'}`} 
+                            ${handleTranslateX} ${handleColor}`} 
               ></div>
 
-              {/* 다크 모드 아이콘 (달) */}
               <MdDarkMode 
-                className={`z-10 ${handleSize} p-1 ${theme === 'dark' ? 'text-zinc-800' : 'text-gray-500'}`} 
+                className={`z-10 ${handleSize} p-1 transition-colors duration-300
+                            ${theme === 'dark' ? 'text-zinc-900' : 'text-gray-500'}`} 
               />
-              {/* 라이트 모드 아이콘 (해) */}
               <MdLightMode 
-                className={`z-10 ${handleSize} p-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`} 
+                className={`z-10 ${handleSize} p-1 transition-colors duration-300
+                            ${theme === 'dark' ? 'text-gray-200' : 'text-zinc-900'}`} 
               />
             </div>
-            {/* ------------------------------------- */}
           </div>
           
 
