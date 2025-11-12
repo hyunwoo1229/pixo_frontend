@@ -20,3 +20,16 @@
 body {
   font-family: var(--main-font);
 }
+
+@layer base {
+  body {
+    /* 평상시: 흰색 배경에 어두운 글씨 */
+    @apply bg-white text-gray-900;
+    
+    /* 다크 모드: '거의 검은색' 배경(zinc-900)에 밝은 글씨 */
+    @apply dark:bg-zinc-900 dark:text-zinc-100;
+    
+    /* 부드러운 색상 전환 효과 */
+    @apply transition-colors duration-300;
+  }
+}

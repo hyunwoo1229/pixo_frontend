@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ImageSlider from '../components/ImageSlider'; 
+import { useTheme } from '../context/ThemeContext'; // useTheme 훅 임포트
+import { MdDarkMode, MdLightMode } from 'react-icons/md'; // 아이콘 임포트
 
 const CATEGORIES = [
   { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
@@ -17,6 +19,7 @@ export default function Home() {
   const [representativePhotos, setRepresentativePhotos] = useState([]); // 상단 슬라이더용
   const [categoryPhotos, setCategoryPhotos] = useState([]); // 하단 그리드용
   const [loading, setLoading] = useState(true);
+  const { theme, toggleTheme } = useTheme(); // useTheme 훅 사용
 
   useEffect(() => {
     const fetchHomePhotos = async () => {
@@ -56,29 +59,29 @@ export default function Home() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="w-full h-auto bg-gray-200">
+      <div className="w-full h-auto bg-gray-200 dark:bg-zinc-800">
         {representativePhotos.length > 0 ? (
           <ImageSlider images={representativePhotos} />
         ) : (
           <div className="w-full h-[50vh] flex items-center justify-center">
-            <span className="text-gray-500">대표 이미지가 없습니다.</span>
+            <span className="text-gray-500 dark:text-zinc-400">대표 이미지가 없습니다.</span>
           </div>
         )}
       </div>
 
-      <div className="text-center px-6 py-12 md:py-20 bg-white border-b border-gray-200">
-        <p className="text-lg md:text-xl leading-relaxed text-gray-700">
+      <div className="text-center px-6 py-12 md:py-20 border-b border-gray-200 dark:border-zinc-700">
+        <p className="text-lg md:text-xl leading-relaxed text-gray-700 dark:text-zinc-300">
         PIXO는 풍경, 제품, 음식, 웨딩 각 분야의 목적에 최적화된 결과물을 제공하는 전문 스튜디오입니다. <br /><br />
         예약 전, 각 패키지의 상세 구성을 확인하시고 궁금한 점이 있다면 1:1 문의에 문의해주세요. <br /><br />
         예약 확정 후, 1:1 맞춤 컨설팅을 통해 촬영 컨셉과 목표를 협의합니다.
         </p>
       </div>
 
-      <div className="px-4 py-4 md:px-6 md:py-10 bg-white">
+      <div className="px-4 py-4 md:px-6 md:py-10">
         <div className="grid grid-cols-2 gap-4">
           {categoryPhotos.map((cat) => (
             <Link to={`/category/${cat.id}`} key={cat.id} className="group block">
-              <div className="relative w-full overflow-hidden rounded-lg bg-gray-200" style={{paddingTop: '100%'}}>
+              <div className="relative w-full overflow-hidden rounded-lg bg-gray-200 dark:bg-zinc-800" style={{paddingTop: '100%'}}>
                 {cat.imageUrl && (
                   <img
                     src={cat.imageUrl}
@@ -87,13 +90,27 @@ export default function Home() {
                   />
                 )}
               </div>
-              <p className="mt-3 text-center text-base md:text-lg font-semibold text-gray-800">{cat.label}</p>
+              <p className="mt-3 text-center text-base md:text-lg font-semibold text-gray-800 dark:text-zinc-200">{cat.label}</p>
             </Link>
           ))}
         </div>
       </div>
 
-      <div className="px-4 py-4 md:px-6 bg-white flex justify-end">
+      <div className="px-4 py-4 md:px-6 flex justify-end items-center gap-3"> 
+        {/* 다크 모드 토글 버튼 */}
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-full text-gray-700 dark:text-white bg-gray-200 dark:bg-zinc-700
+                     hover:bg-gray-300 dark:hover:bg-zinc-600 transition-colors duration-300"
+          aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
+        >
+          {theme === 'dark' ? (
+            <MdLightMode size={24} />
+          ) : (
+            <MdDarkMode size={24} />
+          )}
+        </button>
+
         <a
           href="https://www.instagram.com/studio.pixo?igsh=dTRsaGQ1cmw5b3ls"
           target="_blank"
