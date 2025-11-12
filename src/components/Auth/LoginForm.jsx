@@ -11,7 +11,15 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // 폼 제출 시 기본 동작(페이지 리로드) 방지
+    if (e) e.preventDefault(); 
+    
+    if (!loginId || !password) {
+        setError("아이디와 비밀번호를 입력해주세요.");
+        return;
+    }
+
     try {
       const res = await axios.post("/api/auth/login", { loginId, password });
       const data = res.data || {};
@@ -49,23 +57,28 @@ export default function LoginForm() {
       <div className="p-10 rounded-xl shadow-xl bg-white dark:bg-zinc-800 w-full max-w-md overflow-visible">
         <RegisterLogo />
 
-        <LoginInputGroup
-          loginId={loginId}
-          setLoginId={setLoginId}
-          password={password}
-          setPassword={setPassword}
-        />
+        <form onSubmit={handleSubmit}>
+            <LoginInputGroup
+              loginId={loginId}
+              setLoginId={setLoginId}
+              password={password}
+              setPassword={setPassword}
+            />
 
-        {error && (
-          <p className="text-red-500 dark:text-red-400 text-sm sm:text-base mt-3 break-words whitespace-pre-wrap min-h-[1.5rem] w-full">
-            {error}
-          </p>
-        )}
+            {error && (
+              <p className="text-red-500 dark:text-red-400 text-sm sm:text-base mt-3 break-words whitespace-pre-wrap min-h-[1.5rem] w-full">
+                {error}
+              </p>
+            )}
 
-        <div className="mt-6">
-          <SubmitLoginButton disabled={!loginId || !password} onClick={handleSubmit} />
-        </div>
-
+            <div className="mt-6">
+              <SubmitLoginButton 
+                disabled={!loginId || !password} 
+                onClick={handleSubmit} 
+                type="submit" 
+              />
+            </div>
+        </form>
         <div className="flex items-center my-6">
           <div className="flex-grow h-px bg-gray-300 dark:bg-zinc-600" />
           <span className="px-3 text-gray-400 dark:text-zinc-500 text-sm">Or continue with</span>

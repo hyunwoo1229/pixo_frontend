@@ -1,8 +1,8 @@
-import React from "react";
-
-export default function SubmitLoginButton({ onClick, disabled }) {
+export default function SubmitLoginButton({ onClick, disabled, type="button" }) { 
   return (
     <button
+      // type 속성 사용
+      type={type} 
       onClick={onClick}
       disabled={disabled}
       className={`w-full py-2 mt-2 rounded text-white ${

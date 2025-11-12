@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ImageSlider from '../components/ImageSlider'; 
-import { useTheme } from '../context/ThemeContext'; // useTheme 훅 임포트
-import { MdDarkMode, MdLightMode } from 'react-icons/md'; // 아이콘 임포트
 
 const CATEGORIES = [
   { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
@@ -19,7 +17,6 @@ export default function Home() {
   const [representativePhotos, setRepresentativePhotos] = useState([]); // 상단 슬라이더용
   const [categoryPhotos, setCategoryPhotos] = useState([]); // 하단 그리드용
   const [loading, setLoading] = useState(true);
-  const { theme, toggleTheme } = useTheme(); // useTheme 훅 사용
 
   useEffect(() => {
     const fetchHomePhotos = async () => {
@@ -29,14 +26,11 @@ export default function Home() {
           axios.get('/api/photo?category=REPRESENTATIVE') 
         ]);
 
-        // 1. 상단 슬라이더 state 설정
         setRepresentativePhotos(repPhotosRes.data || []);
 
-        // 2. 하단 그리드 state 설정
         const homeData = homeDataRes.data || {};
         const photos = CATEGORIES.map(cat => ({
           ...cat,
-          // homeData에서 카테고리별 대표 사진을 찾음
           imageUrl: homeData[cat.mainPhotoCategory]?.imageUrl || '',
         }));
         setCategoryPhotos(photos);
@@ -96,21 +90,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="px-4 py-4 md:px-6 flex justify-end items-center gap-3"> 
-        {/* 다크 모드 토글 버튼 */}
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full text-gray-700 dark:text-white bg-gray-200 dark:bg-zinc-700
-                     hover:bg-gray-300 dark:hover:bg-zinc-600 transition-colors duration-300"
-          aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
-        >
-          {theme === 'dark' ? (
-            <MdLightMode size={24} />
-          ) : (
-            <MdDarkMode size={24} />
-          )}
-        </button>
-
+      <div className="px-4 py-4 md:px-6 flex justify-end items-center gap-3">
         <a
           href="https://www.instagram.com/studio.pixo?igsh=dTRsaGQ1cmw5b3ls"
           target="_blank"
