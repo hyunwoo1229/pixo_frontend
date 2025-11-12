@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ImageSlider from '../components/ImageSlider'; 
 
 const CATEGORIES = [
   { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
@@ -13,26 +14,33 @@ const CATEGORIES = [
 ];
 
 export default function Home() {
-  const [mainPhoto, setMainPhoto] = useState('');
-  const [categoryPhotos, setCategoryPhotos] = useState([]);
+  const [representativePhotos, setRepresentativePhotos] = useState([]); // 상단 슬라이더용
+  const [categoryPhotos, setCategoryPhotos] = useState([]); // 하단 그리드용
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchHomePhotos = async () => {
       try {
-        const { data } = await axios.get('/api/photo/home');
+        const [homeDataRes, repPhotosRes] = await Promise.all([
+          axios.get('/api/photo/home'), 
+          axios.get('/api/photo?category=REPRESENTATIVE') 
+        ]);
 
-        setMainPhoto(data.REPRESENTATIVE?.imageUrl || '');
+        // 1. 상단 슬라이더 state 설정
+        setRepresentativePhotos(repPhotosRes.data || []);
 
+        // 2. 하단 그리드 state 설정
+        const homeData = homeDataRes.data || {};
         const photos = CATEGORIES.map(cat => ({
           ...cat,
-          imageUrl: data[cat.mainPhotoCategory]?.imageUrl || '',
+          // homeData에서 카테고리별 대표 사진을 찾음
+          imageUrl: homeData[cat.mainPhotoCategory]?.imageUrl || '',
         }));
         setCategoryPhotos(photos);
 
       } catch (error) {
         console.error("홈 화면 사진을 불러오는 데 실패했습니다.", error);
-        setMainPhoto('');
+        setRepresentativePhotos([]);
         setCategoryPhotos(CATEGORIES.map(cat => ({ ...cat, imageUrl: '' })));
       } finally {
         setLoading(false);
@@ -49,8 +57,8 @@ export default function Home() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="w-full h-auto bg-gray-200">
-        {mainPhoto ? (
-          <img src={mainPhoto} alt="PIXO 대표 이미지" className="w-full h-full object-cover" />
+        {representativePhotos.length > 0 ? (
+          <ImageSlider images={representativePhotos} />
         ) : (
           <div className="w-full h-[50vh] flex items-center justify-center">
             <span className="text-gray-500">대표 이미지가 없습니다.</span>
