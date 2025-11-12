@@ -10,7 +10,7 @@ const CATEGORY_INFO = {
   WEDDING: { label: 'Wedding', description: '웨딩 촬영' },
   FASHION: { label: 'Fashion', description: '패션 화보' },
   CAR: { label: 'Car', description: '차량 촬영' },
-  DRONE_LANDSCAPE: { label: 'Drone', description: '드론 풍경' },
+  DRONE_LANDSCAPE: { label: 'Drone Landscape', description: '드론 풍경' },
 };
 
 export default function CategoryDetail() {

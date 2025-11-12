@@ -4,34 +4,7 @@ import axios from 'axios';
 
 const pricePackagesData = [ 
   {
-    name: 'Landscape',
-    description: '자연의 아름다움을 담아내는 풍경 촬영 패키지입니다.',
-    price: '500,000',
-    features: ['2시간 촬영', '원본 사진 200컷 이상', '정밀 보정 10컷', '전용 앨범 1권'],
-    link: '/reserve/date', 
-    category: 'LANDSCAPE',
-    mainPhotoCategory: 'LANDSCAPE_MAIN',
-  },
-  {
-    name: 'Product',
-    description: '제품의 가치를 극대화하여 매출을 증대시키는 전문적인 제품 촬영입니다.',
-    price: '400,000',
-    features: ['제품 10종 이하', '배경/소품 컨셉 협의', '정밀 보정 20컷', '온라인용/인쇄용 파일 제공'],
-    link: '/reserve/date',
-    category: 'PRODUCT',
-    mainPhotoCategory: 'PRODUCT_MAIN',
-  },
-  {
-    name: 'Food',
-    description: '메뉴판, 광고 등 모든 상업적 목적에 부합하는 음식 촬영 패키지입니다.',
-    price: '400,000',
-    features: ['메뉴 5종 촬영', '푸드 스타일링 포함', '정밀 보정 15컷', '촬영 컨셉 협의'],
-    link: '/reserve/date',
-    category: 'FOOD',
-    mainPhotoCategory: 'FOOD_MAIN',
-  },
-  {
-    name: 'Wedding',
+    name: 'Wedding', // 1. 웨딩
     description: '웨딩 촬영 패키지입니다.',
     price: '600,000',
     features: ['총 5시간 밀착 촬영', '고급 미니 앨범 (50p)', '감성 필터/색감 보정본 100컷', '작가 지정 하이라이트 영상 클립 제공'],
@@ -40,7 +13,7 @@ const pricePackagesData = [
     mainPhotoCategory: 'WEDDING_MAIN',
   },
   {
-    name: 'Fashion',
+    name: 'Fashion', // 2. 패션
     description: '트렌디하고 감각적인 패션 화보 촬영 패키지입니다.',
     price: '500,000',
     features: ['2시간 촬영', '의상 3벌', '정밀 보정 15컷', '컨셉 협의'],
@@ -49,7 +22,25 @@ const pricePackagesData = [
     mainPhotoCategory: 'FASHION_MAIN',
   },
   {
-    name: 'Car',
+    name: 'Product', // 3. 제품
+    description: '제품의 가치를 극대화하여 매출을 증대시키는 전문적인 제품 촬영입니다.',
+    price: '400,000',
+    features: ['제품 10종 이하', '배경/소품 컨셉 협의', '정밀 보정 20컷', '온라인용/인쇄용 파일 제공'],
+    link: '/reserve/date',
+    category: 'PRODUCT',
+    mainPhotoCategory: 'PRODUCT_MAIN',
+  },
+  {
+    name: 'Food', // 4. 푸드
+    description: '메뉴판, 광고 등 모든 상업적 목적에 부합하는 음식 촬영 패키지입니다.',
+    price: '400,000',
+    features: ['메뉴 5종 촬영', '푸드 스타일링 포함', '정밀 보정 15컷', '촬영 컨셉 협의'],
+    link: '/reserve/date',
+    category: 'FOOD',
+    mainPhotoCategory: 'FOOD_MAIN',
+  },
+  {
+    name: 'Car', // 5. 카
     description: '차량의 역동성과 디자인을 담아내는 전문 촬영입니다.',
     price: '700,000',
     features: ['3시간 촬영', '이동/주행샷 포함', '정밀 보정 15컷', '전문 장비 사용'],
@@ -58,7 +49,16 @@ const pricePackagesData = [
     mainPhotoCategory: 'CAR_MAIN',
   },
   {
-    name: 'Drone Landscape',
+    name: 'Landscape', // 6. 풍경
+    description: '자연의 아름다움을 담아내는 풍경 촬영 패키지입니다.',
+    price: '500,000',
+    features: ['2시간 촬영', '원본 사진 200컷 이상', '정밀 보정 10컷', '전용 앨범 1권'],
+    link: '/reserve/date', 
+    category: 'LANDSCAPE',
+    mainPhotoCategory: 'LANDSCAPE_MAIN',
+  },
+  {
+    name: 'Drone Landscape', // 7. 드론 풍경
     description: '하늘에서 바라보는 웅장한 드론 풍경 촬영입니다.',
     price: '800,000',
     features: ['2시간 비행', '4K 영상 클립 포함', '정밀 보정 10컷', '항공 촬영 허가 대행'],
@@ -108,7 +108,6 @@ export default function Price() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {pricePackages.map((pkg) => (
-          // flex-col 추가: 사진, 내용, 버튼이 세로로 정렬되도록
           <div key={pkg.name} className="border rounded-lg p-6 flex flex-col"> 
             
             {/* 사진 표시 섹션 추가 */}

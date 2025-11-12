@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 const CATEGORIES = [
-  { value: "LANDSCAPE", label: "풍경 촬영" },
-  { value: "PRODUCT", label: "제품 촬영" },
-  { value: "FOOD", label: "음식 촬영" },
-  { value: "WEDDING", label: "웨딩 촬영" },
   { value: "REPRESENTATIVE", label: "전체 대표 사진" },
-  { value: "LANDSCAPE_MAIN", label: "풍경 대표 사진" },
+  { value: "WEDDING_MAIN", label: "웨딩 대표 사진" },
+  { value: "FASHION_MAIN", label: "패션 대표 사진" },
   { value: "PRODUCT_MAIN", label: "제품 대표 사진" },
   { value: "FOOD_MAIN", label: "음식 대표 사진" },
-  { value: "WEDDING_MAIN", label: "웨딩 대표 사진" },
-  { value: "FASHION", label: "패션 사진" },
-  { value: "CAR", label: "차 사진" },
-  { value: "DRONE_LANDSCAPE", label: "드론 풍경 사진" },
-  { value: "FASHION_MAIN", label: "패션 대표 사진" },
   { value: "CAR_MAIN", label: "차 대표 사진" },
+  { value: "LANDSCAPE_MAIN", label: "풍경 대표 사진" },
   { value: "DRONE_LANDSCAPE_MAIN", label: "드론 풍경 대표 사진" },
+  { value: "WEDDING", label: "웨딩 사진" },
+  { value: "FASHION", label: "패션 사진" },
+  { value: "PRODUCT", label: "제품 사진" },
+  { value: "FOOD", label: "음식 사진" },
+  { value: "CAR", label: "차 사진" },
+  { value: "LANDSCAPE", label: "풍경 사진" },
+  { value: "DRONE_LANDSCAPE", label: "드론 풍경 사진" },
 ];
 
 // 서버 DTO 키 정규화
