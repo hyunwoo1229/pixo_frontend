@@ -8,10 +8,13 @@ import "../../styles/reservation.css";
 import { setReservation } from "../../hooks/useReservationSession";
 
 const TYPES = [
-  { code: "LANDSCAPE", label: "Landscape", cover: "LANDSCAPE_MAIN" },
-  { code: "PRODUCT",  label: "Product",   cover: "PRODUCT_MAIN"  },
-  { code: "FOOD",    label: "Food",   cover: "FOOD_MAIN"    },
-  { code: "WEDDING",    label: "Wedding",   cover: "WEDDING_MAIN"    },
+  { code: "WEDDING",    label: "Wedding",   cover: "WEDDING_MAIN"    }, // 1
+  { code: "FASHION", label: "Fashion", cover: "FASHION_MAIN" }, // 2
+  { code: "PRODUCT",  label: "Product",   cover: "PRODUCT_MAIN"  }, // 3
+  { code: "FOOD",    label: "Food",   cover: "FOOD_MAIN"    }, // 4
+  { code: "CAR", label: "Car", cover: "CAR_MAIN" }, // 5
+  { code: "LANDSCAPE", label: "Landscape", cover: "LANDSCAPE_MAIN" }, // 6
+  { code: "DRONE_LANDSCAPE", label: "Drone Landscape", cover: "DRONE_LANDSCAPE_MAIN" }, // 7 
 ];
 
 // 서버 응답에서 이미지 필드 통일

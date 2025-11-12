@@ -3,13 +3,16 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const CATEGORIES = [
-  { id: 'LANDSCAPE', label: 'Landscape', mainPhotoCategory: 'LANDSCAPE_MAIN' },
+  { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
+  { id: 'FASHION', label: 'Fashion', mainPhotoCategory: 'FASHION_MAIN' },
   { id: 'PRODUCT', label: 'Product', mainPhotoCategory: 'PRODUCT_MAIN' },
   { id: 'FOOD', label: 'Food', mainPhotoCategory: 'FOOD_MAIN' },
-  { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
+  { id: 'CAR', label: 'Car', mainPhotoCategory: 'CAR_MAIN' },
+  { id: 'LANDSCAPE', label: 'Landscape', mainPhotoCategory: 'LANDSCAPE_MAIN' },
+  { id: 'DRONE_LANDSCAPE', label: 'Drone Landscape', mainPhotoCategory: 'DRONE_LANDSCAPE_MAIN' },
 ];
 
-export default function Home() {
+export default function Home() { 
   const [mainPhoto, setMainPhoto] = useState(''); 
   const [categoryPhotos, setCategoryPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,7 +46,7 @@ export default function Home() {
     return <div className="text-center p-10">로딩 중...</div>;
   }
   
-  const galleryItems = categoryPhotos.slice(0, 4); 
+  const galleryItems = categoryPhotos; 
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 md:px-8">

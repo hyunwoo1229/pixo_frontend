@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const CATEGORIES = [
-  { id: 'LANDSCAPE', label: 'Landscape', mainPhotoCategory: 'LANDSCAPE_MAIN' },
+  { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
+  { id: 'FASHION', label: 'Fashion', mainPhotoCategory: 'FASHION_MAIN' },
   { id: 'PRODUCT', label: 'Product', mainPhotoCategory: 'PRODUCT_MAIN' },
   { id: 'FOOD', label: 'Food', mainPhotoCategory: 'FOOD_MAIN' },
-  { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
+  { id: 'CAR', label: 'Car', mainPhotoCategory: 'CAR_MAIN' },
+  { id: 'LANDSCAPE', label: 'Landscape', mainPhotoCategory: 'LANDSCAPE_MAIN' },
+  { id: 'DRONE_LANDSCAPE', label: 'Drone Landscape', mainPhotoCategory: 'DRONE_LANDSCAPE_MAIN' },
 ];
 
 export default function Home() {

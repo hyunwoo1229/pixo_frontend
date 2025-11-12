@@ -10,7 +10,10 @@ const CATEGORY_LABELS = {
   LANDSCAPE: "Landscape",
   PRODUCT: "Product",
   FOOD: "Food",
-  WEDDING: "Wedding" 
+  WEDDING: "Wedding",
+  FASHION: "Fashion",
+  CAR: "Car",
+  DRONE_LANDSCAPE: "Drone Landscape" 
 };
 
 function parseYmd(s) {
@@ -72,7 +75,7 @@ export default function DatePick() {
       <Stepper current={2} />
       <section className="section">
         <div className="section-title-row">
-          <svg xmlns="http://www.w.3.org/2000/svg" className="emoji" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+          <svg xmlns="http://www.w3.org/2000/svg" className="emoji" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
             <line x1="16" y1="2" x2="16" y2="6" />
             <line x1="8" y1="2" x2="8" y2="6" />
