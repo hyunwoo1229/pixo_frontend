@@ -4,7 +4,7 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import Logout from "./Logout";
-import { useTheme } from '../context/ThemeContext'; // useTheme 훅 임포트
+import { useTheme } from '../../context/ThemeContext'; // useTheme 훅 임포트
 import { MdDarkMode, MdLightMode } from 'react-icons/md'; // 아이콘 임포트
 
 function Header() {
