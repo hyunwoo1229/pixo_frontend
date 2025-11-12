@@ -8,9 +8,9 @@ const CATEGORY_INFO = {
   PRODUCT: { label: 'Product', description: '제품 촬영' },
   FOOD: { label: 'Food', description: '음식 촬영' },
   WEDDING: { label: 'Wedding', description: '웨딩 촬영' },
-  FASHION: { label: 'Fashion', description: '패션 화보 촬영' },
+  FASHION: { label: 'Fashion', description: '패션 화보' },
   CAR: { label: 'Car', description: '차량 촬영' },
-  DRONE_LANDSCAPE: { label: 'Drone Landscape', description: '드론 풍경 촬영' },
+  DRONE_LANDSCAPE: { label: 'Drone Landscape', description: '드론 풍경' },
 };
 
 export default function CategoryDetail() {
@@ -19,6 +19,7 @@ export default function CategoryDetail() {
   const [mainPhotos, setMainPhotos] = useState([]);
   const [generalPhotos, setGeneralPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
   
   const categoryInfo = CATEGORY_INFO[categoryId] || { label: '카테고리', description: '카테고리 설명' };
 
@@ -77,7 +78,7 @@ export default function CategoryDetail() {
             <div className="w-full aspect-square bg-gray-300 rounded-lg animate-pulse"></div>
             <div className="grid grid-cols-3 gap-1">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="aspect-square bg-gray-300 animate-pulse" />
+                <div key={i} className="aspect-[4/5] bg-gray-300 animate-pulse" /> // 로딩도 4:5로
               ))}
             </div>
           </div>
@@ -90,13 +91,14 @@ export default function CategoryDetail() {
           // 사진이 있을 때
           <div className="flex-grow flex flex-col">
             
-            {/* 2-1. 대표 사진 */}
+            {/* 2-1. 대표 사진 (1:1 정사각형 유지) */}
             {representativePhoto && (
               <div className="w-full aspect-square mb-4 p-4">
                 <img
                   src={representativePhoto.imageUrl}
                   alt={`${categoryInfo.label} 대표 사진`}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full h-full object-cover rounded-lg cursor-pointer"
+                  onClick={() => setSelectedImage(representativePhoto.imageUrl)}
                 />
               </div>
             )}
@@ -115,12 +117,13 @@ export default function CategoryDetail() {
             {generalPhotos.length > 0 && (
               <div className="grid grid-cols-3 gap-1 flex-grow mb-4">
                 {generalPhotos.map((photo) => (
-                  <div key={photo.id} className="aspect-square bg-gray-200">
+                  <div key={photo.id} className="aspect-[4/5] bg-gray-200">
                     <img
                       src={photo.imageUrl}
                       alt={`photo-${photo.id}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover cursor-pointer"
                       loading="lazy"
+                      onClick={() => setSelectedImage(photo.imageUrl)}
                     />
                   </div>
                 ))}
@@ -129,6 +132,21 @@ export default function CategoryDetail() {
           </div>
         )}
       </div>
+
+      {/* 3. 이미지 모달 */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4"
+          onClick={() => setSelectedImage(null)} 
+        >
+          <img
+            src={selectedImage}
+            alt="Enlarged"
+            className="max-w-full max-h-full object-contain"
+            onClick={(e) => e.stopPropagation()} 
+          />
+        </div>
+      )}
     </div>
   );
 }
