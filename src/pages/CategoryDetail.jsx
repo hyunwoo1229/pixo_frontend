@@ -87,9 +87,11 @@ export default function CategoryDetail() {
             <p className="text-gray-500">등록된 사진이 없습니다.</p>
           </div>
         ) : (
-          // 사진이 있을 때
-          <div className="flex-grow">
+          // --- 수정된 레이아웃 ---
+          // 사진이 있을 때 (flex-col 추가)
+          <div className="flex-grow flex flex-col">
             
+            {/* 2-1. 대표 사진 */}
             {representativePhoto && (
               <div className="w-full aspect-square mb-4 p-4">
                 <img
@@ -100,8 +102,20 @@ export default function CategoryDetail() {
               </div>
             )}
             
+            {/* 2-2. 예약하기 버튼 */}
+            <div className="p-4 pt-0">
+              <button
+                onClick={handleReserveClick}
+                className="w-full py-3 bg-black text-white rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
+              >
+                예약하기
+              </button>
+            </div>
+
+            {/* 2-3. 일반 사진 그리드 (flex-grow 추가) */}
             {generalPhotos.length > 0 && (
-              <div className="grid grid-cols-3 gap-1">
+              // flex-grow를 추가하여 남은 공간을 모두 채우도록 함
+              <div className="grid grid-cols-3 gap-1 flex-grow">
                 {generalPhotos.map((photo) => (
                   <div key={photo.id} className="aspect-square bg-gray-200">
                     <img
@@ -117,15 +131,7 @@ export default function CategoryDetail() {
           </div>
         )}
 
-        {/* 3. 하단 예약 버튼 */}
-        <div className="p-4 mt-auto">
-          <button
-            onClick={handleReserveClick}
-            className="w-full py-3 bg-black text-white rounded-lg text-lg font-semibold hover:bg-gray-800 transition"
-          >
-            예약하기
-          </button>
-        </div>
+        {/* 3. 하단 예약 버튼 (여기서 제거됨) */}
       </div>
     </div>
   );
