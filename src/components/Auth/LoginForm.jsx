@@ -11,7 +11,15 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    // 폼 제출 시 기본 동작(페이지 리로드) 방지
+    if (e) e.preventDefault(); 
+    
+    if (!loginId || !password) {
+        setError("아이디와 비밀번호를 입력해주세요.");
+        return;
+    }
+
     try {
       const res = await axios.post("/api/auth/login", { loginId, password });
       const data = res.data || {};
@@ -44,31 +52,37 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center items-start pt-12 md:pt-24 lg:pt-36 min-h-screen bg-[#f8f9fa]">
-      <div className="p-10 rounded-xl shadow-xl bg-white w-full max-w-md overflow-visible">
+    <div className="flex justify-center items-start pt-12 md:pt-24 lg:pt-36 min-h-screen 
+                   bg-gray-100 dark:bg-zinc-900">
+      <div className="p-10 rounded-xl shadow-xl bg-white dark:bg-zinc-800 w-full max-w-md overflow-visible">
         <RegisterLogo />
 
-        <LoginInputGroup
-          loginId={loginId}
-          setLoginId={setLoginId}
-          password={password}
-          setPassword={setPassword}
-        />
+        <form onSubmit={handleSubmit}>
+            <LoginInputGroup
+              loginId={loginId}
+              setLoginId={setLoginId}
+              password={password}
+              setPassword={setPassword}
+            />
 
-        {error && (
-          <p className="text-red-500 text-sm sm:text-base mt-3 break-words whitespace-pre-wrap min-h-[1.5rem] w-full">
-            {error}
-          </p>
-        )}
+            {error && (
+              <p className="text-red-500 dark:text-red-400 text-sm sm:text-base mt-3 break-words whitespace-pre-wrap min-h-[1.5rem] w-full">
+                {error}
+              </p>
+            )}
 
-        <div className="mt-6">
-          <SubmitLoginButton disabled={!loginId || !password} onClick={handleSubmit} />
-        </div>
-
+            <div className="mt-6">
+              <SubmitLoginButton 
+                disabled={!loginId || !password} 
+                onClick={handleSubmit} 
+                type="submit" 
+              />
+            </div>
+        </form>
         <div className="flex items-center my-6">
-          <div className="flex-grow h-px bg-gray-300" />
-          <span className="px-3 text-gray-400 text-sm">Or continue with</span>
-          <div className="flex-grow h-px bg-gray-300" />
+          <div className="flex-grow h-px bg-gray-300 dark:bg-zinc-600" />
+          <span className="px-3 text-gray-400 dark:text-zinc-500 text-sm">Or continue with</span>
+          <div className="flex-grow h-px bg-gray-300 dark:bg-zinc-600" />
         </div>
 
         <SocialLoginButtons />
@@ -76,13 +90,13 @@ export default function LoginForm() {
         <div className="mt-6">
           <NoAccountLink />
           
-          <p className="text-center text-xs mt-2">
+          <p className="text-center text-xs mt-2 text-gray-600 dark:text-zinc-400">
             아이디/비밀번호를 잊으셨나요?{" "}
-            <a href="/find-id" className="underline font-medium">
+            <a href="/find-id" className="underline font-medium text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
               아이디 찾기
             </a>
             <span className="mx-1">/</span>
-            <a href="/find-password" className="underline font-medium">
+            <a href="/find-password" className="underline font-medium text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white">
               비밀번호 찾기
             </a>
           </p>

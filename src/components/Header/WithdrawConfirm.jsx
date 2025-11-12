@@ -44,34 +44,36 @@ export default function WithdrawConfirm() {
 
   return (
     <div className="w-full max-w-md">
-      <h2 className="text-xl font-extrabold text-center mb-6">회원 탈퇴</h2>
+      <h2 className="text-xl font-extrabold text-center mb-6 dark:text-zinc-100">회원 탈퇴</h2>
 
       <section className="mb-6">
-        <h3 className="text-lg font-extrabold mb-2">회원탈퇴 유의사항</h3>
-        <p className="text-gray-500 text-sm mb-4">회원탈퇴 전에 안내사항을 확인해주세요</p>
+        <h3 className="text-lg font-extrabold mb-2 dark:text-zinc-100">회원탈퇴 유의사항</h3>
+        <p className="text-gray-500 dark:text-zinc-400 text-sm mb-4">회원탈퇴 전에 안내사항을 확인해주세요</p>
 
-        <ul className="space-y-3 text-sm leading-6">
+        <ul className="space-y-3 text-sm leading-6 text-gray-700 dark:text-zinc-300">
           <li>‘탈퇴하기’ 버튼을 누르면 회원탈퇴를 취소할 수 없습니다.</li>
           <li>회원탈퇴 시 1:1 문의글 작성, 예약하기 등 회원 전용 서비스 이용이 불가합니다.</li>
           <li>탈퇴 후 1:1 문의글은 수정·삭제가 불가합니다. 수정·삭제가 필요하다면 탈퇴 전에 진행해주세요.</li>
         </ul>
       </section>
 
-      <h3 className="text-lg font-extrabold mb-4">정말로 탈퇴하시겠습니까?</h3>
+      <h3 className="text-lg font-extrabold mb-4 dark:text-zinc-100">정말로 탈퇴하시겠습니까?</h3>
 
-      {errMsg && <p className="text-red-500 text-sm mb-3">{errMsg}</p>}
+      {errMsg && <p className="text-red-500 dark:text-red-400 text-sm mb-3">{errMsg}</p>}
 
       <div className="flex gap-4">
         <button
           onClick={handleCancel}
-          className="flex-1 border border-black py-3"
+          className="flex-1 border border-black dark:border-zinc-500 py-3 rounded
+                     hover:bg-gray-100 dark:hover:bg-zinc-800 disabled:opacity-50"
           disabled={loading}
         >
           취소
         </button>
         <button
           onClick={handleWithdraw}
-          className="flex-1 bg-black text-white py-3 disabled:opacity-60"
+          className="flex-1 bg-black text-white py-3 rounded disabled:opacity-60
+                     dark:bg-white dark:text-black dark:hover:bg-gray-200"
           disabled={loading}
         >
           {loading ? "처리 중..." : "탈퇴하기"}

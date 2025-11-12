@@ -63,12 +63,13 @@ export default function AnswerForm({ questionId, existingAnswer, onAnswered }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 pt-4 border-t">
+    <form onSubmit={handleSubmit} className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder="답변을 입력하세요..."
-        className="w-full border rounded p-2 min-h-[120px]"
+        className="w-full border border-gray-300 dark:border-zinc-600 rounded p-2 min-h-[120px] 
+                   bg-white dark:bg-zinc-800 focus:ring-2 focus:ring-blue-500 outline-none"
         disabled={submitting}
       />
       <div className="flex justify-end gap-2 mt-2">
@@ -76,7 +77,8 @@ export default function AnswerForm({ questionId, existingAnswer, onAnswered }) {
           <button
             type="button"
             onClick={handleDelete}
-            className="px-4 py-2 text-sm border rounded"
+            className="px-4 py-2 text-sm border border-gray-300 dark:border-zinc-600 rounded 
+                       hover:bg-gray-100 dark:hover:bg-zinc-700 disabled:opacity-50"
             disabled={submitting}
           >
             삭제
@@ -84,7 +86,8 @@ export default function AnswerForm({ questionId, existingAnswer, onAnswered }) {
         )}
         <button
           type="submit"
-          className="px-4 py-2 text-sm bg-black text-white rounded"
+          className="px-4 py-2 text-sm bg-black text-white rounded 
+                     dark:bg-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 disabled:opacity-50"
           disabled={submitting}
         >
           {isEditing ? '수정' : '답변 등록'}

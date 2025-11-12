@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import AdminReservationCard from "./AdminReservationCard";
 
@@ -14,7 +13,7 @@ export default function AdminReservationList({ loading, error, reservations }) {
   }
 
   if (error) {
-    return <div className="text-center p-8 text-red-500">{error}</div>;
+    return <div className="text-center p-8 text-red-500 dark:text-red-400">{error}</div>;
   }
 
   if (reservations.length === 0) {

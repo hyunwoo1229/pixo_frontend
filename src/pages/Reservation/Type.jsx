@@ -70,10 +70,10 @@ export default function Type() {
       <section className="section">
         {loading ? (
           <div className="cat-grid">
-            {[...Array(3)].map((_, i) => (
+            {[...Array(4)].map((_, i) => (
               <div key={i} className="cat-card">
-                <div className="cat-image skeleton" />
-                <div className="cat-caption skeleton-text" />
+                <div className="cat-image w-full aspect-square rounded-lg bg-gray-200 dark:bg-zinc-800 animate-pulse" />
+                <div className="cat-caption h-4 mt-2 w-3/4 mx-auto rounded bg-gray-200 dark:bg-zinc-800 animate-pulse" />
               </div>
             ))}
           </div>

@@ -17,7 +17,7 @@ export default function ReservationHeader({
             className="absolute left-2 top-1/2 -translate-y-1/2"
           />
         )}
-        <h1 className="reserve-title text-center">{title}</h1>
+        <h1 className="reserve-title text-center text-lg font-bold dark:text-zinc-100">{title}</h1>
       </div>
 
       {/* 제목 아래: 스텝퍼 중앙 고정 (폭 제한 포함) */}

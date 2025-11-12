@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import RegisterLogo from "../components/Register/RegisterLogo";
@@ -35,18 +35,17 @@ export default function SocialExtra() {
   const [isPhoneAvailable, setIsPhoneAvailable] = useState(false);
   const [phoneMessage, setPhoneMessage] = useState("");
 
-  // ▼▼▼▼▼ [수정] 전화번호 중복 및 길이 확인 로직 강화 ▼▼▼▼▼
   useEffect(() => {
     const phoneNumber = form.phoneNumber;
     
-    // 입력이 없을 때는 메시지를 초기화합니다.
+    // 입력이 없을 때는 메시지를 초기화.
     if (!phoneNumber) {
       setIsPhoneAvailable(false);
       setPhoneMessage("");
       return;
     }
     
-    // 길이가 11자리가 아니면, API 호출 없이 즉시 메시지를 설정하고 비활성화합니다.
+    // 길이가 11자리가 아니면, API 호출 없이 즉시 메시지를 설정하고 비활성화.
     if (phoneNumber.length !== 11) {
       setIsPhoneAvailable(false);
       setPhoneMessage("휴대폰 번호 11자리를 정확히 입력해주세요.");
@@ -145,18 +144,18 @@ export default function SocialExtra() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-white px-4">
-      <div className="w-full max-w-md flex flex-col space-y-4">
+    <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-zinc-900 px-4">
+      <div className="w-full max-w-md flex flex-col space-y-4 bg-white dark:bg-zinc-800 p-8 rounded-xl shadow-xl">
         <RegisterLogo />
-        <h2 className="text-xl font-bold text-center -mt-4">추가 정보 입력</h2>
-        <p className="text-sm text-center text-gray-600 -mt-2">
+        <h2 className="text-xl font-bold text-center -mt-4 dark:text-zinc-100">추가 정보 입력</h2>
+        <p className="text-sm text-center text-gray-600 dark:text-zinc-400 -mt-2">
           원활한 서비스 이용을 위해 이름과 연락처를 입력해주세요.
         </p>
 
         <NamePhoneInputGroup form={form} handleChange={handleChange} />
         
         {phoneMessage && (
-          <p className={`text-sm px-1 ${isPhoneAvailable ? "text-green-600" : "text-red-500"}`}>
+          <p className={`text-sm px-1 ${isPhoneAvailable ? "text-green-600 dark:text-green-500" : "text-red-500 dark:text-red-400"}`}>
             {phoneMessage}
           </p>
         )}
@@ -173,7 +172,7 @@ export default function SocialExtra() {
             onChange={handleChange}
           />
         )}
-        {message && <p className="text-sm text-red-500 text-center">{message}</p>}
+        {message && <p className="text-sm text-red-500 dark:text-red-400 text-center">{message}</p>}
         
         <SubmitRegisterButton
           onClick={isCodeSent ? handleSubmit : handleSendCode}

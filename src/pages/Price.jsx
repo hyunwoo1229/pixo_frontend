@@ -97,21 +97,21 @@ export default function Price() {
   
   if (loading) {
     // 로딩 중이거나 데이터가 로드되지 않은 경우 로딩 메시지 표시
-    return <div className="text-center p-10">가격 정보를 불러오는 중입니다...</div>;
+    return <div className="text-center p-10 dark:text-zinc-400">가격 정보를 불러오는 중입니다...</div>;
   }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 md:py-16">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Price</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-4 dark:text-zinc-100">Price</h1>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {pricePackages.map((pkg) => (
-          <div key={pkg.name} className="border rounded-lg p-6 flex flex-col"> 
+          <div key={pkg.name} className="border border-gray-200 dark:border-zinc-700 rounded-lg p-6 flex flex-col"> 
             
             {/* 사진 표시 섹션 추가 */}
-            <div className="w-full h-48 bg-gray-200 overflow-hidden rounded-lg mb-4">
+            <div className="w-full h-48 bg-gray-200 dark:bg-zinc-800 overflow-hidden rounded-lg mb-4">
               {pkg.imageUrl ? (
                 <img 
                   src={pkg.imageUrl} 
@@ -120,17 +120,17 @@ export default function Price() {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-gray-500 text-sm">이미지 준비 중</span>
+                  <span className="text-gray-500 dark:text-zinc-400 text-sm">이미지 준비 중</span>
                 </div>
               )}
             </div>
             
-            <h2 className="text-2xl font-bold">{pkg.name}</h2>
-            <p className="text-gray-500 mt-2 flex-grow">{pkg.description}</p>
-            <p className="text-4xl font-bold my-6">
+            <h2 className="text-2xl font-bold dark:text-zinc-100">{pkg.name}</h2>
+            <p className="text-gray-500 dark:text-zinc-400 mt-2 flex-grow">{pkg.description}</p>
+            <p className="text-4xl font-bold my-6 dark:text-zinc-100">
               ₩{pkg.price}<span className="text-lg font-medium">~</span>
             </p>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-gray-600 dark:text-zinc-300">
               {pkg.features.map((feature, index) => (
                 <li key={index} className="flex items-center gap-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"><path d="M20 6 9 17l-5-5"/></svg>
@@ -140,7 +140,9 @@ export default function Price() {
             </ul>
             <Link 
               to={`${pkg.link}?category=${pkg.category}`}
-              className="mt-8 w-full block text-center bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
+              className="mt-8 w-full block text-center bg-black text-white py-3 rounded-lg font-semibold 
+                         hover:bg-gray-800 transition
+                         dark:bg-white dark:text-black dark:hover:bg-gray-200"
             >
               예약하기
             </Link>

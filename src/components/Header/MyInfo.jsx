@@ -44,7 +44,7 @@ export default function MyInfo() {
   if (loading) {
     return (
       <div className="w-full max-w-md space-y-4 text-center py-8">
-        <p>정보를 불러오는 중입니다...</p>
+        <p className="dark:text-zinc-400">정보를 불러오는 중입니다...</p>
       </div>
     );
   }
@@ -52,21 +52,21 @@ export default function MyInfo() {
   if (error) {
     return (
       <div className="w-full max-w-md space-y-4 text-center py-8">
-        <p className="text-red-500">{error}</p>
+        <p className="text-red-500 dark:text-red-400">{error}</p>
       </div>
     );
   }
 
   return (
     <div className="w-full max-w-md space-y-6">
-      <div className="border-b pb-4">
-        <p className="text-sm text-gray-500 font-medium mb-1">로그인 ID</p>
-        <p className="text-lg font-semibold">{memberInfo.loginId}</p>
+      <div className="border-b border-gray-200 dark:border-zinc-700 pb-4">
+        <p className="text-sm text-gray-500 dark:text-zinc-400 font-medium mb-1">로그인 ID</p>
+        <p className="text-lg font-semibold dark:text-zinc-100">{memberInfo.loginId}</p>
       </div>
 
-      <div className="border-b pb-4">
-        <p className="text-sm text-gray-500 font-medium mb-1">이름</p>
-        <p className="text-lg font-semibold">{memberInfo.name}</p>
+      <div className="border-b border-gray-200 dark:border-zinc-700 pb-4">
+        <p className="text-sm text-gray-500 dark:text-zinc-400 font-medium mb-1">이름</p>
+        <p className="text-lg font-semibold dark:text-zinc-100">{memberInfo.name}</p>
       </div>
       
     </div>

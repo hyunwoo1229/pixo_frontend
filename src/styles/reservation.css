@@ -2,271 +2,395 @@
 
 /* 기본 레이아웃 및 여백 */
 .reserve-page {
-    max-width: 520px;
-    padding: 16px 24px 56px;
-    margin: 0 auto;
-    text-align: left;
+  max-width: 520px;
+  padding: 16px 24px 56px;
+  margin: 0 auto;
+  text-align: left;
 }
 
 .reserve-page .section {
-    margin-top: 8px;
+  margin-top: 8px;
 }
 
 /* 공용 헤더 */
 .reserve-page .reserve-header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 제목을 가운데로 정렬 */
-    margin-bottom: 30px;
-    width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 제목을 가운데로 정렬 */
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 .reserve-page .reserve-title {
-    margin: 0;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
+  margin: 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .reserve-page .back-btn {
-    position: absolute;
-    left: -16px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 44px;
-    width: 44px;
-    font-size: 30px;
-    border: none;
-    background: transparent;
-    line-height: 1;
-    font-weight: 600;
-    padding: 0;
-    cursor: pointer;
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 44px;
+  font-size: 30px;
+  border: none;
+  background: transparent;
+  line-height: 1;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
 }
 
 /* ---- Component Styles ---- */
 
 /* 스텝퍼 (Stepper.jsx) */
 .reserve-page .stepper {
-    display: flex; align-items: center; justify-content: center; gap: 0;
-    max-width: 380px; width: 100%; margin: 0 auto 40px; padding-bottom: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 0;
+  max-width: 380px; width: 100%; margin: 0 auto 40px; padding-bottom: 20px;
 }
 .reserve-page .stepper .stepv {
-    position: relative; display: flex; align-items: center; justify-content: center;
-    width: 28px; height: 28px; flex: 0 0 28px;
+  position: relative; display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; flex: 0 0 28px;
 }
 .reserve-page .stepper .step-dot {
-    width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #aaa;
-    background: #fff; display: flex; align-items: center; justify-content: center;
-    font-size: 13px; color: #777; z-index: 1;
+  width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #aaa;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: #777; z-index: 1;
 }
+.dark .reserve-page .stepper .step-dot {
+  background: #18181b; /* zinc-900 */
+  border-color: #71717a; /* zinc-500 */
+  color: #a1a1aa; /* zinc-400 */
+}
+
 .reserve-page .stepper .stepv.active .step-dot,
 .reserve-page .stepper .stepv.done .step-dot {
-    background: #000; border-color: #000; color: #fff;
+  background: #000; border-color: #000; color: #fff;
 }
+.dark .reserve-page .stepper .stepv.active .step-dot,
+.dark .reserve-page .stepper .stepv.done .step-dot {
+  background: #fff; border-color: #fff; color: #000;
+}
+
 .reserve-page .stepper .bar { flex: 1 1 auto; height: 2px; background: #e5e5e5; min-width: 40px; }
+.dark .reserve-page .stepper .bar { background: #3f3f46; } /* zinc-700 */
+
 .reserve-page .stepper .bar-active { background: #000; }
+.dark .reserve-page .stepper .bar-active { background: #fff; }
+
 .reserve-page .stepper .step-label {
-    position: absolute; top: 34px; left: 50%; transform: translateX(-50%);
-    width: max-content; font-size: 12px; color: #9a9a9a;
+  position: absolute; top: 34px; left: 50%; transform: translateX(-50%);
+  width: max-content; font-size: 12px; color: #9a9a9a;
 }
+.dark .reserve-page .stepper .step-label { color: #71717a; } /* zinc-500 */
+
 .reserve-page .stepper .stepv.active .step-label,
 .reserve-page .stepper .stepv.done .step-label { color: #000; }
+.dark .reserve-page .stepper .stepv.active .step-label,
+.dark .reserve-page .stepper .stepv.done .step-label { color: #fff; }
+
 
 /* 카테고리 (CategoryGrid.jsx) */
 .reserve-page .cat-grid { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
 .reserve-page .cat-card { display:flex; flex-direction:column; gap:8px; border:none; background:transparent; padding:0; text-align:left; cursor:pointer; }
 .reserve-page .cat-image { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:8px; background:#f0f0f0; }
+.dark .reserve-page .cat-image { background: #27272a; } /* zinc-800 */
+
 .reserve-page .cat-caption { display: block; width: 100%; text-align: center !important; font-size:13px; color:#333; }
+.dark .reserve-page .cat-caption { color: #d4d4d8; } /* zinc-300 */
 
 /* ▼▼▼▼▼ 달력 스타일 (Calendar.jsx) ▼▼▼▼▼ */
 
 .reserve-page .section-title-row { display:flex; align-items:center; gap:8px; }
 
 .reserve-page .cal { border:1px solid #e6e6e6; border-radius:12px; padding:12px; }
+.dark .reserve-page .cal { border-color: #3f3f46; } /* zinc-700 */
 
 .reserve-page .cal-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
 
 .reserve-page .cal-title { font-weight:700; }
+/* cal-title 글자색은 body에서 상속 */
 
 .reserve-page .nav-btn { font-size: 35px; padding: 6px 10px; line-height: 1; border:none; background:transparent; cursor:pointer; }
+/* nav-btn 글자색은 body에서 상속 */
 
 .reserve-page .cal-week { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
 
 .reserve-page .cal-weekday { text-align:center; font-size:10px; color:#999; padding:4px 0; }
+.dark .reserve-page .cal-weekday { color: #71717a; } /* zinc-500 */
 
-.reserve-page .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; } /* gap을 늘려 간격 확보 */
+.reserve-page .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
 
 .reserve-page .cal-cell {
-
 display:flex; align-items:center; justify-content:center;
-
-font-size:13px; aspect-ratio: 1 / 1; /* 셀을 정사각형으로 만듭니다 */
-
+font-size:13px;
 }
 
 .reserve-page .cal-day {
-
-border:1px solid transparent; /* 기본 border는 투명하게 */
-
+border:1px solid transparent;
 border-radius:8px; background:#f4f4f4;
-
-width:100%; height:100%; /* 셀을 꽉 채웁니다 */
-
-display: flex; align-items: center; justify-content: center; /* 숫자 중앙 정렬 */
-
+width:100%; 
+aspect-ratio: 1 / 1;
+display: flex; align-items: center; justify-content: center;
 transition: background-color 0.2s, border-color 0.2s;
-
+}
+.dark .reserve-page .cal-day {
+background: #27272a; /* zinc-800 */
 }
 
 .reserve-page .cal-day:not(:disabled) {
-
 cursor: pointer;
-
 }
 
 .reserve-page .cal-day:not(:disabled):hover {
-
 border-color: #ccc;
-
+}
+.dark .reserve-page .cal-day:not(:disabled):hover {
+border-color: #52525b; /* zinc-600 */
 }
 
 .reserve-page .cal-day.selected { background:#000; color:#fff; border-color:#000; }
+.dark .reserve-page .cal-day.selected { background: #fff; color: #000; border-color: #fff; }
 
 .reserve-page .cal-day:disabled { color: #ccc; background-color: #f8f8f8; cursor: not-allowed; }
+.dark .reserve-page .cal-day:disabled { color: #52525b; background-color: #27272a; opacity: 0.7; }
 
-/* ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲ */
+/* ▲▲▲▲▲ 달력 스타일 끝 ▲▲▲▲▲ */
 
 
 
 /* 폼 입력 (Form.jsx) */
 .reserve-page .date-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid #e6e6e6; border-radius:999px; margin-bottom:12px; font-size:13px; }
+.dark .reserve-page .date-chip { border-color: #3f3f46; } /* zinc-700 */
+
 .reserve-page .form { display:flex; flex-direction:column; gap:8px; }
+
 .reserve-page .label { font-size:13px; color:#555; }
+.dark .reserve-page .label { color: #a1a1aa; } /* zinc-400 */
+
 .reserve-page .input { height:44px; padding:0 12px; border:1px solid #ddd; border-radius:10px; font-size:14px; }
+.dark .reserve-page .input {
+background-color: #27272a; /* zinc-800 */
+border-color: #52525b; /* zinc-600 */
+}
+
 .reserve-page .helper { font-size:12px; color:#777; line-height:1.4; margin:6px 2px 2px; }
+.dark .reserve-page .helper { color: #a1a1aa; } /* zinc-400 */
+
 .reserve-page .primary-btn { margin-top:12px; width:100%; height:48px; border:none; border-radius:12px; background:#000; color:#fff; font-weight:700; font-size:15px; cursor:pointer; }
+.dark .reserve-page .primary-btn { background: #fff; color: #000; }
+
 .reserve-page .primary-btn:disabled { opacity:.45; cursor:not-allowed; }
 
 /* 예약 완료 카드 (SummaryCard.jsx) */
 .summary-card {
-  background-color: #ffffff; border-radius: 24px; padding: 0 24px 24px;
-  text-align: center; color: #333; width: 100%; max-width: 420px;
-  margin: 0 auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  display: flex; flex-direction: column; align-items: center;
+background-color: #ffffff; border-radius: 24px; padding: 0 24px 24px;
+text-align: center; color: #333; width: 100%; max-width: 420px;
+margin: 0 auto; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+display: flex; flex-direction: column; align-items: center;
 }
+.dark .summary-card {
+background-color: #27272a; /* zinc-800 */
+color: #d4d4d8; /* zinc-300 */
+box-shadow: none;
+border: 1px solid #3f3f46; /* zinc-700 */
+}
+
 .summary-logo { font-family: 'NanumBrush', cursive; font-size: 80px; font-weight: bold; margin: 0; color: #000; }
+.dark .summary-logo { color: #fff; }
+
 .summary-main-text { font-size: 22px; font-weight: 500; line-height: 1.5; margin-bottom: 8px; color: #000; }
+.dark .summary-main-text { color: #fff; }
+
 .summary-date { color: #00c73c; font-weight: bold; }
+.dark .summary-date { color: #4ade80; } /* green-400 */
+
 .summary-code { font-size: 16px; color: #555; margin-bottom: 8px; }
+.dark .summary-code { color: #a1a1aa; } /* zinc-400 */
+
 .summary-lookup-text { font-size: 14px; color: #666; margin-bottom: 12px; }
+.dark .summary-lookup-text { color: #a1a1aa; } /* zinc-400 */
+
 .summary-link { color: #333; font-weight: bold; text-decoration: underline; }
+.dark .summary-link { color: #d4d4d8; } /* zinc-300 */
+
 .summary-details { width: 100%; text-align: left; font-size: 15px; margin-bottom: 12px; }
 .summary-details dl { display: flex; justify-content: space-between; margin-bottom: 12px; }
+
 .summary-details dt { color: #888; }
+.dark .summary-details dt { color: #71717a; } /* zinc-500 */
+
 .summary-details dd { color: #333; font-weight: 500; }
+.dark .summary-details dd { color: #d4d4d8; } /* zinc-300 */
+
 .summary-home-btn {
-  background-color: #333; color: white; border: none; border-radius: 12px;
-  padding: 14px 0; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer;
+background-color: #333; color: white; border: none; border-radius: 12px;
+padding: 14px 0; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer;
+}
+.dark .summary-home-btn {
+background-color: #fff; color: #000;
 }
 
 /* 예약 조회 카드 (ReservationCard.jsx) */
 .rh-list { display: flex; flex-direction: column; gap: 16px; }
+
 .rh-card { border: 1px solid #e0e0e0; border-radius: 12px; background-color: #f9f9f9; overflow: hidden; width: 100%; }
-.rh-card-header {
-  display: flex; justify-content: space-between; align-items: center; width: 100%;
-  padding: 16px 20px; background-color: transparent; border: none;
-  font-size: 16px; font-weight: 500; cursor: pointer; text-align: left;
+.dark .rh-card {
+background-color: #27272a; /* zinc-800 */
+border-color: #3f3f46; /* zinc-700 */
 }
+
+.rh-card-header {
+display: flex; justify-content: space-between; align-items: center; width: 100%;
+padding: 16px 20px; background-color: transparent; border: none;
+font-size: 16px; font-weight: 500; cursor: pointer; text-align: left;
+}
+/* rh-card-header 글자색은 body에서 상속 */
+
 .rh-card-body { padding: 0 20px 20px; font-size: 14px; color: #555; text-align: left; }
+.dark .rh-card-body { color: #a1a1aa; } /* zinc-400 */
+
 .rh-card-body dl { display: flex; justify-content: space-between; margin-bottom: 10px; }
+
 .rh-card-body dt { color: #888; }
+.dark .rh-card-body dt { color: #71717a; } /* zinc-500 */
+
 .rh-card-body dd { font-weight: 500; color: #333; }
+.dark .rh-card-body dd { color: #d4d4d8; } /* zinc-300 */
+
 .rh-dday { text-align: center; color: #e53e3e; font-weight: bold; margin: 20px 0; }
+.dark .rh-dday { color: #f87171; } /* red-400 */
+
 .rh-dday.today { color: #00c73c; }
+.dark .rh-dday.today { color: #4ade80; } /* green-400 */
+
 .rh-contact { border-top: 1px solid #e0e0e0; padding-top: 16px; margin-top: 16px; font-size: 13px; line-height: 1.6; }
+.dark .rh-contact { border-color: #3f3f46; } /* zinc-700 */
 
 /* ▼▼▼▼▼ 1:1 문의 목록 스타일 (QuestionList.jsx & QuestionItem.jsx) ▼▼▼▼▼ */
 .question-header {
-  display: grid;
-  grid-template-columns: 85px 1fr 60px 60px;
-  column-gap: 8px;
-  border-bottom: 1px solid #000;
-  border-top: 1px solid #000;
-  padding: 8px 0;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
+display: grid;
+grid-template-columns: 85px 1fr 60px 60px;
+column-gap: 8px;
+border-bottom: 1px solid #000;
+border-top: 1px solid #000;
+padding: 8px 0;
+font-size: 14px;
+font-weight: 500;
+text-align: center;
 }
+.dark .question-header {
+border-color: #a1a1aa; /* zinc-400 */
+}
+
 .question-header > div:first-child { text-align: left; }
 .question-header > div:last-child { text-align: right; }
 
 .question-item {
-  border-bottom: 1px solid #e5e5e5;
-  cursor: pointer;
+border-bottom: 1px solid #e5e5e5;
+cursor: pointer;
+}
+.dark .question-item {
+border-color: #3f3f46; /* zinc-700 */
 }
 
 .question-summary {
-  display: grid;
-  grid-template-columns: 85px 1fr 60px 60px;
-  column-gap: 8px;
-  align-items: center;
-  padding: 16px 0;
-  font-size: 14px;
+display: grid;
+grid-template-columns: 85px 1fr 60px 60px;
+column-gap: 8px;
+align-items: center;
+padding: 16px 0;
+font-size: 14px;
 }
+.dark .question-summary {
+/* Tailwind의 dark:hover:bg-zinc-800 같은 효과 */
+transition: background-color 0.2s;
+}
+.dark .question-summary:hover {
+background-color: #27272a; /* zinc-800 */
+}
+
 
 .question-summary .status {
-  font-size: 12px; font-weight: bold; padding: 4px 8px;
-  border-radius: 999px; text-align: center; width: fit-content;
-  background-color: #f0f0f0; color: #555;
+font-size: 12px; font-weight: bold; padding: 4px 8px;
+border-radius: 999px; text-align: center; width: fit-content;
+background-color: #f0f0f0; color: #555;
 }
+.dark .question-summary .status {
+background-color: #3f3f46; /* zinc-700 */
+color: #d4d4d8; /* zinc-300 */
+}
+
 .question-summary .status.answered { background-color: #000; color: #fff; }
+.dark .question-summary .status.answered { background-color: #fff; color: #000; }
+
 .question-summary .title { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* .title 글자색은 body 상속 */
+
 .question-summary .author { text-align: center; color: #666; }
+.dark .question-summary .author { color: #a1a1aa; } /* zinc-400 */
+
 .question-summary .date { text-align: right; color: #888; font-size: 13px; }
+.dark .question-summary .date { color: #71717a; } /* zinc-500 */
+
 
 .question-detail {
-  padding: 8px 16px 20px;
-  background-color: #f9f9f9;
+padding: 8px 16px 20px;
+background-color: #f9f9f9;
+}
+.dark .question-detail {
+background-color: #27272a; /* zinc-800 */
 }
 
+
 .question-content {
-  font-size: 14px; line-height: 1.6;
-  white-space: pre-wrap; color: #333;
+font-size: 14px; line-height: 1.6;
+white-space: pre-wrap; color: #333;
+}
+.dark .question-content {
+color: #d4d4d8; /* zinc-300 */
 }
 
 .question-detail .actions {
-  display: flex; justify-content: flex-end; gap: 12px;
-  margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;
+display: flex; justify-content: flex-end; gap: 12px;
+margin-top: 16px; padding-top: 12px; border-top: 1px solid #eee;
+}
+.dark .question-detail .actions {
+border-color: #3f3f46; /* zinc-700 */
 }
 
 .question-detail .actions button {
-  font-size: 13px; color: #555; background: none;
-  border: none; cursor: pointer;
+font-size: 13px; color: #555; background: none;
+border: none; cursor: pointer;
 }
+.dark .question-detail .actions button {
+color: #a1a1aa; /* zinc-400 */
+}
+
 .question-detail .actions button:hover { text-decoration: underline; }
+
 .question-detail .actions button.delete { color: #e53e3e; }
+.dark .question-detail .actions button.delete { color: #f87171; } /* red-400 */
 
-/* reservation.css */
 
+/* CSS 파일 마지막 부분의 중복 코드 제거 */
 .reserve-page .cal-cell {
-  /* ✨ 부모 flex 속성은 그대로 둡니다. */
-  display:flex; align-items:center; justify-content:center;
-  font-size:13px;
-  /* aspect-ratio는 자식 요소로 이동시킵니다. */
+display:flex; align-items:center; justify-content:center;
+font-size:13px;
 }
 
 .reserve-page .cal-day {
-  border:1px solid transparent;
-  border-radius:8px; background:#f4f4f4;
-  width:100%; 
-  /* height:100%를 지우고 aspect-ratio를 추가합니다. */
-  /* 이렇게 하면 너비에 맞춰 높이가 1:1 비율로 자동 조절됩니다. */
-  aspect-ratio: 1 / 1;
-  display: flex; align-items: center; justify-content: center;
-  transition: background-color 0.2s, border-color 0.2s;
+border:1px solid transparent;
+border-radius:8px; background:#f4f4f4;
+width:100%; 
+aspect-ratio: 1 / 1;
+display: flex; align-items: center; justify-content: center;
+transition: background-color 0.2s, border-color 0.2s;
 }

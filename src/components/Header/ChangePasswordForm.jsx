@@ -30,7 +30,6 @@ export default function ChangePasswordForm() {
       return;
     }
 
-    // ▼▼▼▼▼ [수정] try...catch 블록 로직 개선 ▼▼▼▼▼
     try {
       setSubmitting(true);
       const token = localStorage.getItem("accessToken");
@@ -41,7 +40,6 @@ export default function ChangePasswordForm() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // 성공 시, 백엔드가 보내주는 성공 메시지를 사용
       alert(response.data.message || "비밀번호가 변경되었습니다.");
       navigate("/");
 
@@ -51,12 +49,11 @@ export default function ChangePasswordForm() {
         err.response?.data?.message ||
         "알 수 없는 오류가 발생했습니다.";
 
-      // 오류 처리 로직 단순화
-      if (status === 400) { // 400 Bad Request (잘못된 요청)
-        setError(serverMsg); // 서버가 주는 메시지를 그대로 표시 (길이 오류, 불일치 오류 등)
-      } else if (status === 401) { // 401 Unauthorized (인증 실패)
+      if (status === 400) { 
+        setError(serverMsg); 
+      } else if (status === 401) { 
         setError("로그인이 필요합니다. 다시 로그인 해주세요.");
-      } else { // 기타 500 서버 에러 등
+      } else { 
         setError("비밀번호 변경에 실패했습니다. 잠시 후 다시 시도해주세요.");
       }
       console.error("비밀번호 변경 실패:", status, serverMsg);
@@ -64,58 +61,65 @@ export default function ChangePasswordForm() {
     } finally {
       setSubmitting(false);
     }
-    // ▲▲▲▲▲ [수정] 완료 ▲▲▲▲▲
   };
 
   return (
     <div className="w-full max-w-md space-y-4">
       <div>
-        <label className="text-sm font-medium">현재 비밀번호</label>
+        <label className="text-sm font-medium dark:text-zinc-200">현재 비밀번호</label>
         <input
           type="password"
           name="oldPassword"
           value={form.oldPassword}
           onChange={handleChange}
-          className="mt-1 w-full border px-4 py-2 rounded"
+          className="mt-1 w-full border border-gray-300 dark:border-zinc-600 px-4 py-2 rounded
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none"
         />
       </div>
 
       <div>
-        <label className="text-sm font-medium">새로운 비밀번호</label>
+        <label className="text-sm font-medium dark:text-zinc-200">새로운 비밀번호</label>
         <input
           type="password"
           name="newPassword"
           value={form.newPassword}
           onChange={handleChange}
-          className="mt-1 w-full border px-4 py-2 rounded"
+          className="mt-1 w-full border border-gray-300 dark:border-zinc-600 px-4 py-2 rounded
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none"
         />
       </div>
 
       <div>
-        <label className="text-sm font-medium">새로운 비밀번호 확인</label>
+        <label className="text-sm font-medium dark:text-zinc-200">새로운 비밀번호 확인</label>
         <input
           type="password"
           name="confirmPassword"
           value={form.confirmPassword}
           onChange={handleChange}
-          className="mt-1 w-full border px-4 py-2 rounded"
+          className="mt-1 w-full border border-gray-300 dark:border-zinc-600 px-4 py-2 rounded
+                     bg-white dark:bg-zinc-800 
+                     focus:ring-2 focus:ring-blue-500 outline-none"
         />
       </div>
 
       {error && (
-        <p className="text-red-500 text-sm mt-1">{error}</p>
+        <p className="text-red-500 dark:text-red-400 text-sm mt-1">{error}</p>
       )}
 
       <div className="flex justify-between mt-6">
         <button
-          className="w-1/2 border border-black py-2 mr-2"
+          className="w-1/2 border border-black dark:border-zinc-500 py-2 mr-2 rounded
+                     hover:bg-gray-100 dark:hover:bg-zinc-800 disabled:opacity-50"
           onClick={() => navigate(-1)}
           disabled={submitting}
         >
           취소
         </button>
         <button
-          className="w-1/2 bg-black text-white py-2 ml-2 disabled:opacity-60"
+          className="w-1/2 bg-black text-white py-2 ml-2 rounded disabled:opacity-60
+                     dark:bg-white dark:text-black dark:hover:bg-gray-200"
           onClick={handleSubmit}
           disabled={submitting}
         >

@@ -49,8 +49,8 @@ export default function QuestionFormPage() {
   }
 
   return (
-    <div className="reserve-page min-h-screen bg-white">
-      <div className="bg-white">
+    <div className="reserve-page min-h-screen">
+      <div className="bg-white dark:bg-zinc-900 border-b border-gray-200 dark:border-zinc-700">
         <div className="relative max-w-md mx-auto px-4 py-3">
           <BackButton
             onClick={() => nav(-1)}
@@ -58,7 +58,7 @@ export default function QuestionFormPage() {
             size={26}          
             strokeWidth={2.5}
           />
-          <h2 className="text-lg font-extrabold text-center">
+          <h2 className="text-lg font-extrabold text-center dark:text-zinc-100">
             1:1 문의 {editing ? "수정하기" : "작성하기"}
           </h2>
         </div>

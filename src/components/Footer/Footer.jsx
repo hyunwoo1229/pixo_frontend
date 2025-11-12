@@ -2,13 +2,11 @@ import React from "react";
 
 export default function Footer() {
   return (
-
     <footer
-      className="w-full bg-black text-white"
+      className="w-full bg-gray-50 text-gray-900 dark:bg-black dark:text-white"
       style={{ paddingBottom: "max(env(safe-area-inset-bottom), 2rem)" }}
     >
-      {/* 모바일: 여백만, 데스크톱: 중앙 카드형으로 감싸기 */}
-      <div className="px-5 pt-10 md:pt-12 md:pb-10 md:px-8 md:max-w-screen-sm md:mx-auto md:bg-black md:rounded-2xl md:my-8">
+      <div className="px-5 pt-10 md:pt-12 md:pb-10 md:px-8 md:max-w-screen-sm md:mx-auto md:bg-gray-50 dark:md:bg-black md:rounded-2xl md:my-8">
         {/* 로고 */}
         <h1
           className="text-6xl font-bold"
@@ -38,7 +36,7 @@ export default function Footer() {
 
           <div className="pt-2">
             <p className="font-semibold">이메일 무단 수집 거부</p>
-            <p className="text-gray-300">
+            <p className="text-gray-600 dark:text-gray-300">
               본 사이트에 게시된 이메일 주소는 무단 수집을 금지합니다.
             </p>
           </div>

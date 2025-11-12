@@ -6,7 +6,7 @@ export default function AdminMemberList({ loading, error, members }) {
   }
 
   if (error) {
-    return <div className="text-center p-8 text-red-500">{error}</div>;
+    return <div className="text-center p-8 text-red-500 dark:text-red-400">{error}</div>;
   }
 
   if (members.length === 0) {
@@ -15,8 +15,8 @@ export default function AdminMemberList({ loading, error, members }) {
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full text-sm text-left border-t">
-        <thead className="bg-gray-50">
+      <table className="min-w-full text-sm text-left border-t border-gray-200 dark:border-zinc-700">
+        <thead className="bg-gray-50 dark:bg-zinc-800">
           <tr>
             <th className="px-4 py-3 font-semibold">아이디</th>
             <th className="px-4 py-3 font-semibold">이름</th>
@@ -25,8 +25,7 @@ export default function AdminMemberList({ loading, error, members }) {
         </thead>
         <tbody>
           {members.map((member) => (
-            <tr key={member.loginId} className="border-b">
-              {/* API 응답 데이터 DTO 필드명 사용 */}
+            <tr key={member.loginId} className="border-b border-gray-200 dark:border-zinc-700">
               <td className="px-4 py-3">{member.loginId}</td>
               <td className="px-4 py-3">{member.name}</td>
               <td className="px-4 py-3">{member.phoneNumber}</td>

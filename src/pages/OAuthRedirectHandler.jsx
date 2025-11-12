@@ -37,8 +37,8 @@ export default function OAuthRedirectHandler() {
 
   // 로딩 중임을 표시하는 간단한 UI
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <p>로그인 중입니다...</p>
+    <div className="flex justify-center items-center h-screen bg-white dark:bg-zinc-900">
+      <p className="dark:text-zinc-200">로그인 중입니다...</p>
     </div>
   );
 }

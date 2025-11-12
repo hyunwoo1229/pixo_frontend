@@ -30,15 +30,15 @@ export default function AdminMemberManagement() {
   return (
     <div className="px-6 py-6 max-w-screen-sm mx-auto">
       <div className="flex items-center justify-between mb-2">
-        <h1 className="text-2xl font-bold">전체 회원 조회</h1>
+        <h1 className="text-2xl font-bold dark:text-zinc-100">전체 회원 조회</h1>
         {/* 로딩이 끝나고 에러가 없을 때만 회원 수를 표시. */}
         {!loading && !error && (
-          <span className="text-lg font-semibold text-black-600">
+          <span className="text-lg font-semibold text-gray-700 dark:text-zinc-300">
             총 회원 수: {members.length}명
           </span>
         )}
       </div>
-      <p className="text-sm text-gray-600 mb-8">가입된 모든 회원의 정보를 확인합니다.</p>
+      <p className="text-sm text-gray-600 dark:text-zinc-400 mb-8">가입된 모든 회원의 정보를 확인합니다.</p>
       
       <AdminMemberList 
         loading={loading}

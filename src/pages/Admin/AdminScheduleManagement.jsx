@@ -68,13 +68,14 @@ export default function AdminScheduleManagement() {
   const dStr = `${selectedDate.getFullYear()}.${String(selectedDate.getMonth()+1).padStart(2,"0")}.${String(selectedDate.getDate()).padStart(2,"0")}`;
 
   return (
-    <div className="reserve-page"> {/* Reservation 페이지와 유사한 클래스 사용 */}
+    <div className="reserve-page"> {/* reservation.css (이미 다크모드 적용됨) */}
       <section className="section">
-        <h1 className="text-2xl font-bold mb-2">일정 관리</h1>
-        <p className="text-gray-600 mb-6">특정 날짜의 시간을 예약 불가로 설정하거나, 다시 예약 가능으로 변경할 수 있습니다.</p>
+        <h1 className="text-2xl font-bold mb-2 dark:text-zinc-100">일정 관리</h1>
+        <p className="text-gray-600 dark:text-zinc-400 mb-6">특정 날짜의 시간을 예약 불가로 설정하거나, 다시 예약 가능으로 변경할 수 있습니다.</p>
 
         {/* 날짜 선택 섹션 */}
-        <div className="date-section"> {/* 기존 예약 페이지와 유사한 구조 */}
+        <div className="date-section">
+            {/* section-title-row 등은 reservation.css (이미 다크모드 적용됨) */}
             <div className="section-title-row">
                 <svg xmlns="http://www.w3.org/2000/svg" className="emoji" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -85,12 +86,13 @@ export default function AdminScheduleManagement() {
                 <div className="section-title">날짜 선택</div>
             </div>
             <div className="mt-4"> 
+                {/* Calendar 컴포넌트 (이미 다크모드 적용됨) */}
                 <Calendar value={selectedDate} onChange={setSelectedDate} className="w-full" />
             </div>
         </div>
 
         {/* 시간 관리 섹션 (세로로 배치) */}
-        <div className="time-section mt-8"> {/* 기존 예약 페이지와 유사한 구조 */}
+        <div className="time-section mt-8">
             <div className="section-title-row">
                 <svg xmlns="http://www.w3.org/2000/svg" className="emoji" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                     <circle cx="12" cy="12" r="10" />
@@ -98,23 +100,23 @@ export default function AdminScheduleManagement() {
                 </svg>
                 <div className="section-title">시간 관리 ({dStr})</div>
             </div>
-            <div className="grid grid-cols-1 gap-2 mt-4"> {/* 한 줄에 하나씩 보이도록 grid-cols-1 */}
-              {loading ? <div className="text-center py-10">로딩 중...</div> : TIME_SLOTS.map(slot => {
+            <div className="grid grid-cols-1 gap-2 mt-4">
+              {loading ? <div className="text-center py-10 dark:text-zinc-400">로딩 중...</div> : TIME_SLOTS.map(slot => {
                 const isUserBooked = bookedTimes.includes(slot) && !adminBlockedTimes.includes(slot);
                 const isAdminBlocked = adminBlockedTimes.includes(slot);
                 
                 let statusText = "예약 가능";
-                let statusColor = "text-green-600";
-                let buttonClass = "bg-white border-gray-300 hover:border-gray-400";
+                let statusColor = "text-green-600 dark:text-green-400";
+                let buttonClass = "bg-white border-gray-300 hover:border-gray-400 dark:bg-zinc-800 dark:border-zinc-600 dark:hover:border-zinc-500";
                 
                 if (isUserBooked) {
                   statusText = "사용자 예약";
-                  statusColor = "text-red-600";
-                  buttonClass = "bg-gray-100 border-gray-200 text-gray-500 cursor-not-allowed";
+                  statusColor = "text-red-600 dark:text-red-400";
+                  buttonClass = "bg-gray-100 border-gray-200 text-gray-500 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-500 cursor-not-allowed";
                 } else if (isAdminBlocked) {
                   statusText = "관리자 막음";
-                  statusColor = "text-yellow-600";
-                  buttonClass = "bg-yellow-100 border-yellow-300 hover:bg-yellow-200";
+                  statusColor = "text-yellow-600 dark:text-yellow-400";
+                  buttonClass = "bg-yellow-100 border-yellow-300 hover:bg-yellow-200 dark:bg-yellow-900/30 dark:border-yellow-800/50 dark:hover:bg-yellow-900/50";
                 }
                 
                 return (
@@ -124,7 +126,7 @@ export default function AdminScheduleManagement() {
                     disabled={isUserBooked}
                     className={`w-full flex justify-between items-center p-3 border rounded-lg transition-colors ${buttonClass}`}
                   >
-                    <span className="font-mono text-lg">{slot.replace('-', ':00 - ')}:00</span>
+                    <span className="font-mono text-lg dark:text-zinc-100">{slot.replace('-', ':00 - ')}:00</span>
                     <span className={`text-sm font-bold ${statusColor}`}>{statusText}</span>
                   </button>
                 );
