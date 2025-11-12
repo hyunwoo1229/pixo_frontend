@@ -78,7 +78,7 @@ export default function CategoryDetail() {
             <div className="w-full aspect-square bg-gray-300 rounded-lg animate-pulse"></div>
             <div className="grid grid-cols-3 gap-1">
               {[...Array(3)].map((_, i) => (
-                <div key={i} className="aspect-square bg-gray-300 animate-pulse" />
+                <div key={i} className="aspect-[4/5] bg-gray-300 animate-pulse" /> // 로딩도 4:5로
               ))}
             </div>
           </div>
@@ -91,7 +91,7 @@ export default function CategoryDetail() {
           // 사진이 있을 때
           <div className="flex-grow flex flex-col">
             
-            {/* 2-1. 대표 사진 */}
+            {/* 2-1. 대표 사진 (1:1 정사각형 유지) */}
             {representativePhoto && (
               <div className="w-full aspect-square mb-4 p-4">
                 <img
@@ -117,13 +117,11 @@ export default function CategoryDetail() {
             {generalPhotos.length > 0 && (
               <div className="grid grid-cols-3 gap-1 flex-grow mb-4">
                 {generalPhotos.map((photo) => (
-
-                  <div key={photo.id} className="bg-gray-200">
+                  <div key={photo.id} className="aspect-[4/5] bg-gray-200">
                     <img
                       src={photo.imageUrl}
                       alt={`photo-${photo.id}`}
-
-                      className="w-full cursor-pointer"
+                      className="w-full h-full object-cover cursor-pointer"
                       loading="lazy"
                       onClick={() => setSelectedImage(photo.imageUrl)}
                     />
