@@ -5,7 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoChevronDown, IoChevronUp } from "react-icons/io5";
 import Logout from "./Logout";
 import { useTheme } from '../../context/ThemeContext'; 
-import { MdDarkMode, MdLightMode } from 'react-icons/md'; // MdDarkMode, MdLightMode 아이콘 임포트
+import { MdDarkMode, MdLightMode } from 'react-icons/md'; 
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,10 +45,19 @@ function Header() {
   const toggleAdmin = () => setAdminOpen((v) => !v);
   const closeMenu = () => setIsOpen(false);
 
+  // 스위치 핸들 크기 및 배경 너비
   const switchWidth = "w-14"; 
   const switchHeight = "h-7";
   const handleSize = "w-6 h-6";
-  const handleTranslateX = theme === 'dark' ? 'translate-x-0' : 'translate-x-7'; 
+  
+  // 1. 위치 로직 반전:
+  // dark (달) -> translate-x-0
+  // light (해) -> translate-x-6 (24px)로 수정하여 중앙 정렬 시도
+  const handleTranslateX = theme === 'dark' ? 'translate-x-0' : 'translate-x-6'; 
+
+  // 2. 핸들 색상 로직
+  // dark -> bg-gray-200 (밝게)
+  // light -> bg-zinc-600 (어둡게)
   const handleColor = theme === 'dark' ? 'bg-gray-200' : 'bg-zinc-600';
 
 
@@ -69,26 +78,31 @@ function Header() {
               {isOpen ? <RxCross2 /> : <HiOutlineMenu />}
             </button>
             
+            {/* 다크 모드 스위치 버튼 스타일 적용 */}
             <div 
               className={`relative ${switchWidth} ${switchHeight} flex items-center justify-between rounded-full p-1 cursor-pointer 
                           ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-300'} transition-colors duration-300`} 
               onClick={toggleTheme}
               aria-label={theme === 'dark' ? '라이트 모드로 전환' : '다크 모드로 전환'}
             >
+              {/* 스위치 핸들 (translate-x-6으로 수정) */}
               <div 
                 className={`absolute ${handleSize} rounded-full shadow-md transform transition-transform duration-300 
                             ${handleTranslateX} ${handleColor}`} 
               ></div>
 
+              {/* 다크 모드 아이콘 (달) */}
               <MdDarkMode 
                 className={`z-10 ${handleSize} p-1 transition-colors duration-300
                             ${theme === 'dark' ? 'text-zinc-900' : 'text-gray-500'}`} 
               />
+              {/* 라이트 모드 아이콘 (해) */}
               <MdLightMode 
                 className={`z-10 ${handleSize} p-1 transition-colors duration-300
                             ${theme === 'dark' ? 'text-gray-200' : 'text-zinc-900'}`} 
               />
             </div>
+            {/* ------------------------------------- */}
           </div>
           
 
