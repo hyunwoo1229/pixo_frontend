@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react"; 
 import axios from "axios";
 import AdminMemberList from "../../components/Admin/AdminMemberList";
 
@@ -7,31 +7,30 @@ export default function AdminMemberManagement() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    const fetchMembers = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        const { data } = await axios.get("/api/admin/member", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setMembers(data);
-      } catch (err) {
-        const msg = err.response?.data?.message || "회원 정보를 불러오는 데 실패했습니다.";
-        setError(msg);
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchMembers();
+  const fetchMembers = useCallback(async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const { data } = await axios.get("/api/admin/member", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setMembers(data);
+    } catch (err) {
+      const msg = err.response?.data?.message || "회원 정보를 불러오는 데 실패했습니다.";
+      setError(msg);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchMembers();
+  }, [fetchMembers]);
 
   return (
     <div className="px-6 py-6 max-w-screen-sm mx-auto">
       <div className="flex items-center justify-between mb-2">
         <h1 className="text-2xl font-bold dark:text-zinc-100">전체 회원 조회</h1>
-        {/* 로딩이 끝나고 에러가 없을 때만 회원 수를 표시. */}
         {!loading && !error && (
           <span className="text-lg font-semibold text-gray-700 dark:text-zinc-300">
             총 회원 수: {members.length}명
@@ -44,6 +43,7 @@ export default function AdminMemberManagement() {
         loading={loading}
         error={error}
         members={members}
+        onRoleUpdate={fetchMembers} 
       />
     </div>
   );

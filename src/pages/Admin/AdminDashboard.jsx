@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from 'axios';
+import imageCompression from 'browser-image-compression';
 
 const CATEGORIES = [
   { value: "REPRESENTATIVE", label: "전체 대표 사진" },
@@ -76,14 +77,74 @@ export default function AdminDashboard() {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (files.length === 0) return alert("파일을 선택해 주세요.");
+    
+    // 개수 제한 (서버 보호)
+    if (files.length > 30) return alert("한 번에 30장까지만 업로드 가능합니다.");
 
     setSubmitting(true);
     const token = localStorage.getItem("accessToken");
 
-    if (!token) {
-      alert("로그인이 필요합니다.");
+    try {
+      await Promise.all(files.map(async (file) => {
+        
+        //  [압축 옵션 설정]
+        const options = {
+          maxSizeMB: 1,           // 용량 1MB 제한
+          maxWidthOrHeight: 1920, // FHD 해상도 제한
+          useWebWorker: true,
+          fileType: "image/webp"  // WebP 변환
+        };
+
+        let compressedFile = file;
+        try {
+          compressedFile = await imageCompression(file, options);
+        } catch (error) {
+          console.error("압축 실패, 원본 사용", error);
+        }
+        
+        // 확장자를 .webp로 변경
+        const newFileName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
+
+        // 1) Signed URL 요청 (압축된 정보로)
+        const { data: presignedData } = await axios.post(
+          "/api/admin/photo/generate-signed-url",
+          {
+            fileName: newFileName,
+            contentType: "image/webp", 
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        // 2) GCS 업로드 (압축된 파일 전송)
+        await fetch(presignedData.signedUrl, {
+          method: "PUT",
+          headers: { "Content-Type": "image/webp" },
+          body: compressedFile, // ✨ 압축된 파일 사용
+        });
+
+        // 3) 메타데이터 저장
+        await axios.post(
+          "/api/admin/photo/save-metadata",
+          {
+            category: category,
+            originalFileName: file.name,
+            savedFileName: presignedData.savedFileName,
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      }));
+
+      alert(`${files.length}장 업로드 및 압축 완료`);
+      setFiles([]);
+      setPreviews([]);
+      e.target.reset(); 
+      fetchList(category);
+
+    } catch (err) {
+      console.error(err);
+      alert("업로드 중 오류가 발생했습니다.");
+    } finally {
       setSubmitting(false);
-      return;
     }
 
     try {

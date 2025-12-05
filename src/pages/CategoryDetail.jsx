@@ -99,6 +99,8 @@ export default function CategoryDetail() {
                   alt={`${categoryInfo.label} 대표 사진`}
                   className="w-full h-full object-cover rounded-lg cursor-pointer"
                   onClick={() => setSelectedImage(representativePhoto.imageUrl)}
+                  // 대표 사진은 lazy 금지, 비동기 디코딩만 추가
+                  decoding="async" 
                 />
               </div>
             )}
@@ -124,8 +126,10 @@ export default function CategoryDetail() {
                       src={photo.imageUrl}
                       alt={`photo-${photo.id}`}
                       className="w-full h-full object-cover cursor-pointer"
-                      loading="lazy"
                       onClick={() => setSelectedImage(photo.imageUrl)}
+                      // 일반 사진은 Lazy Loading + 비동기 디코딩 적용
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 ))}
