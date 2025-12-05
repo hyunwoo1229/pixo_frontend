@@ -77,22 +77,21 @@ export default function AdminDashboard() {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (files.length === 0) return alert("파일을 선택해 주세요.");
-    
-    // 개수 제한 (서버 보호)
     if (files.length > 30) return alert("한 번에 30장까지만 업로드 가능합니다.");
 
     setSubmitting(true);
     const token = localStorage.getItem("accessToken");
 
     try {
-      await Promise.all(files.map(async (file) => {
+      
+      for (const file of files) {
         
-        //  [압축 옵션 설정]
+        // --- 1. 압축 로직 ---
         const options = {
-          maxSizeMB: 1,           // 용량 1MB 제한
-          maxWidthOrHeight: 1920, // FHD 해상도 제한
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
           useWebWorker: true,
-          fileType: "image/webp"  // WebP 변환
+          fileType: "image/webp"
         };
 
         let compressedFile = file;
@@ -102,10 +101,9 @@ export default function AdminDashboard() {
           console.error("압축 실패, 원본 사용", error);
         }
         
-        // 확장자를 .webp로 변경
         const newFileName = file.name.replace(/\.[^/.]+$/, "") + ".webp";
 
-        // 1) Signed URL 요청 (압축된 정보로)
+        // --- 2. Signed URL 요청 ---
         const { data: presignedData } = await axios.post(
           "/api/admin/photo/generate-signed-url",
           {
@@ -115,14 +113,14 @@ export default function AdminDashboard() {
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
-        // 2) GCS 업로드 (압축된 파일 전송)
+        // --- 3. GCS 업로드 ---
         await fetch(presignedData.signedUrl, {
           method: "PUT",
           headers: { "Content-Type": "image/webp" },
-          body: compressedFile, // ✨ 압축된 파일 사용
+          body: compressedFile,
         });
 
-        // 3) 메타데이터 저장
+        // --- 4. DB 저장
         await axios.post(
           "/api/admin/photo/save-metadata",
           {
@@ -132,7 +130,7 @@ export default function AdminDashboard() {
           },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-      }));
+      } 
 
       alert(`${files.length}장 업로드 및 압축 완료`);
       setFiles([]);
@@ -142,56 +140,6 @@ export default function AdminDashboard() {
 
     } catch (err) {
       console.error(err);
-      alert("업로드 중 오류가 발생했습니다.");
-    } finally {
-      setSubmitting(false);
-    }
-
-    try {
-      // Promise.all을 사용하여 병렬 처리 (여러 장을 동시에 업로드)
-      await Promise.all(files.map(async (file) => {
-        // 1) Signed URL 요청
-        const { data: presignedData } = await axios.post(
-          "/api/admin/photo/generate-signed-url",
-          {
-            fileName: file.name,
-            contentType: file.type || "application/octet-stream",
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-
-        // 2) GCS 업로드 (fetch 사용 - 인증 헤더 제외)
-        const putRes = await fetch(presignedData.signedUrl, {
-          method: "PUT",
-          headers: { "Content-Type": file.type || "application/octet-stream" },
-          body: file,
-        });
-
-        if (!putRes.ok) throw new Error("GCS 업로드 실패");
-
-        // 3) 메타데이터 저장
-        await axios.post(
-          "/api/admin/photo/save-metadata",
-          {
-            category: category,
-            originalFileName: file.name,
-            savedFileName: presignedData.savedFileName,
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-      }));
-
-      alert(`${files.length}장의 사진이 업로드 되었습니다.`);
-      setFiles([]);
-      setPreviews([]);
-      
-      // 파일 input 초기화 (같은 파일 다시 선택 가능하게)
-      e.target.reset();
-      
-      fetchList(category); // 목록 갱신
-
-    } catch (err) {
-      console.error("업로드 실패:", err);
       alert("업로드 중 오류가 발생했습니다.");
     } finally {
       setSubmitting(false);
