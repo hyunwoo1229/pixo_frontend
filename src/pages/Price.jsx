@@ -6,7 +6,7 @@ const pricePackagesData = [
   {
     name: 'Wedding', // 1. 웨딩
     description: '웨딩 촬영 패키지입니다.',
-    price: '600,000',
+    price: '1,000,000',
     features: ['총 5시간 밀착 촬영', '고급 미니 앨범 (50p)', '감성 필터/색감 보정본 100컷', '작가 지정 하이라이트 영상 클립 제공'],
     link: '/reserve/date',
     category: 'WEDDING',
