@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// useTheme 및 아이콘 임포트 제거
 
 const CATEGORIES = [
   { id: 'WEDDING', label: 'Wedding', mainPhotoCategory: 'WEDDING_MAIN' },
@@ -13,11 +12,11 @@ const CATEGORIES = [
   { id: 'DRONE_LANDSCAPE', label: 'Drone Landscape', mainPhotoCategory: 'DRONE_LANDSCAPE_MAIN' },
 ];
 
-export default function Home() { // (컴포넌트 이름이 Home으로 되어있네요)
+export default function Home() { 
   const [mainPhoto, setMainPhoto] = useState(''); 
   const [categoryPhotos, setCategoryPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
-  // useTheme 훅 제거
+
 
   useEffect(() => {
     const fetchHomePhotos = async () => {
@@ -62,7 +61,7 @@ export default function Home() { // (컴포넌트 이름이 Home으로 되어있
             </h2>
             <p className="text-sm md:text-base leading-relaxed text-gray-700 dark:text-zinc-300">
               PIXO는 움직임 속에서 발견하는 당신의 진짜 모습을 담습니다. <br/>
-              **풍경, 제품, 음식, 웨딩** 각 분야의 전문성을 바탕으로, <br/>
+              '웨딩, 패션, 제품, 음식, 차, 풍경, 드론 풍경' 각 분야의 전문성을 바탕으로, <br/>
               당신의 가장 소중하고 생동감 넘치는 순간을 기록합니다.
             </p>
             <p className="font-serif italic text-gray-500 dark:text-zinc-400 pt-4">
@@ -111,7 +110,6 @@ export default function Home() { // (컴포넌트 이름이 Home으로 되어있
       </div>
 
       <div className="px-4 py-4 md:px-6 flex justify-end">
-        {/* 다크 모드 토글 버튼 제거됨 */}
         <a
           href="https://www.instagram.com/studio.pixo?igsh=dTRsaGQ1cmw5b3ls"
           target="_blank"
