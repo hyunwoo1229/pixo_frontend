@@ -45,7 +45,7 @@ export default function Home() { // (컴포넌트 이름이 Home으로 되어있
   }, []);
 
   if (loading) {
-    return <div className="text-center p-10 dark:text-zinc-400">로딩 중...</div>;
+    return <div className="text-center p-10 dark:text-zinc-400">PIXO 정보를 불러오는 중입니다...</div>;
   }
   
   const galleryItems = categoryPhotos; 

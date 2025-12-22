@@ -48,7 +48,22 @@ export default function Home() {
   }, []);
 
   if (loading) {
-    return <div className="text-center p-10">로딩 중...</div>;
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-10">
+        {/* 슬라이더 영역 스켈레톤 */}
+        <div className="w-full h-[50vh] bg-gray-200 dark:bg-zinc-800 animate-pulse rounded-lg mb-10" />
+        
+        {/* 그리드 영역 스켈레톤 */}
+        <div className="grid grid-cols-2 gap-4">
+          {[1, 2, 3, 4].map((n) => (
+            <div key={n} className="space-y-3">
+              <div className="w-full pt-[100%] bg-gray-200 dark:bg-zinc-800 animate-pulse rounded-lg" />
+              <div className="h-4 bg-gray-200 dark:bg-zinc-800 animate-pulse rounded w-1/2 mx-auto" />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
