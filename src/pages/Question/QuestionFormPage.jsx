@@ -70,7 +70,7 @@ export default function QuestionFormPage() {
             initialValues={initial}
             submitting={submitting}
             onSubmit={handleSubmit}
-            onCancel={() => nav("/question")}
+            onCancel={() => nav("/questions")}
             ui={{ inputClass: "h-12", textareaClass: "min-h-[220px]" }}
           />
         </div>

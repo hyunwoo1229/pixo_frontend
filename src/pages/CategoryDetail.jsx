@@ -50,7 +50,7 @@ export default function CategoryDetail() {
   }, [categoryId]);
 
   const handleReserveClick = () => {
-    navigate(`/reserve/date?category=${categoryId}`);
+    navigate(`/reservations/date?category=${categoryId}`);
   };
 
   const hasNoPhotos = !loading && mainPhotos.length === 0 && generalPhotos.length === 0;

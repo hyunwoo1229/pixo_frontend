@@ -90,7 +90,7 @@ export default function QuestionList({ isAdmin = false }) {
                 </div>
                 <button 
                   type="button" 
-                  onClick={() => nav("/question/new")} 
+                  onClick={() => nav("/questions/new")} 
                   className="flex items-center gap-1 text-sm px-3 py-1.5 rounded 
                              bg-black text-white 
                              dark:bg-white dark:text-black dark:hover:bg-gray-200"

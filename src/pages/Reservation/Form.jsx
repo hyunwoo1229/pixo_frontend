@@ -31,7 +31,7 @@ export default function Form() {
 
   useEffect(() => {
     const r = getReservation();
-    if (!r.categoryId || !r.date) { nav("/reserve/type"); return; }
+    if (!r.categoryId || !r.date) { nav("/reservations/type"); return; }
 
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -95,7 +95,7 @@ export default function Form() {
           note: form.note || "-",
         },
       });
-      nav("/reserve/complete");
+      nav("/reservations/complete");
     } catch (err) {
       let errorMessage = "예약 중 오류가 발생했습니다.";
       if (err.response?.data?.message) {

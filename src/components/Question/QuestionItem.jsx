@@ -44,7 +44,7 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
 
   const handleEdit = (e) => {
     e.stopPropagation();
-    nav(`/question/edit/${currentItem.id}`, { state: { item: currentItem } });
+    nav(`/questions/edit/${currentItem.id}`, { state: { item: currentItem } });
   };
 
   return (
