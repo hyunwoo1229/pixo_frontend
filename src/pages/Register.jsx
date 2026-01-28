@@ -46,7 +46,7 @@ export default function Register() {
     }
     const handler = setTimeout(async () => {
       try {
-        await axios.get(`/api/member/check-phone?phoneNumber=${phoneNumber}`);
+        await axios.get(`/api/members/check-phone?phoneNumber=${phoneNumber}`);
         setIsPhoneChecked(true);
         setIsPhoneAvailable(true);
       } catch (err) {
@@ -107,7 +107,7 @@ export default function Register() {
 
   const handleSendCode = async () => {
     try {
-      await axios.post("/api/member/send-code", null, { params: { phoneNumber: form.phoneNumber } });
+      await axios.post("/api/members/verification-codes", null, { params: { phoneNumber: form.phoneNumber } });
       setIsCodeSent(true);
       alert("인증번호가 전송되었습니다.");
       setSubmitError("");
@@ -120,7 +120,7 @@ export default function Register() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("/api/member/register", form);
+      await axios.post("/api/members", form);
       alert("회원가입 성공");
       navigate("/login");
     } catch (err) {

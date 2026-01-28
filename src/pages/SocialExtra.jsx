@@ -55,7 +55,7 @@ export default function SocialExtra() {
     // 0.5초 디바운싱 (길이가 11자리일 때만 실행)
     const handler = setTimeout(async () => {
       try {
-        await axios.get(`/api/member/check-phone?phoneNumber=${phoneNumber}`);
+        await axios.get(`/api/members/check-phone?phoneNumber=${phoneNumber}`);
         setIsPhoneAvailable(true);
         setPhoneMessage("사용 가능한 전화번호입니다.");
       } catch (err) {
@@ -100,7 +100,7 @@ export default function SocialExtra() {
 
   const handleSendCode = async () => {
     try {
-      await axios.post("/api/member/send-code", null, {
+      await axios.post("/api/members/verification-codes", null, {
         params: { phoneNumber: form.phoneNumber },
       });
       setIsCodeSent(true);
@@ -116,7 +116,7 @@ export default function SocialExtra() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post("/api/member/update-extra", form, {
+      await axios.patch("/api/members/me/extra", form, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
