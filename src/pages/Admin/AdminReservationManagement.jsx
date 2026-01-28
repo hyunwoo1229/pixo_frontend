@@ -14,15 +14,15 @@ export default function AdminReservationManagement() {
   const fetchReservations = useCallback(async () => {
     setLoading(true);
     setError("");
-    let url = "/api/admin/reservation";
+    let url = "/api/admin/reservations";
     const params = {};
 
     if (searchTerm.trim()) {
       if (searchType === "name") {
-        url = "/api/admin/reservation/search/name";
+        url = "/api/admin/reservations/search/name";
         params.name = searchTerm.trim();
       } else { // code
-        url = "/api/admin/reservation/search/code";
+        url = "/api/admin/reservations/search/code";
         params.code = searchTerm.trim();
       }
     }

@@ -25,12 +25,12 @@ export default function AnswerForm({ questionId, existingAnswer, onAnswered }) {
     try {
       const payload = { content: content.trim() };
       if (isEditing) {
-        await axios.put(`/api/admin/question/answer/${existingAnswer.id}`, payload, {
+        await axios.patch(`/api/admin/questions/answers/${existingAnswer.id}`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert('답변이 수정되었습니다.');
       } else {
-        await axios.post(`/api/admin/question/${questionId}/answer`, payload, {
+        await axios.post(`/api/admin/questions/${questionId}/answers`, payload, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert('답변이 등록되었습니다.');
@@ -48,7 +48,7 @@ export default function AnswerForm({ questionId, existingAnswer, onAnswered }) {
     if (!window.confirm('답변을 삭제하시겠습니까?')) return;
     setSubmitting(true);
     try {
-      await axios.delete(`/api/admin/question/answer/${existingAnswer.id}`, {
+      await axios.delete(`/api/admin/questions/answers/${existingAnswer.id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       alert('답변이 삭제되었습니다.');
