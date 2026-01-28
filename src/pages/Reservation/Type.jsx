@@ -60,7 +60,7 @@ export default function Type() {
 
   function handleSelect(cat) {
     setReservation({ categoryId: cat.id, categoryLabel: cat.label, date: null });
-    navigate("/reserve/date");
+    navigate("/reservations/date");
   }
 
   return (

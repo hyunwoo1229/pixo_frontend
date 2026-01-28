@@ -43,24 +43,23 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/introduce" element={<Introduce />} />
           <Route path="/price" element={<Price />} />
-          <Route path="/reserve" element={<div className="px-6 pt-4">예약하기</div>} />
+          <Route path="/reservations" element={<div className="px-6 pt-4">예약하기</div>} />
           <Route path="/inquiry" element={<div className="px-6 pt-4">1:1 문의</div>} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/withdraw" element={<Withdraw />} />
           
-          <Route path="/reservation-history" element={<ReservationHistory />} />
-
-          <Route path="/reserve/type" element={<Type />} />
-          <Route path="/reserve/date" element={<DatePick />} />
-          <Route path="/reserve/form" element={<Form />} />
-          <Route path="/reserve/complete" element={<Complete />} />
+          <Route path="/reservations/type" element={<Type />} />
+          <Route path="/reservations/date" element={<DatePick />} />
+          <Route path="/reservations/form" element={<Form />} />
+          <Route path="/reservations/complete" element={<Complete />} />
+          <Route path="/reservations/history" element={<ReservationHistory />} />
 
           <Route path="/my-info" element={<MyInfoPage />} /> 
           
           {/* 1. 일반 사용자용 /question 경로 추가 */}
-          <Route path="/question" element={<QuestionList />} />
-          <Route path="/question/new" element={<QuestionFormPage />} />
-          <Route path="/question/edit/:id" element={<QuestionFormPage />} />
+          <Route path="/questions" element={<QuestionList />} />
+          <Route path="/questions/new" element={<QuestionFormPage />} />
+          <Route path="/questions/edit/:id" element={<QuestionFormPage />} />
 
           {/* 2. 관리자 페이지 경로 정리 (중복 제거) */}
           <Route path="/admin" element={<AdminMenu />} />

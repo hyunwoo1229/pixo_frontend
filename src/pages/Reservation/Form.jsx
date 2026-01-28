@@ -31,7 +31,7 @@ export default function Form() {
 
   useEffect(() => {
     const r = getReservation();
-    if (!r.categoryId || !r.date) { nav("/reserve/type"); return; }
+    if (!r.categoryId || !r.date) { nav("/reservations/type"); return; }
 
     const token = localStorage.getItem("accessToken");
     if (!token) {
@@ -47,7 +47,7 @@ export default function Form() {
     const fetchBookedTimes = async () => {
       try {
         const dateString = formatDateLocal(meetingDate);
-        const response = await axios.get(`/api/reservation/booked-times?date=${dateString}`);
+        const response = await axios.get(`/api/reservations/booked-times?date=${dateString}`);
         setBookedTimes(response.data);
       } catch (error) {
         console.error("예약된 회의 시간 정보를 불러오는 데 실패했습니다.", error);
@@ -80,7 +80,7 @@ export default function Form() {
         notes: form.note,
       };
 
-      const { data } = await axios.post(`/api/reservation`, payload);
+      const { data } = await axios.post(`/api/reservations`, payload);
 
       const dStr = `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, "0")}.${String(date.getDate()).padStart(2, "0")}`;
       
@@ -95,7 +95,7 @@ export default function Form() {
           note: form.note || "-",
         },
       });
-      nav("/reserve/complete");
+      nav("/reservations/complete");
     } catch (err) {
       let errorMessage = "예약 중 오류가 발생했습니다.";
       if (err.response?.data?.message) {

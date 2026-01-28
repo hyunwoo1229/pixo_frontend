@@ -50,7 +50,7 @@ export default function DatePick() {
 
     // 3. 최종적으로 세션에 카테고리 정보가 없으면 첫 단계로 보냄.
     if (!currentSession.categoryId) {
-      nav("/reserve/type");
+      nav("/reservations/type");
       return;
     }
 
@@ -64,7 +64,7 @@ export default function DatePick() {
 
   function goNext() {
     setReservation({ date: selected.toISOString() });
-    nav("/reserve/form");
+    nav("/reservations/form");
   }
 
   if (!cat) return null;

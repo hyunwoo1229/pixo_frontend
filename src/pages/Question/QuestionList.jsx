@@ -23,17 +23,12 @@ export default function QuestionList({ isAdmin = false }) {
   async function fetchList() {
     try {
       setLoading(true);
-      const url = mineOnly && !isAdmin ? "/api/question/my" : "/api/question";
-      const config = mineOnly && !isAdmin
-        ? { headers: { Authorization: `Bearer ${token}` } }
-        : {};
+      const url = mineOnly && !isAdmin ? "/api/questions/me" : "/api/questions";
+      const { data } = await axios.get(url);
       
-      const { data } = await axios.get(url, config);
       if (Array.isArray(data)) {
         const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setItems(sortedData);
-      } else {
-        setItems([]);
       }
     } catch (e) {
       console.error(e);
@@ -42,15 +37,7 @@ export default function QuestionList({ isAdmin = false }) {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    if (isAdmin) {
-      fetchList();
-    } else if (!mineOnly || isAuthed) {
-      fetchList();
-    }
-  }, [mineOnly, isAuthed, isAdmin]);
-
+  
   async function handleSearch() {
     if (!q.trim()) {
       fetchList();
@@ -58,13 +45,13 @@ export default function QuestionList({ isAdmin = false }) {
     }
     try {
       setLoading(true);
-      const url = mode === "title" ? "/api/question/search/title" : "/api/question/search/content";
-      const { data } = await axios.get(url, { params: { keyword: q.trim() } });
+      const { data } = await axios.get("/api/questions/search", { 
+        params: { type: mode, keyword: q.trim() } 
+      });
+      
       if (Array.isArray(data)) {
         const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setItems(sortedData);
-      } else {
-        setItems([]);
       }
     } catch (e) {
       console.error(e);
@@ -78,7 +65,6 @@ export default function QuestionList({ isAdmin = false }) {
 
   return (
     <>
-      {/* <style> 태그는 제거되었습니다. */}
 
       <div className="max-w-2xl mx-auto px-4 pt-4 pb-16">
         <h1 className="text-center text-xl font-extrabold mb-9 dark:text-zinc-100">
@@ -104,7 +90,7 @@ export default function QuestionList({ isAdmin = false }) {
                 </div>
                 <button 
                   type="button" 
-                  onClick={() => nav("/question/new")} 
+                  onClick={() => nav("/questions/new")} 
                   className="flex items-center gap-1 text-sm px-3 py-1.5 rounded 
                              bg-black text-white 
                              dark:bg-white dark:text-black dark:hover:bg-gray-200"
@@ -130,9 +116,6 @@ export default function QuestionList({ isAdmin = false }) {
           <p className="text-gray-500 dark:text-zinc-400 py-6 text-center">문의가 없습니다.</p>
         ) : (
           <ul>
-            {/* 오류 수정: 주석을 <ul> 태그 안으로 이동시켰습니다.
-              QuestionItem은 reservation.css의 스타일을 따름 
-            */}
             {items.map((it) => (
               <QuestionItem
                 key={it.id}

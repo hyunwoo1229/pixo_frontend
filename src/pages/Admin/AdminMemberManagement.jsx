@@ -10,7 +10,7 @@ export default function AdminMemberManagement() {
   const fetchMembers = useCallback(async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const { data } = await axios.get("/api/admin/member", {
+      const { data } = await axios.get("/api/admin/members", {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMembers(data);

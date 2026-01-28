@@ -24,7 +24,7 @@ export default function FindId() {
     }
     setLoading(true);
     try {
-      await axios.post('/api/member/find-id/send-code', {
+      await axios.post('/api/member/find-id/verification-codes', {
         name: form.name,
         phoneNumber: form.phoneNumber,
       });
@@ -45,7 +45,7 @@ export default function FindId() {
     }
     setLoading(true);
     try {
-      const { data } = await axios.post('/api/member/find-id/verify', {
+      const { data } = await axios.post('/api/members/find-id/verify', {
         name: form.name,
         phoneNumber: form.phoneNumber,
         code: form.code,

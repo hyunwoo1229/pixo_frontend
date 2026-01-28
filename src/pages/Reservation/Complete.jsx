@@ -12,7 +12,7 @@ export default function Complete() {
   const result = r?.result;
 
   if (!result) {
-    nav("/reserve/type");
+    nav("/reservations/type");
     return null;
   }
 

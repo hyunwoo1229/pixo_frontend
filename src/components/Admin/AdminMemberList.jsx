@@ -6,15 +6,15 @@ export default function AdminMemberList({ loading, error, members, onRoleUpdate 
   
   // 권한 변경 핸들러
   const handleRoleChange = async (memberId, newRole) => {
-    // 본인을 Admin에서 User로 내리는 것 방지용 확인 (선택 사항)
+    // 본인을 Admin에서 User로 내리는 것 방지용 확인
     if (!window.confirm(`해당 회원의 권한을 ${newRole}(으)로 변경하시겠습니까?`)) {
       return;
     }
 
     try {
       const token = localStorage.getItem("accessToken"); // 토큰 가져오기
-      await axios.put(
-        `/api/admin/member/${memberId}/role`, 
+      await axios.patch(
+        `/api/admin/members/${memberId}/role`, 
         null, // body 없음
         {
           params: { role: newRole }, // 쿼리 파라미터로 전송

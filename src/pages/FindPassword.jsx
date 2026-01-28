@@ -30,7 +30,7 @@ export default function FindPassword() {
     }
     setLoading(true);
     try {
-      await axios.post('/api/member/find-pw/send-code', form);
+      await axios.post('/api/members/password/verification-codes', form);
       setStep(2);
       setError('');
     } catch (err) {
@@ -47,7 +47,7 @@ export default function FindPassword() {
     }
     setLoading(true);
     try {
-      await axios.post('/api/member/find-pw/verify-code', form);
+      await axios.post('/api/members/password/verify', form);
       setStep(3);
       setError('');
     } catch (err) {
@@ -68,7 +68,7 @@ export default function FindPassword() {
     }
     setLoading(true);
     try {
-      await axios.put('/api/member/find-pw/reset', {
+      await axios.patch('/api/members/password', {
         loginId: form.loginId,
         name: form.name,
         phoneNumber: form.phoneNumber,
