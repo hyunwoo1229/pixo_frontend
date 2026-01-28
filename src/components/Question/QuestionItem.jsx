@@ -31,16 +31,14 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
     setCurrentItem(item);
   }, [item]);
 
-  const handleDelete = async (e) => {
-    e.stopPropagation();
-    if (!window.confirm("정말로 이 문의를 삭제하시겠습니까?")) return;
+  const handleDelete = async () => {
+    if (!window.confirm("정말 삭제하시겠습니까?")) return;
     try {
-      await axios.delete(`/api/question/${currentItem.id}`, { headers: { Authorization: `Bearer ${token}` } });
+      await axios.delete(`/api/questions/${item.id}`);
       alert("삭제되었습니다.");
-      onChanged?.();
-    } catch (err) {
-      console.error(err);
-      alert("삭제 중 오류가 발생했습니다.");
+      onChanged();
+    } catch (e) {
+      alert(e.response?.data?.message || "삭제에 실패했습니다.");
     }
   };
 

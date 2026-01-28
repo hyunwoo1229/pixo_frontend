@@ -25,12 +25,12 @@ export default function QuestionFormPage() {
       if (!token) { alert("로그인이 필요합니다."); nav("/login"); return; }
       setSubmitting(true);
       if (editing) {
-        await axios.put(`/api/question/${id}`, values, {
+        await axios.patch(`/api/questions/${id}`, values, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("문의가 수정되었습니다.");
       } else {
-        await axios.post("/api/question", values, {
+        await axios.post("/api/questions", values, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("문의가 등록되었습니다.");
