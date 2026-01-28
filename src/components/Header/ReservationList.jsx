@@ -11,7 +11,7 @@ export default function ReservationList() {
   useEffect(() => {
     const fetchReservations = async () => {
       try {
-        const response = await axios.get(`/api/reservation/my`);
+        const response = await axios.get(`/api/reservations/me`);
         
         const sortedData = response.data.sort((a, b) => {
 
