@@ -26,8 +26,8 @@ export default function AdminScheduleManagement() {
       const config = { headers: { Authorization: `Bearer ${token}` } };
       
       const [bookedRes, adminBlockedRes] = await Promise.all([
-        axios.get(`/api/reservation/booked-times?date=${dateString}`, config),
-        axios.get(`/api/admin/reservation/blocked-times?date=${dateString}`, config)
+        axios.get(`/api/reservations/booked-times?date=${dateString}`, config),
+        axios.get(`/api/admin/reservations/blocked-times?date=${dateString}`, config)
       ]);
       
       setBookedTimes(bookedRes.data || []);
@@ -55,9 +55,9 @@ export default function AdminScheduleManagement() {
 
     try {
       if (isBlockedByAdmin) {
-        await axios.delete('/api/admin/reservation/block-time', config);
+        await axios.delete('/api/admin/reservations/block-times', config);
       } else {
-        await axios.post('/api/admin/reservation/block-time', { date, timeSlot: slot }, config);
+        await axios.post('/api/admin/reservations/block-times', { date, timeSlot: slot }, config);
       }
       fetchTimes(selectedDate);
     } catch (error) {
