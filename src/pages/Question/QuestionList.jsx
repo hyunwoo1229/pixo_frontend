@@ -20,6 +20,10 @@ export default function QuestionList({ isAdmin = false }) {
     if (!isAuthed && mineOnly) setMineOnly(false);
   }, [isAuthed, mineOnly]);
 
+  useEffect(() => {
+    fetchList();
+  }, [mineOnly, isAdmin]);
+  
   async function fetchList() {
     try {
       setLoading(true);
