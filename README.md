@@ -1,12 +1,47 @@
-# React + Vite
+# PIXO 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 소개
 
-Currently, two official plugins are available:
+[PIXO 공식 홈페이지 방문하기](https://www.pixostudio.shop/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+실제 서비스 중인 사진 촬영 스튜디오 **PIXO**의 공식 홈페이지입니다.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+PIXO는 촬영, 드론, 조명, 보정 등의 역할이 있는 7명으로 이루어진 웨딩, 패션, 제품, 음식, 차, 풍경, 드론 풍경 촬영을 하는 촬영 스튜디오입니다.
+
+PIXO에 대한 소개와 카테고리 별 촬영 결과물, 가격을 볼 수 있고 촬영 예약, 궁금한 것에 대한 질문을 할 수 있습니다.
+
+---
+
+## 주요 기능
+
+* **사용자 인증 & 관리:** CoolSMS를 이용한 전화번호 인증, OAuth2 기반 소셜 로그인 및 JWT 세션 관리
+  
+  
+* **카테고리 별 사진 업로드:** 관리자 계정으로 각 카테고리에 사진 업로드(AWS S3), 드래그로 사진 전시 순서 변경
+  
+
+* **Q&A:** JavaMilSender 사용하여 사용자가 질문 업로드하면 해당 사용자 정보, 질문 제목, 질문 내용 PIXO 직원에게 자동 전송
+  
+
+* **촬영 예약:** JavaMilSender 사용하여 사용자가 예약 생성하면 사용자 정보, 예약 정보 PIXO 직원에게 자동 전송
+  
+
+
+---
+
+## 시스템 구성
+
+* **프론트엔드:** 프론트엔드는 Vercel에서 배포되며, React와 Vite로 구성되어 있습니다.
+  
+  
+* **백엔드:** 백엔드는 App Runner에서 배포되며, 빌드된 Docker 이미지는 AWS ECR에 저장되어 관리됩니다. MySQL(Amazon RDS) 와 연동하여 데이터를 관리합니다.
+  
+
+* **Q&A:** JavaMilSender 사용하여 사용자가 질문 업로드하면 해당 사용자 정보, 질문 제목, 질문 내용 PIXO 직원에게 자동 전송
+  
+
+* **CI/CD 파이프라인:** GitHub Actions를 통해 자동화된 CI/CD 파이프라인을 구성하였으며, 코드 업데이트가 발생할 때마다 Vercel과 App Runner에서 자동으로 빌드 및 배포가 이루어집니다.
+  
+
+---
