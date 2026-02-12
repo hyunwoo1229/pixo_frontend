@@ -47,30 +47,28 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
   };
 
   return (
-    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700">
+    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700 overflow-hidden">
       <div 
-        className="!grid !grid-cols-[90px_1fr_75px_95px] items-center !gap-2 !p-4 cursor-pointer
+        className="!grid !grid-cols-[100px_1fr_80px_100px] items-center !gap-2 !p-4 cursor-pointer
                    bg-white dark:bg-zinc-800 
                    hover:bg-gray-50 dark:hover:bg-zinc-700" 
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* 답변 상태: !justify-start로 왼쪽으로 정렬 */}
-        <div className="!flex !justify-start">
+        <div className="!flex !justify-start !pl-1">
           <span 
             className={`status ${currentItem.answered ? "answered" : ""}
                        text-[11px] font-semibold px-2 py-0.5 rounded
-                       dark:text-zinc-100
-                       ${currentItem.answered ? "bg-black text-white dark:bg-white dark:text-black" : "bg-gray-200 dark:bg-zinc-600"}`}
+                       ${currentItem.answered ? "bg-black text-white dark:bg-white dark:!text-black" : "bg-gray-200 dark:bg-zinc-600 dark:text-zinc-100"}`}
           >
             {currentItem.answered ? "완료" : "대기"}
           </span>
         </div>
 
-        <span className="title font-semibold truncate dark:text-zinc-100 text-sm px-2">{currentItem.title}</span>
-
-        {/* 작성자 & 작성일: !text-center를 사용하여 헤더 아래에 위치시킴 (CSS의 text-align 무시) */}
-        <span className="author text-sm text-gray-600 dark:text-zinc-400 !text-center">{maskName(currentItem.memberName)}</span>
-        <span className="date text-sm text-gray-500 dark:text-zinc-500 !text-center !whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
+        <span className="title font-semibold truncate dark:text-zinc-100 text-sm !text-left">{currentItem.title}</span>
+        
+        {/* 작성자와 작성일: !text-left를 적용해 왼쪽으로 정렬 */}
+        <span className="author text-sm text-gray-600 dark:text-zinc-400 !text-left">{maskName(currentItem.memberName)}</span>
+        <span className="date text-sm text-gray-500 dark:text-zinc-500 !text-left !whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
       </div>
 
       {isOpen && (
