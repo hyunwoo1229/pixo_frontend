@@ -19,10 +19,9 @@ export default function MyInfo() {
           return;
         }
 
-        const response = await axios.get(
-          "/api/member/profile", 
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        // 수정 포인트: 백엔드 @GetMapping("/me")에 맞춰 경로를 /api/member/me로 변경
+        // setupAxios.js에서 헤더를 자동으로 넣어주므로 두 번째 인자인 headers 옵션은 생략 가능합니다.
+        const response = await axios.get("/api/member/me");
 
         const { loginId, name } = response.data; 
 
@@ -32,7 +31,9 @@ export default function MyInfo() {
         });
       } catch (err) {
         console.error("회원 정보 조회 실패:", err);
-        setError("회원 정보를 불러오는 데 실패했습니다. 다시 로그인 해주세요.");
+        // 백엔드에서 401(UNAUTHORIZED)이나 404(NOT_FOUND)를 던질 때의 에러 메시지 처리
+        const message = err.response?.data?.message || "회원 정보를 불러오는 데 실패했습니다.";
+        setError(message);
       } finally {
         setLoading(false);
       }
