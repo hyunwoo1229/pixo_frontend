@@ -47,43 +47,27 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
   };
 
   return (
-    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700 overflow-hidden">
+    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700">
+      {/* flex 대신 헤더와 똑같은 grid를 적용하여 위아래 줄을 맞춤 */}
       <div 
-        className="question-summary cursor-pointer py-4 grid grid-cols-[85px_1fr_75px_100px] items-start gap-2
+        className="question-summary cursor-pointer p-4 grid grid-cols-[85px_1fr_70px_85px] md:grid-cols-[95px_1fr_80px_95px] items-center gap-2 md:gap-4
                    bg-white dark:bg-zinc-800 
                    hover:bg-gray-50 dark:hover:bg-zinc-700" 
         onClick={() => setIsOpen(!isOpen)}
       >
-        {/* 답변 상태 아래에 내용 배치 */}
-        <div className="flex flex-col items-start pl-2">
-          <span className="text-[10px] text-gray-400 dark:text-zinc-500 mb-1">상태</span>
+        <div className="flex justify-center">
           <span 
             className={`status ${currentItem.answered ? "answered" : ""}
-                       text-[10px] font-semibold px-1.5 py-0.5 rounded
+                       text-[11px] font-semibold px-2 py-0.5 rounded
                        dark:text-zinc-100
                        ${currentItem.answered ? "bg-black text-white dark:bg-white dark:text-black" : "bg-gray-200 dark:bg-zinc-600"}`}
           >
-            {currentItem.answered ? "완료" : "대기"}
+            {currentItem.answered ? "답변 완료" : "답변 대기"}
           </span>
         </div>
-
-        {/* 제목 아래에 내용 배치 */}
-        <div className="flex flex-col items-start">
-          <span className="text-[10px] text-gray-400 dark:text-zinc-500 mb-1">제목</span>
-          <span className="title font-semibold truncate dark:text-zinc-100 text-sm w-full text-left">{currentItem.title}</span>
-        </div>
-
-        {/* 작성자 아래에 내용 배치 */}
-        <div className="flex flex-col items-start">
-          <span className="text-[10px] text-gray-400 dark:text-zinc-500 mb-1">작성자</span>
-          <span className="author text-xs text-gray-600 dark:text-zinc-400 text-left">{maskName(currentItem.memberName)}</span>
-        </div>
-
-        {/* 작성일 아래에 내용 배치 */}
-        <div className="flex flex-col items-start">
-          <span className="text-[10px] text-gray-400 dark:text-zinc-500 mb-1">작성일</span>
-          <span className="date text-xs text-gray-500 dark:text-zinc-500 text-left whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
-        </div>
+        <span className="title font-semibold truncate dark:text-zinc-100 text-sm">{currentItem.title}</span>
+        <span className="author text-sm text-gray-600 dark:text-zinc-400 text-center">{maskName(currentItem.memberName)}</span>
+        <span className="date text-sm text-gray-500 dark:text-zinc-500 text-center whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
       </div>
 
       {isOpen && (
@@ -99,12 +83,12 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
             )}
             
             {currentItem.answered && currentItem.answer && (
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900 p-4 rounded text-sm">
-                <div className="flex items-center gap-3 mb-2">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900 p-4 rounded">
+                <div className="flex items-center gap-3 text-sm mb-2">
                   <span className="font-bold dark:text-zinc-100">PIXO 답변</span>
                   <span className="text-gray-500 dark:text-zinc-400 text-xs">{formatDate(currentItem.answer.createdAt)}</span>
                 </div>
-                <p className="whitespace-pre-wrap text-gray-800 dark:text-zinc-200">{currentItem.answer.content}</p>
+                <p className="whitespace-pre-wrap text-gray-800 dark:text-zinc-200 text-sm">{currentItem.answer.content}</p>
               </div>
             )}
 
