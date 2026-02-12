@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"; // useEffect 제거
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import AnswerForm from '../Admin/AnswerForm'; 
@@ -21,8 +21,8 @@ const formatDate = (dateString) => {
 export default function QuestionItem({ item, isAdmin, onChanged }) {
   const nav = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  // currentItem state를 제거하고 부모로부터 받은 item prop을 직접 사용합니다.
 
-  // 별도의 currentItem state 대신 prop인 item을 직접 사용합니다.
   const loggedInUserName = localStorage.getItem("name");
   const isOwner = loggedInUserName === item.memberName;
 
@@ -61,7 +61,6 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
         </div>
 
         <span className="title font-semibold truncate dark:text-zinc-100 text-sm !text-left">{item.title}</span>
-        
         <span className="author text-sm text-gray-600 dark:text-zinc-400 !text-left">{maskName(item.memberName)}</span>
         <span className="date text-sm text-gray-500 dark:text-zinc-500 !text-left !whitespace-nowrap">{formatDate(item.createdAt)}</span>
       </div>
@@ -78,7 +77,7 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
               </div>
             )}
             
-            {/* 답변이 존재할 경우 표시 (item.answered와 item.answer 객체 존재 여부 확인) */}
+            {/* 답변이 존재할 때만 표시 (answered 여부와 상관없이 answer 객체가 있으면 보여주도록 수정) */}
             {item.answer && (
               <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900 p-4 rounded text-sm">
                 <div className="flex items-center gap-3 mb-2">
@@ -96,7 +95,7 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
                   <button onClick={handleEdit} className="text-sm text-gray-600 dark:text-zinc-400 hover:underline">수정</button>
                   <button onClick={handleDelete} className="text-sm delete text-red-600 dark:text-red-500 hover:underline ml-2">삭제</button>
                 </div>
-                {/* AnswerForm에 최신 item.answer를 전달합니다. */}
+                {/* 최신 item.answer를 prop으로 직접 넘깁니다. */}
                 <AnswerForm
                   key={item.id}
                   questionId={item.id}
