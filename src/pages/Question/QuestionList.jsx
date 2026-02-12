@@ -15,9 +15,8 @@ export default function QuestionList({ isAdmin = false }) {
   const [q, setQ] = useState("");
   const [mode, setMode] = useState("title");
 
-  // 페이지네이션 관련 상태 추가
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // 한 페이지에 보여줄 문의 개수
+  const itemsPerPage = 10; 
 
   useEffect(() => {
     if (!isAuthed && mineOnly) setMineOnly(false);
@@ -25,7 +24,7 @@ export default function QuestionList({ isAdmin = false }) {
 
   useEffect(() => {
     fetchList();
-    setCurrentPage(1); // 필터가 바뀔 때 1페이지로 리셋
+    setCurrentPage(1); 
   }, [mineOnly, isAdmin]);
   
   async function fetchList() {
@@ -60,7 +59,7 @@ export default function QuestionList({ isAdmin = false }) {
       if (Array.isArray(data)) {
         const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setItems(sortedData);
-        setCurrentPage(1); // 검색 시 1페이지로 리셋
+        setCurrentPage(1); 
       }
     } catch (e) {
       console.error(e);
@@ -70,7 +69,6 @@ export default function QuestionList({ isAdmin = false }) {
     }
   }
 
-  // 현재 페이지에 해당하는 데이터 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
@@ -130,7 +128,6 @@ export default function QuestionList({ isAdmin = false }) {
       ) : (
         <>
           <ul>
-            {/* 전체 items 대신 잘라낸 currentItems를 렌더링 */}
             {currentItems.map((it) => (
               <QuestionItem
                 key={it.id}
@@ -141,7 +138,6 @@ export default function QuestionList({ isAdmin = false }) {
             ))}
           </ul>
 
-          {/* 페이지네이션 UI 추가 */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center gap-2 mt-8">
               <button
