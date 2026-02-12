@@ -18,11 +18,9 @@ export default function MyInfo() {
           setLoading(false);
           return;
         }
+        const response = await axios.get("/api/members/me");
 
-        const response = await axios.get(
-          "/api/member/profile", 
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        console.log("백엔드 응답 데이터:", response.data);
 
         const { loginId, name } = response.data; 
 
@@ -32,7 +30,8 @@ export default function MyInfo() {
         });
       } catch (err) {
         console.error("회원 정보 조회 실패:", err);
-        setError("회원 정보를 불러오는 데 실패했습니다. 다시 로그인 해주세요.");
+        const serverMessage = err.response?.data?.message;
+        setError(serverMessage || "회원 정보를 불러오는 데 실패했습니다.");
       } finally {
         setLoading(false);
       }
@@ -53,6 +52,7 @@ export default function MyInfo() {
     return (
       <div className="w-full max-w-md space-y-4 text-center py-8">
         <p className="text-red-500 dark:text-red-400">{error}</p>
+        <p className="text-xs text-gray-400 mt-2">상세 에러: {error}</p>
       </div>
     );
   }
@@ -68,7 +68,6 @@ export default function MyInfo() {
         <p className="text-sm text-gray-500 dark:text-zinc-400 font-medium mb-1">이름</p>
         <p className="text-lg font-semibold dark:text-zinc-100">{memberInfo.name}</p>
       </div>
-      
     </div>
   );
 }
