@@ -103,13 +103,13 @@ export default function QuestionList({ isAdmin = false }) {
         </div>
       )}
       
-      {/* 헤더 그리드 간격 수정: 날짜와 작성자 너비를 늘리고 정렬을 맞춤 */}
-      <div className="grid grid-cols-[95px_1fr_75px_95px] items-center gap-2 py-3 
+      {/* 작성자와 작성일을 훨씬 왼쪽으로 보내기 위해 컬럼 너비 조정 및 정렬 수정 */}
+      <div className="grid grid-cols-[100px_1fr_80px_100px] items-center gap-2 py-3 
                       font-bold border-b-2 border-black dark:border-zinc-400 text-sm">
-        <div className="text-center">답변 상태</div>
-        <div className="text-center">제목</div>
-        <div className="text-center">작성자</div>
-        <div className="text-center">작성일</div>
+        <div className="text-left pl-4">답변 상태</div>
+        <div className="text-left">제목</div>
+        <div className="text-left">작성자</div>
+        <div className="text-left">작성일</div>
       </div>
 
       {loading ? (
@@ -141,4 +141,4 @@ export default function QuestionList({ isAdmin = false }) {
       </div>
     </div>
   );
-} 
+}

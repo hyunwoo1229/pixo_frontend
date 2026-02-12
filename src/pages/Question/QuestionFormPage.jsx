@@ -35,7 +35,7 @@ export default function QuestionFormPage() {
         });
         alert("문의가 등록되었습니다.");
       }
-      // 경로를 /questions로 수정하여 작성 완료 후 정상 이동되도록 함
+      // 작성 완료 후 /questions 로 이동
       nav("/questions", { replace: true });
     } catch (err) {
       let errorMessage = "요청 처리 중 오류가 발생했습니다.";

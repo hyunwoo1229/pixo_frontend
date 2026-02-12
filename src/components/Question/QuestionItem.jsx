@@ -48,14 +48,14 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
 
   return (
     <li className="question-item-container border-b border-gray-200 dark:border-zinc-700 overflow-hidden">
-      {/* 헤더와 동일한 grid를 사용하여 위치를 완벽하게 맞춤 */}
       <div 
-        className="question-summary cursor-pointer py-4 grid grid-cols-[95px_1fr_75px_95px] items-center gap-2
+        className="question-summary cursor-pointer py-4 grid grid-cols-[100px_1fr_80px_100px] items-center gap-2
                    bg-white dark:bg-zinc-800 
                    hover:bg-gray-50 dark:hover:bg-zinc-700" 
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex justify-center">
+        {/* 답변 상태: pl-4를 주어 아주 조금만 오른쪽으로 이동 */}
+        <div className="pl-4">
           <span 
             className={`status ${currentItem.answered ? "answered" : ""}
                        text-[11px] font-semibold px-2 py-0.5 rounded
@@ -65,9 +65,12 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
             {currentItem.answered ? "답변 완료" : "답변 대기"}
           </span>
         </div>
-        <span className="title font-semibold truncate dark:text-zinc-100 text-sm px-2">{currentItem.title}</span>
-        <span className="author text-sm text-gray-600 dark:text-zinc-400 text-center">{maskName(currentItem.memberName)}</span>
-        <span className="date text-sm text-gray-500 dark:text-zinc-500 text-center">{formatDate(currentItem.createdAt)}</span>
+        
+        <span className="title font-semibold truncate dark:text-zinc-100 text-sm">{currentItem.title}</span>
+        
+        {/* 작성자와 작성일: text-left로 훨씬 왼쪽으로 이동 및 정렬 */}
+        <span className="author text-sm text-gray-600 dark:text-zinc-400 text-left">{maskName(currentItem.memberName)}</span>
+        <span className="date text-sm text-gray-500 dark:text-zinc-500 text-left whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
       </div>
 
       {isOpen && (
