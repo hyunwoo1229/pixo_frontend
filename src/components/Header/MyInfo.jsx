@@ -18,7 +18,7 @@ export default function MyInfo() {
           setLoading(false);
           return;
         }
-        const response = await axios.get("/api/member/me");
+        const response = await axios.get("/api/members/me");
 
         console.log("백엔드 응답 데이터:", response.data);
 
