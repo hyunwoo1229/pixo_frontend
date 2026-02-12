@@ -47,28 +47,30 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
   };
 
   return (
-    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700 overflow-hidden">
-      {/* 정렬을 위해 헤더와 동일한 그리드 적용, flex 제거 */}
+    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700">
       <div 
-        className="question-summary cursor-pointer p-4 grid grid-cols-[85px_1fr_75px_95px] items-center gap-2
+        className="!grid !grid-cols-[90px_1fr_75px_95px] items-center !gap-2 !p-4 cursor-pointer
                    bg-white dark:bg-zinc-800 
                    hover:bg-gray-50 dark:hover:bg-zinc-700" 
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex justify-center">
+        {/* 답변 상태: !justify-start로 왼쪽으로 정렬 */}
+        <div className="!flex !justify-start">
           <span 
             className={`status ${currentItem.answered ? "answered" : ""}
                        text-[11px] font-semibold px-2 py-0.5 rounded
                        dark:text-zinc-100
                        ${currentItem.answered ? "bg-black text-white dark:bg-white dark:text-black" : "bg-gray-200 dark:bg-zinc-600"}`}
           >
-            {currentItem.answered ? "답변 완료" : "답변 대기"}
+            {currentItem.answered ? "완료" : "대기"}
           </span>
         </div>
-        <span className="title font-semibold truncate dark:text-zinc-100 text-sm">{currentItem.title}</span>
-        {/* text-center를 적용해 헤더 글씨와 위치를 맞춤 */}
-        <span className="author text-sm text-gray-600 dark:text-zinc-400 text-center">{maskName(currentItem.memberName)}</span>
-        <span className="date text-sm text-gray-500 dark:text-zinc-500 text-center whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
+
+        <span className="title font-semibold truncate dark:text-zinc-100 text-sm px-2">{currentItem.title}</span>
+
+        {/* 작성자 & 작성일: !text-center를 사용하여 헤더 아래에 위치시킴 (CSS의 text-align 무시) */}
+        <span className="author text-sm text-gray-600 dark:text-zinc-400 !text-center">{maskName(currentItem.memberName)}</span>
+        <span className="date text-sm text-gray-500 dark:text-zinc-500 !text-center !whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
       </div>
 
       {isOpen && (
