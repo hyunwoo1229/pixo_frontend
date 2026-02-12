@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import AnswerForm from '../Admin/AnswerForm'; 
@@ -21,14 +21,10 @@ const formatDate = (dateString) => {
 export default function QuestionItem({ item, isAdmin, onChanged }) {
   const nav = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState(item);
 
+  // 별도의 currentItem state 대신 prop인 item을 직접 사용합니다.
   const loggedInUserName = localStorage.getItem("name");
-  const isOwner = loggedInUserName === currentItem.memberName;
-
-  useEffect(() => {
-    setCurrentItem(item);
-  }, [item]);
+  const isOwner = loggedInUserName === item.memberName;
 
   const handleDelete = async () => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
@@ -43,7 +39,7 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
 
   const handleEdit = (e) => {
     e.stopPropagation();
-    nav(`/questions/edit/${currentItem.id}`, { state: { item: currentItem } });
+    nav(`/questions/edit/${item.id}`, { state: { item: item } });
   };
 
   return (
@@ -56,25 +52,24 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
       >
         <div className="!flex !justify-start !pl-1">
           <span 
-            className={`status ${currentItem.answered ? "answered" : ""}
+            className={`status ${item.answered ? "answered" : ""}
                        text-[11px] font-semibold px-2 py-0.5 rounded
-                       ${currentItem.answered ? "bg-black text-white dark:bg-white dark:!text-black" : "bg-gray-200 dark:bg-zinc-600 dark:text-zinc-100"}`}
+                       ${item.answered ? "bg-black text-white dark:bg-white dark:!text-black" : "bg-gray-200 dark:bg-zinc-600 dark:text-zinc-100"}`}
           >
-            {currentItem.answered ? "완료" : "대기"}
+            {item.answered ? "완료" : "대기"}
           </span>
         </div>
 
-        <span className="title font-semibold truncate dark:text-zinc-100 text-sm !text-left">{currentItem.title}</span>
+        <span className="title font-semibold truncate dark:text-zinc-100 text-sm !text-left">{item.title}</span>
         
-        {/* 작성자와 작성일: !text-left를 적용해 왼쪽으로 정렬 */}
-        <span className="author text-sm text-gray-600 dark:text-zinc-400 !text-left">{maskName(currentItem.memberName)}</span>
-        <span className="date text-sm text-gray-500 dark:text-zinc-500 !text-left !whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
+        <span className="author text-sm text-gray-600 dark:text-zinc-400 !text-left">{maskName(item.memberName)}</span>
+        <span className="date text-sm text-gray-500 dark:text-zinc-500 !text-left !whitespace-nowrap">{formatDate(item.createdAt)}</span>
       </div>
 
       {isOpen && (
         <div className="question-detail bg-white dark:bg-zinc-800 border-t border-gray-200 dark:border-zinc-700">
           <div className="content-wrapper p-4">
-            <p className="question-content whitespace-pre-wrap dark:text-zinc-200 text-sm">{currentItem.content}</p>
+            <p className="question-content whitespace-pre-wrap dark:text-zinc-200 text-sm">{item.content}</p>
 
             {isOwner && !isAdmin && (
               <div className="actions flex justify-center mt-4 pt-4 border-t border-gray-100 dark:border-zinc-700">
@@ -83,13 +78,14 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
               </div>
             )}
             
-            {currentItem.answered && currentItem.answer && (
+            {/* 답변이 존재할 경우 표시 (item.answered와 item.answer 객체 존재 여부 확인) */}
+            {item.answer && (
               <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900 p-4 rounded text-sm">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="font-bold dark:text-zinc-100">PIXO 답변</span>
-                  <span className="text-gray-500 dark:text-zinc-400 text-xs">{formatDate(currentItem.answer.createdAt)}</span>
+                  <span className="text-gray-500 dark:text-zinc-400 text-xs">{formatDate(item.answer.createdAt)}</span>
                 </div>
-                <p className="whitespace-pre-wrap text-gray-800 dark:text-zinc-200">{currentItem.answer.content}</p>
+                <p className="whitespace-pre-wrap text-gray-800 dark:text-zinc-200">{item.answer.content}</p>
               </div>
             )}
 
@@ -100,10 +96,11 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
                   <button onClick={handleEdit} className="text-sm text-gray-600 dark:text-zinc-400 hover:underline">수정</button>
                   <button onClick={handleDelete} className="text-sm delete text-red-600 dark:text-red-500 hover:underline ml-2">삭제</button>
                 </div>
+                {/* AnswerForm에 최신 item.answer를 전달합니다. */}
                 <AnswerForm
-                  key={currentItem.id}
-                  questionId={currentItem.id}
-                  existingAnswer={currentItem.answer}
+                  key={item.id}
+                  questionId={item.id}
+                  existingAnswer={item.answer}
                   onAnswered={onChanged}
                 />
               </>
