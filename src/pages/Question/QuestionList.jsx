@@ -73,7 +73,7 @@ export default function QuestionList({ isAdmin = false }) {
       </h1>
       
       {!isAdmin && (
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-3">
           {isAuthed ? (
             <>
               <div className="flex items-center gap-2 text-sm">
@@ -92,23 +92,32 @@ export default function QuestionList({ isAdmin = false }) {
               <button 
                 type="button" 
                 onClick={() => nav("/questions/new")} 
-                className="flex items-center gap-1 text-sm px-4 py-2 rounded-md font-bold
+                className="flex items-center gap-1 text-sm px-3 py-1.5 rounded 
                            bg-black text-white 
                            dark:bg-white dark:text-black dark:hover:bg-gray-200"
               >
-                + 문의 작성하기
+                + 작성하기
               </button>
             </>
           ) : ( <div /> )}
         </div>
       )}
+      
+      {/* 헤더 그리드 간격 수정: 날짜와 작성자 너비를 늘리고 정렬을 맞춤 */}
+      <div className="grid grid-cols-[95px_1fr_75px_95px] items-center gap-2 py-3 
+                      font-bold border-b-2 border-black dark:border-zinc-400 text-sm">
+        <div className="text-center">답변 상태</div>
+        <div className="text-center">제목</div>
+        <div className="text-center">작성자</div>
+        <div className="text-center">작성일</div>
+      </div>
 
       {loading ? (
         <p className="text-gray-500 dark:text-zinc-400 py-6 text-center">불러오는 중…</p>
       ) : empty ? (
-        <p className="text-gray-500 dark:text-zinc-400 py-6 text-center border-t border-gray-100 dark:border-zinc-800">문의가 없습니다.</p>
+        <p className="text-gray-500 dark:text-zinc-400 py-6 text-center">문의가 없습니다.</p>
       ) : (
-        <ul className="space-y-3">
+        <ul>
           {items.map((it) => (
             <QuestionItem
               key={it.id}
@@ -120,7 +129,7 @@ export default function QuestionList({ isAdmin = false }) {
         </ul>
       )}
 
-      <div className="mt-8 border-t border-gray-200 dark:border-zinc-700 pt-5">
+      <div className="mt-4 border-t border-gray-200 dark:border-zinc-700 pt-3">
         <SearchBar
           mode={mode}
           onModeChange={setMode}
@@ -132,4 +141,4 @@ export default function QuestionList({ isAdmin = false }) {
       </div>
     </div>
   );
-}
+} 

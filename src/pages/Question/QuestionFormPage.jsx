@@ -24,7 +24,6 @@ export default function QuestionFormPage() {
     try {
       if (!token) { alert("로그인이 필요합니다."); nav("/login"); return; }
       setSubmitting(true);
-      
       if (editing) {
         await axios.patch(`/api/questions/${id}`, values, {
           headers: { Authorization: `Bearer ${token}` },
@@ -36,12 +35,11 @@ export default function QuestionFormPage() {
         });
         alert("문의가 등록되었습니다.");
       }
-      
-      // 등록/수정 완료 후 목록 페이지로 이동
+      // 경로를 /questions로 수정하여 작성 완료 후 정상 이동되도록 함
       nav("/questions", { replace: true });
-      
     } catch (err) {
       let errorMessage = "요청 처리 중 오류가 발생했습니다.";
+
       if (err.response && err.response.data && err.response.data.message) {
         errorMessage = err.response.data.message;
       }
