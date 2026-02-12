@@ -105,8 +105,8 @@ export default function QuestionList({ isAdmin = false }) {
           </div>
         )}
         
-        {/* 헤더 그리드 비율 조정: 날짜와 작성자 공간 확보 */}
-        <div className="grid grid-cols-[85px_1fr_70px_85px] md:grid-cols-[95px_1fr_80px_95px] items-center gap-2 md:gap-4 py-3 
+        {/* 헤더 그리드: 데이터가 잘리지 않도록 너비를 최적화함 */}
+        <div className="grid grid-cols-[85px_1fr_75px_95px] items-center gap-2 py-3 
                         font-bold border-b-2 border-black dark:border-zinc-400 text-sm">
           <div className="text-center">답변 상태</div>
           <div className="text-center">제목</div>

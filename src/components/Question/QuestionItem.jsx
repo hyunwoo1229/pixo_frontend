@@ -47,10 +47,10 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
   };
 
   return (
-    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700">
-      {/* flex 대신 헤더와 똑같은 grid를 적용하여 위아래 줄을 맞춤 */}
+    <li className="question-item-container border-b border-gray-200 dark:border-zinc-700 overflow-hidden">
+      {/* 정렬을 위해 헤더와 동일한 그리드 적용, flex 제거 */}
       <div 
-        className="question-summary cursor-pointer p-4 grid grid-cols-[85px_1fr_70px_85px] md:grid-cols-[95px_1fr_80px_95px] items-center gap-2 md:gap-4
+        className="question-summary cursor-pointer p-4 grid grid-cols-[85px_1fr_75px_95px] items-center gap-2
                    bg-white dark:bg-zinc-800 
                    hover:bg-gray-50 dark:hover:bg-zinc-700" 
         onClick={() => setIsOpen(!isOpen)}
@@ -66,6 +66,7 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
           </span>
         </div>
         <span className="title font-semibold truncate dark:text-zinc-100 text-sm">{currentItem.title}</span>
+        {/* text-center를 적용해 헤더 글씨와 위치를 맞춤 */}
         <span className="author text-sm text-gray-600 dark:text-zinc-400 text-center">{maskName(currentItem.memberName)}</span>
         <span className="date text-sm text-gray-500 dark:text-zinc-500 text-center whitespace-nowrap">{formatDate(currentItem.createdAt)}</span>
       </div>
@@ -83,12 +84,12 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
             )}
             
             {currentItem.answered && currentItem.answer && (
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900 p-4 rounded">
-                <div className="flex items-center gap-3 text-sm mb-2">
+              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-900 p-4 rounded text-sm">
+                <div className="flex items-center gap-3 mb-2">
                   <span className="font-bold dark:text-zinc-100">PIXO 답변</span>
                   <span className="text-gray-500 dark:text-zinc-400 text-xs">{formatDate(currentItem.answer.createdAt)}</span>
                 </div>
-                <p className="whitespace-pre-wrap text-gray-800 dark:text-zinc-200 text-sm">{currentItem.answer.content}</p>
+                <p className="whitespace-pre-wrap text-gray-800 dark:text-zinc-200">{currentItem.answer.content}</p>
               </div>
             )}
 
