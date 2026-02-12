@@ -107,7 +107,7 @@ export default function QuestionList({ isAdmin = false }) {
                       font-bold border-b-2 border-black dark:border-zinc-400 text-sm">
         <div className="!text-left !pl-4">답변 상태</div>
         <div className="!text-center">제목</div>
-        <div className="!text-left !-ml-6">작성자</div>
+        <div className="!text-left !-ml-5">작성자</div>
         <div className="!text-left">작성일</div>
       </div>
 
