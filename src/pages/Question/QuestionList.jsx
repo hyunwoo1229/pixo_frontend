@@ -15,12 +15,16 @@ export default function QuestionList({ isAdmin = false }) {
   const [q, setQ] = useState("");
   const [mode, setMode] = useState("title");
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; 
+
   useEffect(() => {
     if (!isAuthed && mineOnly) setMineOnly(false);
   }, [isAuthed, mineOnly]);
 
   useEffect(() => {
     fetchList();
+    setCurrentPage(1); 
   }, [mineOnly, isAdmin]);
   
   async function fetchList() {
@@ -55,6 +59,7 @@ export default function QuestionList({ isAdmin = false }) {
       if (Array.isArray(data)) {
         const sortedData = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         setItems(sortedData);
+        setCurrentPage(1); 
       }
     } catch (e) {
       console.error(e);
@@ -63,6 +68,11 @@ export default function QuestionList({ isAdmin = false }) {
       setLoading(false);
     }
   }
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const empty = useMemo(() => !loading && items.length === 0, [loading, items]);
 
@@ -116,16 +126,51 @@ export default function QuestionList({ isAdmin = false }) {
       ) : empty ? (
         <p className="text-gray-500 dark:text-zinc-400 py-6 text-center">문의가 없습니다.</p>
       ) : (
-        <ul>
-          {items.map((it) => (
-            <QuestionItem
-              key={it.id}
-              item={it}
-              isAdmin={isAdmin}
-              onChanged={fetchList}
-            />
-          ))}
-        </ul>
+        <>
+          <ul>
+            {currentItems.map((it) => (
+              <QuestionItem
+                key={it.id}
+                item={it}
+                isAdmin={isAdmin}
+                onChanged={fetchList}
+              />
+            ))}
+          </ul>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-2 mt-8">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-2 py-1 text-sm disabled:text-gray-300 dark:disabled:text-zinc-600 dark:text-zinc-300"
+              >
+                &lt;
+              </button>
+              
+              {[...Array(totalPages)].map((_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`w-8 h-8 text-sm rounded-full transition-colors
+                             ${currentPage === i + 1 
+                               ? "bg-black text-white dark:bg-white dark:text-black font-bold" 
+                               : "text-gray-500 hover:bg-gray-100 dark:text-zinc-400 dark:hover:bg-zinc-700"}`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-2 py-1 text-sm disabled:text-gray-300 dark:disabled:text-zinc-600 dark:text-zinc-300"
+              >
+                &gt;
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       <div className="mt-4 border-t border-gray-200 dark:border-zinc-700 pt-3">
