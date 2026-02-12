@@ -33,16 +33,13 @@ export default function ReservationCard({ reservation, isOpen, onToggle }) {
 
   const renderDdayText = () => {
     if (dDay < 0) return null;
-    // D-day 텍스트에 다크 모드 색상 추가
     if (dDay === 0) return <p className="rh-dday today dark:text-red-400">***오늘이 회의 날짜입니다***</p>;
     return <p className="rh-dday dark:text-yellow-300">***회의 날짜까지 {dDay}일 남았습니다***</p>;
   };
 
   return (
-    // rh-card 클래스에 다크 모드 배경/테두리/글자색 추가
     <div className="rh-card border border-gray-200 dark:border-zinc-700 
                     bg-white dark:bg-zinc-800 text-gray-900 dark:text-zinc-100 rounded-md">
-      {/* rh-card-header 클래스에 다크 모드 스타일 추가 */}
       <button 
         className="rh-card-header w-full flex items-center justify-between px-4 py-3 text-left" 
         onClick={onToggle}
@@ -52,8 +49,7 @@ export default function ReservationCard({ reservation, isOpen, onToggle }) {
       </button>
 
       {isOpen && (
-        // rh-card-body 클래스에 다크 모드 스타일 추가
-        <div className="rh-card-body border-t border-gray-200 dark:border-zinc-700 px-4 py-4 space-y-2 text-sm">
+        <div className="rh-card-body border-t border-gray-200 dark:border-zinc-700 px-4 !pt-8 pb-4 space-y-2 text-sm">
           <dl>
             <dt>촬영 종류:</dt>
             <dd className="dark:text-zinc-300">{reservation.shootType}</dd>
@@ -85,7 +81,6 @@ export default function ReservationCard({ reservation, isOpen, onToggle }) {
           
           {renderDdayText()}
 
-          {/* rh-contact 클래스에 다크 모드 스타일 추가 */}
           <div className="rh-contact text-gray-600 dark:text-zinc-400 pt-2">
             <p>문의: 010-4446-5267</p>
             <p>pixo_studio@naver.com</p>
