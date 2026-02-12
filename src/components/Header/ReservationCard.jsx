@@ -49,7 +49,7 @@ export default function ReservationCard({ reservation, isOpen, onToggle }) {
       </button>
 
       {isOpen && (
-        <div className="rh-card-body border-t border-gray-200 dark:border-zinc-700 px-4 pt-8 pb-4 space-y-2 text-sm">
+        <div className="rh-card-body border-t border-gray-200 dark:border-zinc-700 px-4 !pt-8 pb-4 space-y-2 text-sm">
           <dl>
             <dt>촬영 종류:</dt>
             <dd className="dark:text-zinc-300">{reservation.shootType}</dd>
