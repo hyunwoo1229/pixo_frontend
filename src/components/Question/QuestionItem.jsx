@@ -29,7 +29,9 @@ export default function QuestionItem({ item, isAdmin, onChanged }) {
   const handleDelete = async () => {
     if (!window.confirm("정말 삭제하시겠습니까?")) return;
     try {
-      await axios.delete(`/api/questions/${item.id}`);
+      // isAdmin 값에 따라 호출하는 API 주소를 다르게 설정
+      const url = isAdmin ? `/api/admin/questions/${item.id}` : `/api/questions/${item.id}`;
+      await axios.delete(url);
       alert("삭제되었습니다.");
       onChanged();
     } catch (e) {
