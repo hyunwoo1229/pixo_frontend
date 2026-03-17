@@ -26,7 +26,7 @@ PIXO에 대한 소개와 카테고리 별 촬영 결과물, 가격을 볼 수 �
 
 ---
 
-## 03. 개발 내용
+## 개발 내용
 
 ### 최적화 및 성능 개선
 * **k6 부하 테스트 후 수치 개선 (TPS: 3000, preAllocatedVUs: 300, maxVUs: 1000, duration: 1m, spring.datasource.hikari.maximum-pool-size=10)**
