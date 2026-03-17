@@ -13,6 +13,18 @@ PIXO에 대한 소개와 카테고리 별 촬영 결과물, 가격을 볼 수 �
 
 ---
 
+## 화면 설계서 (Figma)
+
+* **상세 보기:** [Figma 링크 이동](https://www.figma.com/design/8ZntZKht4ZWONg3exgjFZj/PIXO?node-id=2-3&p=f&t=WzdCDjoTk5N5XQEN-0)
+
+---
+
+## DB 설계 (ERD)
+
+* **상세 보기:** [ERD 링크 이동](https://www.erdcloud.com/d/di9NKWECdG9BHi5h9)
+
+---
+
 ## 주요 기능
 
 * **사용자 인증 & 관리:** CoolSMS를 이용한 전화번호 인증, OAuth2 기반 소셜 로그인 및 JWT 세션 관리
@@ -32,10 +44,10 @@ PIXO에 대한 소개와 카테고리 별 촬영 결과물, 가격을 볼 수 �
 
 ## 시스템 구성
 
-* **프론트엔드:** 프론트엔드는 Vercel에서 배포되며, React와 Vite로 구성되어 있습니다.
+* **프론트엔드:** 프론트엔드는 Vercel에서 배포되며, React와 Vite로 구성되어 있습니다.
   
   
-* **백엔드:** 백엔드는 App Runner에서 배포되며, 빌드된 Docker 이미지는 AWS ECR에 저장되어 관리됩니다. MySQL(Amazon RDS) 와 연동하여 데이터를 관리합니다.
+* **백엔드:** 백엔드는 App Runner에서 배포되며, 빌드된 Docker 이미지는 AWS ECR에 저장되어 관리됩니다. MySQL(Amazon RDS) 와 연동하여 데이터를 관리합니다.
   
   
 
