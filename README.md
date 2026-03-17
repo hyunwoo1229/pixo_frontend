@@ -22,6 +22,7 @@ PIXO에 대한 소개와 카테고리 별 촬영 결과물, 가격을 볼 수 �
 ## DB 설계 (ERD)
 
 * **상세 보기:** [ERD 링크 이동](https://www.erdcloud.com/d/di9NKWECdG9BHi5h9)
+<img width="2462" height="1184" alt="image" src="https://github.com/user-attachments/assets/da723993-e9f8-4d44-9103-e47fafa78690" />
 
 ---
 
