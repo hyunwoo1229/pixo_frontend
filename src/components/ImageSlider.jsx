@@ -64,8 +64,9 @@ export default function ImageSlider({
         </div>
       ))}
 
-      {/* 가독성을 위한 그라데이션 오버레이 */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/40" />
+      {/* 가독성을 위한 그라데이션 오버레이
+          (모바일은 사진 위에 텍스트가 없으므로 옅게) */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10 md:from-black/70 md:via-black/25 md:to-black/40" />
 
       {/* 오버레이 콘텐츠 */}
       {children && <div className="relative z-10 h-full w-full">{children}</div>}
