@@ -118,7 +118,7 @@ export default function Home() {
   if (loading) {
     return (
       <div className="w-full">
-        <div className="h-[72vh] min-h-[420px] w-full animate-pulse bg-gray-200 dark:bg-zinc-800" />
+        <div className="h-[52vh] min-h-[300px] w-full animate-pulse bg-gray-200 dark:bg-zinc-800 md:h-[72vh] md:min-h-[440px]" />
         <div className="mx-auto max-w-5xl px-5 py-16 md:px-8">
           <div className="mx-auto mb-16 h-4 w-40 animate-pulse rounded bg-gray-200 dark:bg-zinc-800" />
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
@@ -136,16 +136,28 @@ export default function Home() {
   return (
     <div className="w-full">
       {/* ── HERO ───────────────────────────────────────────── */}
-      <section className="relative h-[72vh] min-h-[440px] max-h-[820px] w-full">
-        {representativePhotos.length > 0 ? (
-          <ImageSlider images={representativePhotos}>
-            <HeroContent />
-          </ImageSlider>
-        ) : (
-          <div className="relative h-full w-full bg-gray-900 dark:bg-black">
-            <HeroContent />
-          </div>
-        )}
+      <section className="w-full">
+        {/* 사진: 모바일에서는 사진만, md 이상에서만 텍스트를 얹는다 */}
+        <div className="relative h-[52vh] min-h-[300px] w-full md:h-[72vh] md:min-h-[440px] md:max-h-[820px]">
+          {representativePhotos.length > 0 ? (
+            <ImageSlider images={representativePhotos}>
+              <div className="hidden h-full w-full md:block">
+                <HeroContent />
+              </div>
+            </ImageSlider>
+          ) : (
+            <div className="relative h-full w-full bg-gray-900 dark:bg-black">
+              <div className="hidden h-full w-full md:block">
+                <HeroContent />
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 모바일 전용: 사진 아래에 텍스트를 따로 배치 */}
+        <div className="px-6 py-10 md:hidden">
+          <HeroContent variant="below" />
+        </div>
       </section>
 
       {/* ── ABOUT ──────────────────────────────────────────── */}
@@ -339,34 +351,64 @@ export default function Home() {
   );
 }
 
-/** 히어로 위에 얹히는 텍스트 / CTA */
-function HeroContent() {
+/**
+ * 히어로 텍스트 / CTA
+ * variant="overlay" — 사진 위에 얹히는 흰 글씨 (데스크톱)
+ * variant="below"   — 사진 아래에 놓이는 본문 색 글씨 (모바일)
+ */
+function HeroContent({ variant = 'overlay' }) {
+  const isOverlay = variant === 'overlay';
+
   return (
-    <div className="flex h-full w-full flex-col justify-center px-6 pb-24 md:px-14">
+    <div
+      className={
+        isOverlay ? 'flex h-full w-full flex-col justify-center px-6 pb-24 md:px-14' : 'w-full'
+      }
+    >
       <div className="max-w-2xl">
-        <p className="text-[11px] font-medium uppercase tracking-[0.35em] text-white/70">
+        <p
+          className={`text-[11px] font-medium uppercase tracking-[0.35em] ${
+            isOverlay ? 'text-white/70' : 'text-gray-400 dark:text-zinc-500'
+          }`}
+        >
           Photo Studio
         </p>
-        <h1 className="mt-5 text-3xl font-semibold leading-[1.25] tracking-tight text-white break-keep drop-shadow-sm md:text-5xl md:leading-[1.2]">
+        <h1
+          className={`mt-5 text-[26px] font-semibold leading-[1.3] tracking-tight break-keep md:text-5xl md:leading-[1.2] ${
+            isOverlay ? 'text-white drop-shadow-sm' : 'text-gray-900 dark:text-zinc-50'
+          }`}
+        >
           기록하고 싶은 순간을,
           <br />
           가장 좋은 형태로.
         </h1>
-        <p className="mt-5 max-w-md text-sm leading-7 text-white/80 break-keep md:text-base md:leading-8">
+        <p
+          className={`mt-5 max-w-md text-sm leading-7 break-keep md:text-base md:leading-8 ${
+            isOverlay ? 'text-white/80' : 'text-gray-600 dark:text-zinc-400'
+          }`}
+        >
           웨딩부터 제품, 드론 풍경까지. 목적에 맞춘 촬영을 제안합니다.
         </p>
 
-        <div className="mt-9 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center gap-3 md:mt-9">
           <Link
             to="/reservations/type"
-            className="inline-flex items-center gap-2 bg-white px-7 py-3.5 text-sm font-semibold tracking-wide text-gray-900 transition hover:bg-white/90"
+            className={`inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold tracking-wide transition ${
+              isOverlay
+                ? 'bg-white text-gray-900 hover:bg-white/90'
+                : 'bg-gray-900 text-white hover:bg-gray-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white'
+            }`}
           >
             예약하기
             <ArrowUpRight size={16} strokeWidth={2} />
           </Link>
           <Link
             to="/introduce"
-            className="inline-flex items-center border border-white/50 px-7 py-3.5 text-sm font-semibold tracking-wide text-white backdrop-blur-sm transition hover:border-white hover:bg-white/10"
+            className={`inline-flex items-center px-7 py-3.5 text-sm font-semibold tracking-wide transition ${
+              isOverlay
+                ? 'border border-white/50 text-white backdrop-blur-sm hover:border-white hover:bg-white/10'
+                : 'border border-gray-300 text-gray-900 hover:border-gray-900 dark:border-zinc-700 dark:text-zinc-100 dark:hover:border-zinc-400'
+            }`}
           >
             스튜디오 소개
           </Link>
