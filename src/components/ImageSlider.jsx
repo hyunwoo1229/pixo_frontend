@@ -1,68 +1,126 @@
-
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function ImageSlider({ images = [] }) {
+export default function ImageSlider({
+  images = [],
+  autoPlay = true,
+  interval = 6000,
+  showCounter = true,
+  className = '',
+  children,
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const count = images.length;
 
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-  };
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev === count - 1 ? 0 : prev + 1));
+  }, [count]);
 
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-  };
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? count - 1 : prev - 1));
+  }, [count]);
 
-  const goToSlide = (slideIndex) => {
-    setCurrentIndex(slideIndex);
-  };
-  
-  if (!images || images.length === 0) {
-    return <div className="aspect-square w-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">이미지가 없습니다.</div>;
+  // 인덱스가 범위를 벗어나지 않도록 보정 (이미지 목록이 바뀌는 경우 대비)
+  useEffect(() => {
+    setCurrentIndex((prev) => (prev > count - 1 ? 0 : prev));
+  }, [count]);
+
+  useEffect(() => {
+    if (!autoPlay || paused || count < 2) return;
+    const timer = setInterval(goToNext, interval);
+    return () => clearInterval(timer);
+  }, [autoPlay, paused, count, interval, goToNext]);
+
+  if (count === 0) {
+    return (
+      <div className={`flex h-full w-full items-center justify-center bg-gray-100 dark:bg-zinc-800 ${className}`}>
+        <span className="text-sm tracking-widest text-gray-400 dark:text-zinc-500">NO IMAGE</span>
+      </div>
+    );
   }
 
-  const showLeftArrow = images.length > 1 && currentIndex !== 0; // 이미지가 1개보다 많고, 첫 번째가 아닐 때
-  const showRightArrow = images.length > 1 && currentIndex !== images.length - 1; // 이미지가 1개보다 많고, 마지막이 아닐 때
-
   return (
-    <div className="relative h-full w-full">
-      {/* 이미지 컨테이너 */}
-      <div className="w-full h-full rounded-lg overflow-hidden">
+    <div
+      className={`group relative h-full w-full overflow-hidden bg-gray-100 dark:bg-black ${className}`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* 이미지 레이어 (크로스 페이드 + 느린 줌) */}
+      {images.map((image, index) => (
         <div
-          className="w-full h-full flex transition-transform ease-out duration-500"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          key={image.id ?? index}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-out ${
+            index === currentIndex ? 'opacity-100' : 'opacity-0'
+          }`}
+          aria-hidden={index !== currentIndex}
         >
-          {images.map((image, index) => (
-            <img key={index} src={image.imageUrl} alt={`Slide ${index}`} className="w-full h-full object-cover flex-shrink-0" />
-          ))}
+          <img
+            src={image.imageUrl}
+            alt=""
+            loading={index === 0 ? 'eager' : 'lazy'}
+            className={`h-full w-full object-cover ${index === currentIndex ? 'animate-slow-zoom' : ''}`}
+          />
         </div>
-      </div>
+      ))}
 
-      {/* 좌우 화살표 버튼 (조건부 렌더링) */}
-      {showLeftArrow && (
-        <button onClick={goToPrevious} className="absolute top-1/2 left-3 -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full focus:outline-none">
-          <ChevronLeft size={24} />
-        </button>
-      )}
-      {showRightArrow && (
-        <button onClick={goToNext} className="absolute top-1/2 right-3 -translate-y-1/2 bg-black bg-opacity-40 text-white p-2 rounded-full focus:outline-none">
-          <ChevronRight size={24} />
-        </button>
-      )}
+      {/* 가독성을 위한 그라데이션 오버레이 */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/40" />
 
-      {/* 하단 점 인디케이터 (이미지가 1개 이상일 때만 표시) */}
-      {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-          {images.map((_, slideIndex) => (
-            <div
-              key={slideIndex}
-              onClick={() => goToSlide(slideIndex)}
-              className={`w-2 h-2 rounded-full cursor-pointer transition-colors ${
-                currentIndex === slideIndex ? 'bg-white' : 'bg-white bg-opacity-50'
-              }`}
-            />
-          ))}
-        </div>
+      {/* 오버레이 콘텐츠 */}
+      {children && <div className="relative z-10 h-full w-full">{children}</div>}
+
+      {count > 1 && (
+        <>
+          {/* 좌우 화살표 (데스크톱에서 hover 시 노출) */}
+          <button
+            type="button"
+            onClick={goToPrevious}
+            aria-label="이전 이미지"
+            className="absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full border border-white/30 p-2.5 text-white/90 backdrop-blur-sm transition hover:border-white hover:bg-white/10 md:block md:opacity-0 md:group-hover:opacity-100"
+          >
+            <ChevronLeft size={20} strokeWidth={1.5} />
+          </button>
+          <button
+            type="button"
+            onClick={goToNext}
+            aria-label="다음 이미지"
+            className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full border border-white/30 p-2.5 text-white/90 backdrop-blur-sm transition hover:border-white hover:bg-white/10 md:block md:opacity-0 md:group-hover:opacity-100"
+          >
+            <ChevronRight size={20} strokeWidth={1.5} />
+          </button>
+
+          {/* 하단 인디케이터 (얇은 바) */}
+          <div className="absolute bottom-6 left-0 right-0 z-20 flex items-center justify-center gap-3 px-6">
+            {showCounter && (
+              <span className="text-[11px] font-medium tracking-[0.2em] text-white/70 tabular-nums">
+                {String(currentIndex + 1).padStart(2, '0')}
+              </span>
+            )}
+            <div className="flex items-center gap-1.5">
+              {images.map((_, slideIndex) => (
+                <button
+                  key={slideIndex}
+                  type="button"
+                  onClick={() => setCurrentIndex(slideIndex)}
+                  aria-label={`${slideIndex + 1}번째 이미지 보기`}
+                  className="py-2"
+                >
+                  <span
+                    className={`block h-px transition-all duration-500 ${
+                      currentIndex === slideIndex ? 'w-10 bg-white' : 'w-4 bg-white/40'
+                    }`}
+                  />
+                </button>
+              ))}
+            </div>
+            {showCounter && (
+              <span className="text-[11px] font-medium tracking-[0.2em] text-white/50 tabular-nums">
+                {String(count).padStart(2, '0')}
+              </span>
+            )}
+          </div>
+        </>
       )}
     </div>
   );
